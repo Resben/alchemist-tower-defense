@@ -1,11 +1,14 @@
 extends TextureButton
 
+class_name Moveable
+
 signal _on_button_drop
 
 var held = false
 var startpos : Vector2
 var num_mats : int = 1
 
+@export var data : Item
 @export var availble_texture : Texture2D
 @export var non_available_texture : Texture2D
 @export var selected_texture : Texture2D
@@ -13,6 +16,8 @@ var num_mats : int = 1
 func _ready():
 	if num_mats <= 0:
 		disabled = true
+	
+	$Label.text = str(num_mats)
 	
 	startpos = global_position
 	self.texture_normal = availble_texture
@@ -39,8 +44,14 @@ func _on_button_up():
 	self_modulate = Color(1, 1, 1, 1)
 	self.texture_normal = availble_texture
 
+func reduce_number():
+	var num = num_mats - 1
+	set_number(num)
+
 func set_number(num : int):
 	num_mats = num
+	
+	$Label.text = str(num_mats)
 	
 	if num_mats <= 0:
 		disabled = true

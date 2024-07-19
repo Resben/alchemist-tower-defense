@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://cn2ik5ubwaxxy"]
+[gd_scene load_steps=13 format=3 uid="uid://cn2ik5ubwaxxy"]
 
 [ext_resource type="Texture2D" uid="uid://cpco3c7amouc1" path="res://assets/objects/cauldron-Sheet.png" id="1_7plrp"]
 [ext_resource type="Script" path="res://scenes/objects/cauldron.gd" id="1_vr8ie"]
 [ext_resource type="PackedScene" uid="uid://b1h3ktt2d7t45" path="res://scenes/objects/moveable_button.tscn" id="3_2qjev"]
 [ext_resource type="Texture2D" uid="uid://q0g7obq7xn7l" path="res://assets/items/soul.png" id="4_3mx1w"]
+[ext_resource type="Resource" uid="uid://c1uqxsvww6j8r" path="res://resources/items/soul.tres" id="4_wb855"]
 [ext_resource type="Texture2D" uid="uid://dpr4fxw5ttgdi" path="res://assets/items/soul-greyscale.png" id="5_ew84l"]
 [ext_resource type="Texture2D" uid="uid://b81wk61se3lts" path="res://assets/items/soul-selected.png" id="6_mde5w"]
 
@@ -47,6 +48,9 @@ _data = {
 "RESET": SubResource("Animation_yrst3"),
 "idle": SubResource("Animation_yh0w3")
 }
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q3dem"]
+radius = 14.0
 
 [node name="cauldron" type="Area2D"]
 script = ExtResource("1_vr8ie")
@@ -92,6 +96,7 @@ size_flags_vertical = 4
 
 [node name="TextureButton" parent="Control/HBoxContainer/VBoxContainer1" instance=ExtResource("3_2qjev")]
 layout_mode = 2
+data = ExtResource("4_wb855")
 availble_texture = ExtResource("4_3mx1w")
 non_available_texture = ExtResource("5_ew84l")
 selected_texture = ExtResource("6_mde5w")
@@ -130,6 +135,7 @@ layout_mode = 2
 
 [node name="TextureButton6" parent="Control/HBoxContainer/VBoxContainer2" instance=ExtResource("3_2qjev")]
 layout_mode = 2
+data = ExtResource("4_wb855")
 availble_texture = ExtResource("4_3mx1w")
 non_available_texture = ExtResource("5_ew84l")
 selected_texture = ExtResource("6_mde5w")
@@ -158,4 +164,18 @@ availble_texture = ExtResource("4_3mx1w")
 non_available_texture = ExtResource("5_ew84l")
 selected_texture = ExtResource("6_mde5w")
 
+[node name="FakeShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_q3dem")
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="_on_button_drop" from="Control/HBoxContainer/VBoxContainer1/TextureButton" to="." method="_on_button_drop"]
+[connection signal="_on_button_drop" from="Control/HBoxContainer/VBoxContainer1/TextureButton2" to="." method="_on_button_drop"]
+[connection signal="_on_button_drop" from="Control/HBoxContainer/VBoxContainer1/TextureButton3" to="." method="_on_button_drop"]
+[connection signal="_on_button_drop" from="Control/HBoxContainer/VBoxContainer1/TextureButton4" to="." method="_on_button_drop"]
+[connection signal="_on_button_drop" from="Control/HBoxContainer/VBoxContainer1/TextureButton5" to="." method="_on_button_drop"]
+[connection signal="_on_button_drop" from="Control/HBoxContainer/VBoxContainer2/TextureButton6" to="." method="_on_button_drop"]
+[connection signal="_on_button_drop" from="Control/HBoxContainer/VBoxContainer2/TextureButton7" to="." method="_on_button_drop"]
+[connection signal="_on_button_drop" from="Control/HBoxContainer/VBoxContainer2/TextureButton8" to="." method="_on_button_drop"]
+[connection signal="_on_button_drop" from="Control/HBoxContainer/VBoxContainer2/TextureButton9" to="." method="_on_button_drop"]
+[connection signal="_on_button_drop" from="Control/HBoxContainer/VBoxContainer2/TextureButton10" to="." method="_on_button_drop"]
