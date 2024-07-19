@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cn2ik5ubwaxxy"]
+[gd_scene load_steps=8 format=3 uid="uid://cn2ik5ubwaxxy"]
 
 [ext_resource type="Texture2D" uid="uid://cpco3c7amouc1" path="res://assets/objects/cauldron-Sheet.png" id="1_7plrp"]
 [ext_resource type="Script" path="res://scenes/objects/cauldron.gd" id="1_vr8ie"]
+[ext_resource type="PackedScene" uid="uid://b1h3ktt2d7t45" path="res://scenes/objects/moveable_button.tscn" id="3_2qjev"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cglbd"]
 size = Vector2(59, 37)
@@ -61,5 +62,69 @@ libraries = {
 "": SubResource("AnimationLibrary_owvpk")
 }
 autoplay = "idle"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -8.0
+offset_bottom = -8.0
+scale = Vector2(0.1, 0.1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -130.0
+offset_top = -656.0
+offset_right = 130.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer1" type="VBoxContainer" parent="Control/HBoxContainer"]
+custom_minimum_size = Vector2(5, 5)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureButton" parent="Control/HBoxContainer/VBoxContainer1" instance=ExtResource("3_2qjev")]
+layout_mode = 2
+
+[node name="TextureButton2" parent="Control/HBoxContainer/VBoxContainer1" instance=ExtResource("3_2qjev")]
+layout_mode = 2
+
+[node name="TextureButton3" parent="Control/HBoxContainer/VBoxContainer1" instance=ExtResource("3_2qjev")]
+layout_mode = 2
+
+[node name="TextureButton4" parent="Control/HBoxContainer/VBoxContainer1" instance=ExtResource("3_2qjev")]
+layout_mode = 2
+
+[node name="TextureButton5" parent="Control/HBoxContainer/VBoxContainer1" instance=ExtResource("3_2qjev")]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="Control/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureButton6" parent="Control/HBoxContainer/VBoxContainer2" instance=ExtResource("3_2qjev")]
+layout_mode = 2
+
+[node name="TextureButton7" parent="Control/HBoxContainer/VBoxContainer2" instance=ExtResource("3_2qjev")]
+layout_mode = 2
+
+[node name="TextureButton8" parent="Control/HBoxContainer/VBoxContainer2" instance=ExtResource("3_2qjev")]
+layout_mode = 2
+
+[node name="TextureButton9" parent="Control/HBoxContainer/VBoxContainer2" instance=ExtResource("3_2qjev")]
+layout_mode = 2
+
+[node name="TextureButton10" parent="Control/HBoxContainer/VBoxContainer2" instance=ExtResource("3_2qjev")]
+layout_mode = 2
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
