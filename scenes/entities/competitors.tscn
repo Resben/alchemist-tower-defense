@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3s7y8lshwnyo"]
+
+[ext_resource type="Texture2D" uid="uid://b0mjof5e3m6v6" path="res://assets/entities/comeptitor.png" id="1_tjbm5"]
+
+[node name="competitors" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tjbm5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
