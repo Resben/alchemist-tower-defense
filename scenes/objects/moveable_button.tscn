@@ -1,10 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1h3ktt2d7t45"]
 
-[ext_resource type="Texture2D" uid="uid://djjtjym0dhps3" path="res://icon.svg" id="1_utku6"]
+[ext_resource type="Texture2D" uid="uid://q0g7obq7xn7l" path="res://assets/items/soul.png" id="1_u5iid"]
 [ext_resource type="Script" path="res://scenes/objects/moveable.gd" id="2_q4s11"]
 
 [node name="TextureButton" type="TextureButton"]
-texture_normal = ExtResource("1_utku6")
+texture_filter = 1
+texture_normal = ExtResource("1_u5iid")
 stretch_mode = 0
 script = ExtResource("2_q4s11")
 
@@ -15,12 +16,12 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -10.0
+offset_top = -26.0
 offset_right = 40.0
-offset_bottom = 32.0
+offset_bottom = 16.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 15
 text = "0"
 
 [node name="moveable" type="Sprite2D" parent="."]

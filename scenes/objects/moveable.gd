@@ -11,10 +11,12 @@ var num_mats : int = 1
 @export var selected_texture : Texture2D
 
 func _ready():
+	if num_mats <= 0:
+		disabled = true
+	
 	startpos = global_position
 	self.texture_normal = availble_texture
 	self.texture_disabled = non_available_texture
-	self.texture_focused = selected_texture
 	$moveable.texture = availble_texture
 	$moveable.visible = false
 
@@ -22,6 +24,8 @@ func _on_button_down():
 	if num_mats > 0:
 		held = true
 		$moveable.visible = true
+		self.texture_normal = selected_texture
+		
 
 func _process(delta):
 	if held:
@@ -33,6 +37,7 @@ func _on_button_up():
 	$moveable.visible = false
 	held = false
 	self_modulate = Color(1, 1, 1, 1)
+	self.texture_normal = availble_texture
 
 func set_number(num : int):
 	num_mats = num
