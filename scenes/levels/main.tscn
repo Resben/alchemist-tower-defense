@@ -114,6 +114,7 @@ sources/0 = SubResource("TileSetAtlasSource_octm8")
 script = ExtResource("1_mpdg5")
 
 [node name="CameraController" type="Node2D" parent="."]
+position = Vector2(-680, 0)
 
 [node name="Camera2D" type="Camera2D" parent="CameraController"]
 limit_left = -1000
@@ -130,5 +131,17 @@ layer_0/tile_data = PackedInt32Array(-2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0
 
 [node name="HUD" parent="." instance=ExtResource("3_02g4f")]
 
-[node name="cauldron" parent="." instance=ExtResource("4_l6yrg")]
-position = Vector2(-88, -68)
+[node name="player_cauldron" parent="." node_paths=PackedStringArray("spawn") instance=ExtResource("4_l6yrg")]
+position = Vector2(-936, -68)
+spawn = NodePath("Spawn")
+is_players_cauldron = true
+
+[node name="Spawn" type="Node2D" parent="player_cauldron"]
+position = Vector2(112, 24)
+
+[node name="cpu_cauldron" parent="." node_paths=PackedStringArray("spawn") instance=ExtResource("4_l6yrg")]
+position = Vector2(936, -68)
+spawn = NodePath("Spawn")
+
+[node name="Spawn" type="Node2D" parent="cpu_cauldron"]
+position = Vector2(-160, 24)

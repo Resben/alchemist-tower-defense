@@ -51,6 +51,10 @@ func reduce_number():
 	var num = num_mats - 1
 	set_number(num)
 
+func add_number():
+	var num = num_mats + 1
+	set_number(num)
+
 func set_number(num : int):
 	num_mats = num
 	
