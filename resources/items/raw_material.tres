@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://cpl04ne7ad6cc"]
+
+[ext_resource type="Script" path="res://scenes/objects/item.gd" id="1_ur3ci"]
+[ext_resource type="Texture2D" uid="uid://b8o8og38evsdj" path="res://assets/items/raw-mat.png" id="2_ack4u"]
+
+[resource]
+script = ExtResource("1_ur3ci")
+id = "raw_material"
+texture = ExtResource("2_ack4u")

@@ -6,7 +6,7 @@ signal _on_button_drop
 
 var held = false
 var startpos : Vector2
-var num_mats : int = 1
+var num_mats : int = 5
 
 @export var data : Item
 @export var availble_texture : Texture2D
@@ -43,6 +43,9 @@ func _on_button_up():
 	held = false
 	self_modulate = Color(1, 1, 1, 1)
 	self.texture_normal = availble_texture
+
+func toggle_disable(boo : bool):
+	disabled = boo
 
 func reduce_number():
 	var num = num_mats - 1

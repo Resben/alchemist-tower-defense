@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://n0glloi4buj8"]
+
+[ext_resource type="Script" path="res://scenes/objects/item.gd" id="1_wj46o"]
+[ext_resource type="Texture2D" uid="uid://q0g7obq7xn7l" path="res://assets/items/soul.png" id="2_x5yo8"]
+
+[resource]
+script = ExtResource("1_wj46o")
+id = "phantom_weave"
+texture = ExtResource("2_x5yo8")

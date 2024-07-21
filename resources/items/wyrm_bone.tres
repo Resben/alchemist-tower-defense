@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://dnlm3qdab36te"]
+
+[ext_resource type="Script" path="res://scenes/objects/item.gd" id="1_otm42"]
+[ext_resource type="Texture2D" uid="uid://q0g7obq7xn7l" path="res://assets/items/soul.png" id="2_f250g"]
+
+[resource]
+script = ExtResource("1_otm42")
+id = "wyrm_bone"
+texture = ExtResource("2_f250g")
