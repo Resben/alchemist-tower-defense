@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://drlrbq2i01510"]
+[gd_scene load_steps=8 format=3 uid="uid://drlrbq2i01510"]
 
 [ext_resource type="Script" path="res://scenes/levels/main.gd" id="1_mpdg5"]
 [ext_resource type="Texture2D" uid="uid://b4ge2nc0qendf" path="res://assets/environment/tilemapv2.png" id="2_spllf"]
@@ -110,6 +110,9 @@ texture_region_size = Vector2i(64, 64)
 tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_octm8")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3dia8"]
+size = Vector2(2050, 53)
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_mpdg5")
 
@@ -134,14 +137,22 @@ layer_0/tile_data = PackedInt32Array(-2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0
 [node name="player_cauldron" parent="." node_paths=PackedStringArray("spawn") instance=ExtResource("4_l6yrg")]
 position = Vector2(-936, -68)
 spawn = NodePath("Spawn")
+team = "player"
 is_players_cauldron = true
 
 [node name="Spawn" type="Node2D" parent="player_cauldron"]
-position = Vector2(112, 24)
+position = Vector2(112, 0)
 
 [node name="cpu_cauldron" parent="." node_paths=PackedStringArray("spawn") instance=ExtResource("4_l6yrg")]
 position = Vector2(936, -68)
 spawn = NodePath("Spawn")
+team = "cpu"
 
 [node name="Spawn" type="Node2D" parent="cpu_cauldron"]
 position = Vector2(-160, 24)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 16.5)
+shape = SubResource("RectangleShape2D_3dia8")

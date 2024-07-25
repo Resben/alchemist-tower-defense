@@ -1,6 +1,7 @@
 extends Area2D
 
 @export var spawn : Node2D
+@export var team : String
 @export var is_players_cauldron : bool
 
 var ingredient_one : Item = null
@@ -108,6 +109,9 @@ func toggle_ingredients(boo : bool):
 func _on_accept_pressed():
 	var entity_id = result[ingredient_one.id][ingredient_two.id]
 	var entity = enemies[entity_id].instantiate() as Entity
+	entity.set_team(team, spawn.global_position)
+	entity.global_position = spawn.global_position
+	get_parent().add_child(entity)
 	ingredient_one = null
 	ingredient_two = null
 	num = 0
