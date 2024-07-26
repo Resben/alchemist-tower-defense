@@ -14,38 +14,38 @@ var raw_mat_item = preload("res://resources/items/raw_material.tres") as Item
 var result = {
 	"soul" : {
 		"soul" : "soul_minion",
-		"rune" : "entity_2",
-		"phantom_weave" : "entity_3",
-		"bloodvine" : "entity_4",
-		"wyrm_bones" : "entity_5"
+		"rune" : "soul_minion",
+		"phantom_weave" : "soul_minion",
+		"bloodvine" : "soul_minion",
+		"wyrm_bone" : "soul_minion"
 		},
 	"rune" : {
 		"soul" : "soul_minion",
-		"rune" : "entity_2",
-		"phantom_weave" : "entity_3",
-		"bloodvine" : "entity_4",
-		"wyrm_bones" : "entity_5"
+		"rune" : "soul_minion",
+		"phantom_weave" : "soul_minion",
+		"bloodvine" : "soul_minion",
+		"wyrm_bone" : "soul_minion"
 	},
 	"phantom_weave" : {
 		"soul" : "soul_minion",
-		"rune" : "entity_2",
-		"phantom_weave" : "entity_3",
-		"bloodvine" : "entity_4",
-		"wyrm_bones" : "entity_5"
+		"rune" : "soul_minion",
+		"phantom_weave" : "soul_minion",
+		"bloodvine" : "soul_minion",
+		"wyrm_bone" : "soul_minion"
 	},
 	"bloodvine" : {
 		"soul" : "soul_minion",
-		"rune" : "entity_2",
-		"phantom_weave" : "entity_3",
-		"bloodvine" : "entity_4",
-		"wyrm_bones" : "entity_5"
+		"rune" : "soul_minion",
+		"phantom_weave" : "soul_minion",
+		"bloodvine" : "soul_minion",
+		"wyrm_bone" : "soul_minion"
 	},
 	"wyrm_bones" : {
 		"soul" : "soul_minion",
-		"rune" : "entity_2",
-		"phantom_weave" : "entity_3",
-		"bloodvine" : "entity_4",
-		"wyrm_bones" : "entity_5"
+		"rune" : "soul_minion",
+		"phantom_weave" : "soul_minion",
+		"bloodvine" : "soul_minion",
+		"wyrm_bone" : "soul_minion"
 	}
 }
 
@@ -55,19 +55,16 @@ var enemies = {
 
 func _ready():
 	if !is_players_cauldron:
-		input_pickable = false
 		$Control.visible = false
 	else:
-		input_pickable = true
 		$Control.visible = true
 	
 	$Control/Accept.disabled = true
 	$Control/Decline.disabled = true
-
-func _on_input_event(viewport : Node, event : InputEvent, shape_idx : int):
-	#if Input.is_action_just_pressed("interact"):
-		#$Control.visible = true
-	pass
+	
+	if team == "cpu":
+		var rand_next_spawn = randi_range(15, 20)
+		$CPUSpawnTimer.start(rand_next_spawn)
 
 func _on_button_drop(pos : Vector2, node : Moveable):
 	if pos.distance_to(global_position) <= 14:
@@ -134,3 +131,42 @@ func _on_decline_pressed():
 	$Control/Accept.disabled = true
 	toggle_ingredients(false)
 	num_raw_mat = 0
+
+##################### CPU LOGIC #####################
+
+func _on_cpu_spawn_timer_timeout():
+	var array = []
+	
+	for c in $Control/VBoxContainer1.get_children():
+		for n in c.num_mats:
+			array.push_back(c.data)
+	
+	if array.size() > 1:
+		var index_one = randi_range(0, array.size() - 1)
+		ingredient_one = array[index_one]
+		array.remove_at(index_one)
+		var index_two = randi_range(0, array.size() - 1)
+		ingredient_two = array[index_two]
+		_on_accept_pressed()
+	else:
+		var entity = enemies["soul_minion"].instantiate() as Entity
+		entity.set_team(team, spawn.global_position)
+		entity.global_position = spawn.global_position
+		get_parent().add_child(entity)
+	
+	var rand_next_spawn = randi_range(15, 20)
+	$CPUSpawnTimer.start(rand_next_spawn)
+
+func _on_cpu_resource_timer_timeout():
+	var rand = randi_range(0, 100)
+	
+	if rand < 46:
+		add_ingredient(Global.item["soul"])
+	elif rand < 71:
+		add_ingredient(Global.item["rune"])
+	elif rand < 86:
+		add_ingredient(Global.item["phantom_weave"])
+	elif rand < 96:
+		add_ingredient(Global.item["bloodvine"])
+	elif rand < 101:
+		add_ingredient(Global.item["wyrm_bone"])

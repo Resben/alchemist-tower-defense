@@ -149,7 +149,7 @@ spawn = NodePath("Spawn")
 team = "cpu"
 
 [node name="Spawn" type="Node2D" parent="cpu_cauldron"]
-position = Vector2(-160, 24)
+position = Vector2(-160, 0)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 

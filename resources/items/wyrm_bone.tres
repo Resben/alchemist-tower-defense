@@ -7,3 +7,4 @@
 script = ExtResource("1_otm42")
 id = "wyrm_bone"
 texture = ExtResource("2_f250g")
+chance = 100

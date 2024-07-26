@@ -7,3 +7,4 @@
 script = ExtResource("1_guem6")
 id = "rune"
 texture = ExtResource("2_5omsw")
+chance = 70

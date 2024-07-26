@@ -7,3 +7,4 @@
 script = ExtResource("1_6bwmg")
 id = "bloodvine"
 texture = ExtResource("2_nl1yn")
+chance = 95

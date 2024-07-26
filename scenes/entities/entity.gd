@@ -9,6 +9,10 @@ var group : String
 var defend_location : Vector2
 var attack_direction : int
 
+func _ready():
+	collision_layer = 2
+	collision_mask = 2
+
 func set_team(team : String, defend_location : Vector2):
 	if defend_location.x < 0:
 		attack_direction = 1
@@ -22,6 +26,11 @@ func _physics_process(delta):
 		enemy_in_view = true
 	else:
 		enemy_in_view = false
+	
+	if direction == 1:
+		$Sprite2D.flip_h = false
+	elif direction == -1:
+		$Sprite2D.flip_h = true
 	
 	velocity.x = direction * MOVEMENT_SPEED
 	move_and_slide()
@@ -38,11 +47,24 @@ func get_closet_enemy() -> Node2D:
 	return closet
 
 func _on_view_circle_body_entered(body):
-	#if body.group != group:
-		#enemies_in_range.push_back(body)
-	pass
+	if body.is_in_group(get_opposite_group()):
+		enemies_in_range.push_back(body)
 
 func _on_view_circle_body_exited(body):
-	#if body.group != group:
-		#enemies_in_range.erase(body)
+	if body.is_in_group(get_opposite_group()):
+		enemies_in_range.erase(body)
+
+func get_opposite_group() -> String:
+	match group:
+		"player":
+			return "cpu"
+		"cpu":
+			return "player"
+	
+	return "na"
+
+func attack():
+	pass
+
+func defend():
 	pass

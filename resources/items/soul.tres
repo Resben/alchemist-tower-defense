@@ -7,3 +7,4 @@
 script = ExtResource("1_us144")
 id = "soul"
 texture = ExtResource("2_wic8y")
+chance = 45

@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://c5mvmswxrgoff"]
+[gd_scene load_steps=3 format=3 uid="uid://c5mvmswxrgoff"]
 
 [ext_resource type="Texture2D" uid="uid://djjtjym0dhps3" path="res://icon.svg" id="1_ukwao"]
+[ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1_v2dgb"]
 
 [node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_v2dgb")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -77,3 +79,24 @@ text = "5"
 layout_mode = 2
 texture = ExtResource("1_ukwao")
 expand_mode = 4
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Attack" type="TextureButton" parent="Control/HBoxContainer2"]
+layout_mode = 2
+
+[node name="Defend" type="TextureButton" parent="Control/HBoxContainer2"]
+layout_mode = 2
+
+[connection signal="pressed" from="Control/HBoxContainer2/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer2/Defend" to="." method="_on_defend_pressed"]

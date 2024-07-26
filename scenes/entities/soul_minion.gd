@@ -3,6 +3,7 @@ extends Entity
 enum { ATTACKING, DEFENDING, CHASE }
 
 var state = ATTACKING
+var last_state = DEFENDING
 
 var enemy_to_chase : Node2D
 
@@ -22,8 +23,3 @@ func _physics_process(delta):
 				state == DEFENDING
 		else:
 			direction = global_position.direction_to(enemy_to_chase.global_position).x
-			
-
-
-
-
