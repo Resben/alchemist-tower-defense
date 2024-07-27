@@ -1,5 +1,7 @@
 extends Node
 
+enum { ATTACK, DEFEND }
+
 var item = {
 	"soul" : preload("res://resources/items/soul.tres") as Item,
 	"rune" : preload("res://resources/items/rune.tres") as Item,
@@ -9,6 +11,8 @@ var item = {
 	
 	"raw_material" : preload("res://resources/items/raw_material.tres") as Item
 }
+
+var player_state = DEFEND
 
 var team = {
 	"player" : {

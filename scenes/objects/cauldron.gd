@@ -7,6 +7,8 @@ class_name Cauldron
 @export var is_players_cauldron : bool
 @export var enemy_cauldron : Cauldron
 
+var health : int
+var max_health : int = 100
 var ingredient_one : Item = null
 var ingredient_two : Item = null
 var num = 0
@@ -57,6 +59,8 @@ var enemies = {
 }
 
 func _ready():
+	health = max_health
+	
 	if !is_players_cauldron:
 		$Control.visible = false
 	else:
@@ -73,6 +77,12 @@ func _on_button_drop(pos : Vector2, node : Moveable):
 	if pos.distance_to(global_position) <= 14:
 		node.reduce_number()
 		add_ingredient(node.data)
+
+func take_damage(dmg : int):
+	health -= dmg
+	$Control/TextureProgressBar.value = health
+	if health <= 0:
+		pass # Game over
 
 func store_ingredient(data : Item):
 	if data.id == "raw_material":
@@ -109,7 +119,7 @@ func toggle_ingredients(boo : bool):
 func _on_accept_pressed():
 	var entity_id = result[ingredient_one.id][ingredient_two.id]
 	var entity = enemies[entity_id].instantiate() as Entity
-	entity.set_team(team, spawn.global_position)
+	entity.set_team(team, spawn.global_position, enemy_cauldron)
 	entity.global_position = spawn.global_position
 	get_parent().add_child(entity)
 	ingredient_one = null
@@ -154,7 +164,7 @@ func _on_cpu_spawn_timer_timeout():
 		_on_accept_pressed()
 	else:
 		var entity = enemies["soul_minion"].instantiate() as Entity
-		entity.set_team(team, spawn.global_position)
+		entity.set_team(team, spawn.global_position, enemy_cauldron)
 		entity.global_position = spawn.global_position
 		get_parent().add_child(entity)
 	

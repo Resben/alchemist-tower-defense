@@ -1,10 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://bh11nmq1bi4xl"]
+[gd_scene load_steps=7 format=3 uid="uid://bh11nmq1bi4xl"]
 
 [ext_resource type="Script" path="res://scenes/entities/soul_minion.gd" id="1_xvetn"]
 [ext_resource type="Texture2D" uid="uid://bfgke2kcpl52c" path="res://assets/entities/soul_minion.png" id="2_mdbsg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jvwup"]
 size = Vector2(20, 49)
+
+[sub_resource type="Animation" id="Animation_7raex"]
+resource_name = "attack"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gogmw"]
+_data = {
+"attack": SubResource("Animation_7raex")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b1ppo"]
 radius = 327.024
@@ -21,11 +29,15 @@ position = Vector2(0, 7.5)
 shape = SubResource("RectangleShape2D_jvwup")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gogmw")
+}
 
 [node name="ViewCircle" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ViewCircle"]
 shape = SubResource("CircleShape2D_b1ppo")
 
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 [connection signal="body_entered" from="ViewCircle" to="." method="_on_view_circle_body_entered"]
 [connection signal="body_exited" from="ViewCircle" to="." method="_on_view_circle_body_exited"]

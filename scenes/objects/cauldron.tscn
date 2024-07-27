@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cn2ik5ubwaxxy"]
+[gd_scene load_steps=28 format=3 uid="uid://cn2ik5ubwaxxy"]
 
 [ext_resource type="Texture2D" uid="uid://cpco3c7amouc1" path="res://assets/objects/cauldron-Sheet.png" id="1_7plrp"]
 [ext_resource type="Script" path="res://scenes/objects/cauldron.gd" id="1_vr8ie"]
@@ -19,6 +19,9 @@
 [ext_resource type="Resource" uid="uid://n0glloi4buj8" path="res://resources/items/phantom_weave.tres" id="16_im5eo"]
 [ext_resource type="Resource" uid="uid://cnjuat8imubyr" path="res://resources/items/bloodvine.tres" id="17_lub6r"]
 [ext_resource type="Resource" uid="uid://dnlm3qdab36te" path="res://resources/items/wyrm_bone.tres" id="18_r261h"]
+[ext_resource type="Texture2D" uid="uid://dlf0bm4hmaix6" path="res://assets/ui/healthbarbottom.png" id="20_1xktm"]
+[ext_resource type="Texture2D" uid="uid://u5hsectcieok" path="res://assets/ui/healthbarmid.png" id="21_wdccd"]
+[ext_resource type="Texture2D" uid="uid://bo01k0typmnls" path="res://assets/ui/healthbartop.png" id="22_epxma"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cglbd"]
 size = Vector2(59, 37)
@@ -83,6 +86,7 @@ libraries = {
 autoplay = "idle"
 
 [node name="Control" type="Control" parent="."]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 0
 offset_top = -8.0
@@ -176,6 +180,16 @@ data = ExtResource("18_r261h")
 availble_texture = ExtResource("4_3mx1w")
 non_available_texture = ExtResource("5_ew84l")
 selected_texture = ExtResource("6_mde5w")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Control"]
+layout_mode = 0
+offset_left = -40.0
+offset_top = 85.0
+offset_bottom = 93.0
+scale = Vector2(2, 2)
+texture_under = ExtResource("20_1xktm")
+texture_over = ExtResource("21_wdccd")
+texture_progress = ExtResource("22_epxma")
 
 [node name="FakeShape" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
