@@ -1,12 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://drlrbq2i01510"]
+[gd_scene load_steps=9 format=3 uid="uid://drlrbq2i01510"]
 
 [ext_resource type="Script" path="res://scenes/levels/main.gd" id="1_mpdg5"]
 [ext_resource type="Texture2D" uid="uid://b4ge2nc0qendf" path="res://assets/environment/tilemapv2.png" id="2_spllf"]
 [ext_resource type="PackedScene" uid="uid://c5mvmswxrgoff" path="res://scenes/ui/hud.tscn" id="3_02g4f"]
 [ext_resource type="PackedScene" uid="uid://cn2ik5ubwaxxy" path="res://scenes/objects/cauldron.tscn" id="4_l6yrg"]
 [ext_resource type="Texture2D" uid="uid://w72kdg3ijpyf" path="res://assets/environment/sky-layer.png" id="5_djc3i"]
-[ext_resource type="Texture2D" uid="uid://gcl8j5346gvn" path="res://assets/environment/mountain-layer-one.png" id="6_4yimt"]
-[ext_resource type="Texture2D" uid="uid://dhuiaheml0ul5" path="res://assets/environment/mountain-layer-two.png" id="6_ej0ck"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_octm8"]
 texture = ExtResource("2_spllf")
@@ -116,10 +114,8 @@ sources/0 = SubResource("TileSetAtlasSource_octm8")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3dia8"]
 size = Vector2(2559, 53)
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("player", "cpu")]
+[node name="Main" type="Node2D"]
 script = ExtResource("1_mpdg5")
-player = NodePath("player_cauldron")
-cpu = NodePath("cpu_cauldron")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(320, 170)
@@ -138,9 +134,8 @@ layer_0/tile_data = PackedInt32Array(-2, 131072, 1, -1, 131072, 1, -65536, 13107
 
 [node name="HUD" parent="." instance=ExtResource("3_02g4f")]
 
-[node name="player_cauldron" parent="." node_paths=PackedStringArray("starting_defense_pos", "spawn", "enemy_cauldron") instance=ExtResource("4_l6yrg")]
+[node name="player_cauldron" parent="." node_paths=PackedStringArray("spawn", "enemy_cauldron") instance=ExtResource("4_l6yrg")]
 position = Vector2(64, 236)
-starting_defense_pos = NodePath("DefensePosition")
 spawn = NodePath("Spawn")
 team = "player"
 is_players_cauldron = true
@@ -149,21 +144,15 @@ enemy_cauldron = NodePath("../cpu_cauldron")
 [node name="Spawn" type="Node2D" parent="player_cauldron"]
 position = Vector2(-150, 0)
 
-[node name="DefensePosition" type="Node2D" parent="player_cauldron"]
-position = Vector2(300, 0)
-
-[node name="cpu_cauldron" parent="." node_paths=PackedStringArray("starting_defense_pos", "spawn", "enemy_cauldron") instance=ExtResource("4_l6yrg")]
+[node name="cpu_cauldron" parent="." node_paths=PackedStringArray("spawn", "enemy_cauldron") instance=ExtResource("4_l6yrg")]
 position = Vector2(1936, 236)
-starting_defense_pos = NodePath("DefensePosition")
 spawn = NodePath("Spawn")
 team = "cpu"
+is_players_cauldron = null
 enemy_cauldron = NodePath("../player_cauldron")
 
 [node name="Spawn" type="Node2D" parent="cpu_cauldron"]
 position = Vector2(150, 0)
-
-[node name="DefensePosition" type="Node2D" parent="cpu_cauldron"]
-position = Vector2(-300, 0)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(1000, 288)
@@ -184,21 +173,3 @@ texture_repeat = 2
 texture = ExtResource("5_djc3i")
 centered = false
 region_rect = Rect2(0, 0, 1820, 640)
-
-[node name="MountainTwo" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.3, 0.3)
-motion_mirroring = Vector2(728, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/MountainTwo"]
-texture_filter = 1
-texture = ExtResource("6_ej0ck")
-centered = false
-
-[node name="MountainOne" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.5, 0.5)
-motion_mirroring = Vector2(728, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/MountainOne"]
-texture_filter = 1
-texture = ExtResource("6_4yimt")
-centered = false

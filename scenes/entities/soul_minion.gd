@@ -29,15 +29,6 @@ func run_attack_state(delta):
 		direction = 0
 		$AnimationPlayer.play("attack")
 
-func enter_defend_state():
-	pass
-
-func exit_defend_state():
-	pass
-
-func run_defend_state(delta):
-	pass
-
 	#if state == ATTACKING:
 		#if !enemies_in_range:
 			#direction = attack_direction

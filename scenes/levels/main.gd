@@ -3,6 +3,9 @@ extends Node2D
 var CAMERA_SPEED = 10
 var HALF_WIDTH = 320
 
+@export var player : Node2D
+@export var cpu : Node2D
+
 func _physics_process(delta):
 	if Input.is_action_pressed("left"):
 		if $Camera2D.limit_left + HALF_WIDTH < $Camera2D.global_position.x:
@@ -25,3 +28,5 @@ func on_defend():
 	
 	Global.player_state = Global.DEFEND
 	get_tree().call_group("player", "update_state", Global.player_state)
+	
+	player.set_defense_positions()

@@ -18,6 +18,8 @@ _data = {
 radius = 327.024
 
 [node name="SoulMinion" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_xvetn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

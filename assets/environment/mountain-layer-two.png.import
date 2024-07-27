@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkjfonvr2h5hw"
-path="res://.godot/imported/Sprite-0010.png-cfd0041d8187ce47c8dfe12fb3a59fd9.ctex"
+uid="uid://dhuiaheml0ul5"
+path="res://.godot/imported/mountain-layer-two.png-0c288943501b28ce6e208d08c4c9b1fc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/environment/Sprite-0010.png"
-dest_files=["res://.godot/imported/Sprite-0010.png-cfd0041d8187ce47c8dfe12fb3a59fd9.ctex"]
+source_file="res://assets/environment/mountain-layer-two.png"
+dest_files=["res://.godot/imported/mountain-layer-two.png-0c288943501b28ce6e208d08c4c9b1fc.ctex"]
 
 [params]
 
