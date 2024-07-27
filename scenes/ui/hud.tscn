@@ -1,12 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://c5mvmswxrgoff"]
+[gd_scene load_steps=7 format=3 uid="uid://c5mvmswxrgoff"]
 
-[ext_resource type="Texture2D" uid="uid://djjtjym0dhps3" path="res://icon.svg" id="1_ukwao"]
 [ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1_v2dgb"]
+[ext_resource type="Texture2D" uid="uid://b8o8og38evsdj" path="res://assets/items/raw-mat.png" id="2_xxvoe"]
+[ext_resource type="Texture2D" uid="uid://q0g7obq7xn7l" path="res://assets/items/soul.png" id="3_6kxe8"]
+[ext_resource type="Script" path="res://scenes/ui/item_ui.gd" id="3_gn3w0"]
+[ext_resource type="Texture2D" uid="uid://xvmvximfuaib" path="res://assets/items/raw-mat-greyscale.png" id="4_oh0sq"]
+[ext_resource type="Texture2D" uid="uid://dpr4fxw5ttgdi" path="res://assets/items/soul-greyscale.png" id="6_h883f"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_v2dgb")
 
 [node name="Control" type="Control" parent="."]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,65 +25,100 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="VBoxContainer1" type="VBoxContainer" parent="Control/HBoxContainer"]
+[node name="Material" type="TextureRect" parent="Control/HBoxContainer"]
 layout_mode = 2
+texture = ExtResource("2_xxvoe")
+script = ExtResource("3_gn3w0")
+available = ExtResource("2_xxvoe")
+unavailable = ExtResource("4_oh0sq")
 
-[node name="Label" type="Label" parent="Control/HBoxContainer/VBoxContainer1"]
+[node name="Label" type="Label" parent="Control/HBoxContainer/Material"]
 layout_mode = 2
+offset_left = 24.0
+offset_top = 29.0
+offset_right = 34.0
+offset_bottom = 52.0
 text = "0"
 
-[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/VBoxContainer1"]
-layout_mode = 2
-texture = ExtResource("1_ukwao")
-expand_mode = 4
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="Control/HBoxContainer"]
+[node name="Panel" type="Panel" parent="Control/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Control/HBoxContainer/VBoxContainer2"]
+[node name="Soul" type="TextureRect" parent="Control/HBoxContainer"]
 layout_mode = 2
-text = "1"
+texture = ExtResource("3_6kxe8")
+script = ExtResource("3_gn3w0")
+available = ExtResource("3_6kxe8")
+unavailable = ExtResource("6_h883f")
 
-[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="Control/HBoxContainer/Soul"]
 layout_mode = 2
-texture = ExtResource("1_ukwao")
-expand_mode = 4
+offset_left = 24.0
+offset_top = 29.0
+offset_right = 34.0
+offset_bottom = 52.0
+text = "0"
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="Control/HBoxContainer"]
+[node name="Rune" type="TextureRect" parent="Control/HBoxContainer"]
 layout_mode = 2
+texture = ExtResource("3_6kxe8")
+script = ExtResource("3_gn3w0")
+available = ExtResource("3_6kxe8")
+unavailable = ExtResource("6_h883f")
 
-[node name="Label" type="Label" parent="Control/HBoxContainer/VBoxContainer3"]
+[node name="Label" type="Label" parent="Control/HBoxContainer/Rune"]
 layout_mode = 2
-text = "3"
+offset_left = 24.0
+offset_top = 29.0
+offset_right = 34.0
+offset_bottom = 52.0
+text = "0"
 
-[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/VBoxContainer3"]
+[node name="Phantom" type="TextureRect" parent="Control/HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("1_ukwao")
-expand_mode = 4
+texture = ExtResource("3_6kxe8")
+script = ExtResource("3_gn3w0")
+available = ExtResource("3_6kxe8")
+unavailable = ExtResource("6_h883f")
 
-[node name="VBoxContainer4" type="VBoxContainer" parent="Control/HBoxContainer"]
+[node name="Label" type="Label" parent="Control/HBoxContainer/Phantom"]
 layout_mode = 2
+offset_left = 24.0
+offset_top = 29.0
+offset_right = 34.0
+offset_bottom = 52.0
+text = "0"
 
-[node name="Label" type="Label" parent="Control/HBoxContainer/VBoxContainer4"]
+[node name="Bloodvine" type="TextureRect" parent="Control/HBoxContainer"]
 layout_mode = 2
-text = "4"
+texture = ExtResource("3_6kxe8")
+script = ExtResource("3_gn3w0")
+available = ExtResource("3_6kxe8")
+unavailable = ExtResource("6_h883f")
 
-[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/VBoxContainer4"]
+[node name="Label" type="Label" parent="Control/HBoxContainer/Bloodvine"]
 layout_mode = 2
-texture = ExtResource("1_ukwao")
-expand_mode = 4
+offset_left = 24.0
+offset_top = 29.0
+offset_right = 34.0
+offset_bottom = 52.0
+text = "0"
 
-[node name="VBoxContainer5" type="VBoxContainer" parent="Control/HBoxContainer"]
+[node name="Wyrm" type="TextureRect" parent="Control/HBoxContainer"]
 layout_mode = 2
+texture = ExtResource("3_6kxe8")
+script = ExtResource("3_gn3w0")
+available = ExtResource("3_6kxe8")
+unavailable = ExtResource("6_h883f")
 
-[node name="Label" type="Label" parent="Control/HBoxContainer/VBoxContainer5"]
+[node name="Label" type="Label" parent="Control/HBoxContainer/Wyrm"]
 layout_mode = 2
-text = "5"
-
-[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/VBoxContainer5"]
-layout_mode = 2
-texture = ExtResource("1_ukwao")
-expand_mode = 4
+offset_left = 24.0
+offset_top = 29.0
+offset_right = 34.0
+offset_bottom = 52.0
+text = "0"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Control"]
 layout_mode = 1

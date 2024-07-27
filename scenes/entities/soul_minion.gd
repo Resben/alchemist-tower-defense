@@ -7,6 +7,21 @@ var last_state = DEFENDING
 
 var enemy_to_chase : Node2D
 
+var stats = {
+	"hp" : 5,
+	"max_hp" : 5,
+	"damage" : 1,
+	"has_range" : false,
+	"effects" : {}
+}
+
+func set_state(state_str : String):
+	match state_str:
+		"attack":
+			state == ATTACKING
+		"defend":
+			state == DEFENDING
+
 func _physics_process(delta):
 	super._physics_process(delta)
 	

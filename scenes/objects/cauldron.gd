@@ -1,8 +1,11 @@
 extends Area2D
 
+class_name Cauldron
+
 @export var spawn : Node2D
 @export var team : String
 @export var is_players_cauldron : bool
+@export var enemy_cauldron : Cauldron
 
 var ingredient_one : Item = null
 var ingredient_two : Item = null
@@ -137,9 +140,10 @@ func _on_decline_pressed():
 func _on_cpu_spawn_timer_timeout():
 	var array = []
 	
-	for c in $Control/VBoxContainer1.get_children():
-		for n in c.num_mats:
-			array.push_back(c.data)
+	for c in Global.team[team]:
+		if c != "raw_material":
+			for n in Global.team[team][c]:
+				array.push_back(Global.item[c])
 	
 	if array.size() > 1:
 		var index_one = randi_range(0, array.size() - 1)

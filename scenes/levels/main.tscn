@@ -111,7 +111,7 @@ tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_octm8")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3dia8"]
-size = Vector2(2050, 53)
+size = Vector2(2559, 53)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_mpdg5")
@@ -120,9 +120,9 @@ script = ExtResource("1_mpdg5")
 position = Vector2(-680, 0)
 
 [node name="Camera2D" type="Camera2D" parent="CameraController"]
-limit_left = -1000
+limit_left = -1050
 limit_top = -300
-limit_right = 1000
+limit_right = 1050
 limit_bottom = 64
 editor_draw_limits = true
 
@@ -130,29 +130,31 @@ editor_draw_limits = true
 texture_filter = 1
 tile_set = SubResource("TileSet_sr33g")
 format = 2
-layer_0/tile_data = PackedInt32Array(-2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, -65528, 0, 0, -65527, 0, 0, -3, 0, 0, -4, 0, 0, -5, 0, 0, -6, 0, 0, -7, 0, 0, -8, 0, 0, -9, 0, 0, -10, 0, 0, -11, 0, 0, -12, 0, 0, -13, 0, 0, -14, 0, 0, -15, 0, 0, -16, 0, 0, -65526, 0, 0, -65525, 0, 0, -65524, 0, 0, -65523, 0, 0, -65522, 0, 0, -65521, 0, 0, 65520, 0, 1, 65521, 0, 1, 65522, 0, 1, 65523, 0, 1, 65524, 0, 1, 65525, 0, 1, 65526, 0, 1, 65527, 0, 1, 65528, 0, 1, 65529, 0, 1, 65530, 0, 1, 65531, 0, 1, 65532, 0, 1, 65533, 0, 1, 65534, 0, 1, 65535, 0, 1, 0, 0, 1, 1, 0, 1, 2, 0, 1, 3, 0, 1, 4, 0, 1, 5, 0, 1, 6, 0, 1, 7, 0, 1, 8, 0, 1, 9, 0, 1, 10, 0, 1, 11, 0, 1, 12, 0, 1, 13, 0, 1, 14, 0, 1, 15, 0, 1, 65551, 0, 1, 65550, 0, 1, 65549, 0, 1, 65548, 0, 1, 65547, 0, 1, 65546, 0, 1, 65545, 0, 1, 65544, 0, 1, 65543, 0, 1, 65542, 0, 1, 65541, 0, 1, 65540, 0, 1, 65539, 0, 1, 65538, 0, 1, 65537, 0, 1, 65536, 0, 1, 131071, 0, 1, 131070, 0, 1, 131069, 0, 1, 131068, 0, 1, 131067, 0, 1, 131066, 0, 1, 131065, 0, 1, 131064, 0, 1, 131063, 0, 1, 131062, 0, 1, 131061, 0, 1, 131060, 0, 1, 131059, 0, 1, 131058, 0, 1, 131056, 0, 1, 131057, 0, 1)
+layer_0/tile_data = PackedInt32Array(-2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, -65528, 0, 0, -65527, 0, 0, -3, 0, 0, -4, 0, 0, -5, 0, 0, -6, 0, 0, -7, 0, 0, -8, 0, 0, -9, 0, 0, -10, 0, 0, -11, 0, 0, -12, 0, 0, -13, 0, 0, -14, 0, 0, -15, 0, 0, -16, 0, 0, -65526, 0, 0, -65525, 0, 0, -65524, 0, 0, -65523, 0, 0, -65522, 0, 0, -65521, 0, 0, 65520, 0, 1, 65521, 0, 1, 65522, 0, 1, 65523, 0, 1, 65524, 0, 1, 65525, 0, 1, 65526, 0, 1, 65527, 0, 1, 65528, 0, 1, 65529, 0, 1, 65530, 0, 1, 65531, 0, 1, 65532, 0, 1, 65533, 0, 1, 65534, 0, 1, 65535, 0, 1, 0, 0, 1, 1, 0, 1, 2, 0, 1, 3, 0, 1, 4, 0, 1, 5, 0, 1, 6, 0, 1, 7, 0, 1, 8, 0, 1, 9, 0, 1, 10, 0, 1, 11, 0, 1, 12, 0, 1, 13, 0, 1, 14, 0, 1, 15, 0, 1, 65551, 0, 1, 65550, 0, 1, 65549, 0, 1, 65548, 0, 1, 65547, 0, 1, 65546, 0, 1, 65545, 0, 1, 65544, 0, 1, 65543, 0, 1, 65542, 0, 1, 65541, 0, 1, 65540, 0, 1, 65539, 0, 1, 65538, 0, 1, 65537, 0, 1, 65536, 0, 1, 131071, 0, 1, 131070, 0, 1, 131069, 0, 1, 131068, 0, 1, 131067, 0, 1, 131066, 0, 1, 131065, 0, 1, 131064, 0, 1, 131063, 0, 1, 131062, 0, 1, 131061, 0, 1, 131060, 0, 1, 131059, 0, 1, 131058, 0, 1, 131056, 0, 1, 131057, 0, 1, -17, 0, 0, -18, 0, 0, -19, 0, 0, -20, 0, 0, -65520, 0, 0, -65519, 0, 0, -65518, 0, 0, -65517, 0, 0, 65519, 0, 1, 65517, 0, 1, 65516, 0, 1, 65518, 0, 1, 131052, 0, 1, 131053, 0, 1, 131054, 0, 1, 131055, 0, 1, 16, 0, 1, 17, 0, 1, 18, 0, 1, 19, 0, 1, 65555, 0, 1, 65554, 0, 1, 65553, 0, 1, 65552, 0, 1)
 
 [node name="HUD" parent="." instance=ExtResource("3_02g4f")]
 
-[node name="player_cauldron" parent="." node_paths=PackedStringArray("spawn") instance=ExtResource("4_l6yrg")]
+[node name="player_cauldron" parent="." node_paths=PackedStringArray("spawn", "enemy_cauldron") instance=ExtResource("4_l6yrg")]
 position = Vector2(-936, -68)
 spawn = NodePath("Spawn")
 team = "player"
 is_players_cauldron = true
+enemy_cauldron = NodePath("../cpu_cauldron")
 
 [node name="Spawn" type="Node2D" parent="player_cauldron"]
-position = Vector2(112, 0)
+position = Vector2(-150, 0)
 
-[node name="cpu_cauldron" parent="." node_paths=PackedStringArray("spawn") instance=ExtResource("4_l6yrg")]
+[node name="cpu_cauldron" parent="." node_paths=PackedStringArray("spawn", "enemy_cauldron") instance=ExtResource("4_l6yrg")]
 position = Vector2(936, -68)
 spawn = NodePath("Spawn")
 team = "cpu"
+enemy_cauldron = NodePath("../player_cauldron")
 
 [node name="Spawn" type="Node2D" parent="cpu_cauldron"]
-position = Vector2(-160, 0)
+position = Vector2(150, 0)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0, 16.5)
+position = Vector2(-0.5, 16.5)
 shape = SubResource("RectangleShape2D_3dia8")

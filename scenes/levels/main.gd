@@ -20,11 +20,11 @@ func on_attack():
 	
 	state = ATTACK
 	
-	get_tree().call_group("player", "attack")
+	get_tree().call_group("player", "set_state", "attack")
 
 func on_defend():
 	if state == DEFEND:
 		return
 	
 	state = DEFEND
-	get_tree().call_group("player", "defend")
+	get_tree().call_group("player", "set_state", "defend")
