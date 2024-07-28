@@ -1,26 +1,25 @@
 extends CharacterBody2D
 class_name Entity
 
-enum { RETREAT, DEFEND, DEFEND_OFFENSE, ATTACK }
-
+enum { DEFEND, ATTACK, RETREAT, MINE }
 
 var navRegion : NavigationRegion2D
 @onready var nav : NavigationAgent2D = $NavigationAgent2D
 
-var state = DEFEND
-var last_state = DEFEND
+var state
+var last_state
 
 var MOVEMENT_SPEED = 300
 var direction : Vector2
 var group : String
 var attack_direction : int
 
-var current_lane : String
 var defense_position : Vector2
 var targeted_enemy : Node2D
 
 var enemy_cauldron : Node2D
 
+var spawn_pos : Vector2
 var is_ready = false
 
 var stats = {
@@ -88,6 +87,7 @@ func _on_navigation_agent_2d_velocity_computed(safe_velocity):
 func set_team(team : String, defend_location : String, cauldron_to_attack : Node2D, cauldron_pos : Vector2):
 	enemy_cauldron = cauldron_to_attack
 	defense_position = cauldron_pos
+	spawn_pos = global_position
 	
 	if defend_location == "left":
 		attack_direction = 1
@@ -109,6 +109,10 @@ func get_closet_enemy() -> Node2D:
 	return closet
 
 func set_defense_position(r : int, c : int, d_pos : Vector2):
+	if is_instance_of(self, Miner):
+		defense_position = spawn_pos
+		return
+	
 	var y_value = 0
 	match r:
 		0:
@@ -137,10 +141,15 @@ func take_damage(dmg : int):
 func _on_animation_finished(anim_name):
 	if anim_name == "attack":
 		targeted_enemy.take_damage(stats["damage"])
+	elif anim_name == "mine":
+		targeted_enemy.on_hit(group)
 
 ####################### STATES #######################
 
 func update_state(new_state):
+	if is_instance_of(self, Miner):
+		return
+	
 	if new_state == Global.ATTACK:
 		if state != ATTACK:
 			last_state = state
@@ -149,6 +158,19 @@ func update_state(new_state):
 		if state != DEFEND:
 			last_state = state
 			state = DEFEND
+
+func update_mine(new_state):
+	if !is_instance_of(self, Miner):
+		return
+	
+	if new_state == Global.MINE:
+		if state != MINE:
+			last_state = state
+			state = MINE
+	elif new_state == Global.RETREAT:
+		if state != RETREAT:
+			last_state = state
+			state = RETREAT
 
 func exit_state(state):
 	match state:
@@ -191,28 +213,6 @@ func exit_defend_state():
 	pass
 
 func run_defend_state(delta):
-	pass
-
-## RETREAT
-
-func enter_retreat_state():
-	pass
-
-func exit_retreat_state():
-	pass
-
-func run_retreat_state(delta):
-	pass
-
-## DEFEND OFFENSE
-
-func enter_d_offense_state():
-	pass
-
-func exit_d_offense_state():
-	pass
-
-func run_d_offense_state(delta):
 	pass
 
 ####################### HELPERS #######################

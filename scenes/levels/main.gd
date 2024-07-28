@@ -32,3 +32,9 @@ func on_defend():
 	get_tree().call_group("player", "update_state", Global.player_state)
 	
 	player.set_defense_positions()
+
+func on_mine():
+	get_tree().call_group("player", "update_mine", Global.MINE)
+
+func off_mine():
+	get_tree().call_group("player", "update_mine", Global.RETREAT)

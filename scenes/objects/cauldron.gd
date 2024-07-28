@@ -20,7 +20,7 @@ var raw_mat_item = preload("res://resources/items/raw_material.tres") as Item
 var result = {
 	"soul" : {
 		"soul" : "soul_minion",
-		"rune" : "soul_minion",
+		"rune" : "miner",
 		"phantom_weave" : "soul_minion",
 		"bloodvine" : "soul_minion",
 		"wyrm_bone" : "soul_minion"
@@ -56,7 +56,8 @@ var result = {
 }
 
 var enemies = {
-	"soul_minion" : preload("res://scenes/entities/soul_minion.tscn")
+	"soul_minion" : preload("res://scenes/entities/soul_minion.tscn"),
+	"miner" : preload("res://scenes/entities/miner.tscn")
 }
 
 func _ready():
@@ -125,8 +126,8 @@ func _on_accept_pressed():
 		loc = "left"
 	else:
 		loc = "right"
-	entity.set_team(team, loc, enemy_cauldron, global_position)
 	entity.global_position = spawn.global_position
+	entity.set_team(team, loc, enemy_cauldron, global_position)
 	on_new_entity(entity)
 	get_parent().add_child(entity)
 	ingredient_one = null
@@ -197,8 +198,8 @@ func _on_cpu_spawn_timer_timeout():
 			loc = "left"
 		else:
 			loc = "right"
-		entity.set_team(team, loc, enemy_cauldron, global_position)
 		entity.global_position = spawn.global_position
+		entity.set_team(team, loc, enemy_cauldron, global_position)
 		on_new_entity(entity)
 		get_parent().add_child(entity)
 	

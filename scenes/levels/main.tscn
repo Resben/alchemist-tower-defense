@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://drlrbq2i01510"]
+[gd_scene load_steps=13 format=3 uid="uid://drlrbq2i01510"]
 
 [ext_resource type="Script" path="res://scenes/levels/main.gd" id="1_mpdg5"]
 [ext_resource type="Texture2D" uid="uid://b4ge2nc0qendf" path="res://assets/environment/tilemapv2.png" id="2_spllf"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://w72kdg3ijpyf" path="res://assets/environment/sky-layer.png" id="5_djc3i"]
 [ext_resource type="Texture2D" uid="uid://gcl8j5346gvn" path="res://assets/environment/mountain-layer-one.png" id="6_4yimt"]
 [ext_resource type="Texture2D" uid="uid://dhuiaheml0ul5" path="res://assets/environment/mountain-layer-two.png" id="6_ej0ck"]
+[ext_resource type="PackedScene" uid="uid://3djtygv2iirj" path="res://scenes/objects/mineable.tscn" id="8_p4fy2"]
+[ext_resource type="Resource" uid="uid://cpl04ne7ad6cc" path="res://resources/items/raw_material.tres" id="9_n444j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_octm8"]
 texture = ExtResource("2_spllf")
@@ -168,9 +170,6 @@ position = Vector2(150, 0)
 [node name="DefensePosition" type="Node2D" parent="cpu_cauldron"]
 position = Vector2(-300, 0)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(1000, 288)
-
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="Sky" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -205,3 +204,8 @@ centered = false
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 position = Vector2(0, -25)
 navigation_polygon = SubResource("NavigationPolygon_c82g6")
+
+[node name="Mineable" parent="." instance=ExtResource("8_p4fy2")]
+position = Vector2(850, 255)
+data = ExtResource("9_n444j")
+hits = 3

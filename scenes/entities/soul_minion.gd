@@ -1,6 +1,9 @@
 extends Entity
+class_name SoulMinion
 
 func _ready():
+	state = DEFEND
+	last_state = DEFEND
 	super._ready()
 	
 	stats = {

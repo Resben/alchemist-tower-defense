@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bh11nmq1bi4xl"]
+[gd_scene load_steps=7 format=3 uid="uid://d2oqda7facjnu"]
 
-[ext_resource type="Script" path="res://scenes/entities/soul_minion.gd" id="1_xvetn"]
-[ext_resource type="Texture2D" uid="uid://bfgke2kcpl52c" path="res://assets/entities/soul_minion.png" id="2_mdbsg"]
+[ext_resource type="Script" path="res://scenes/entities/miner.gd" id="1_w2w6f"]
+[ext_resource type="Texture2D" uid="uid://chkj6q2yxdn35" path="res://assets/entities/miner-Sheet.png" id="2_xevo5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jvwup"]
 size = Vector2(20, 18)
@@ -24,7 +24,6 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_bpoew"]
 resource_name = "mine"
 length = 0.4
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -44,17 +43,18 @@ _data = {
 "mine": SubResource("Animation_bpoew")
 }
 
-[node name="SoulMinion" type="CharacterBody2D"]
+[node name="Miner" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 0
-script = ExtResource("1_xvetn")
+script = ExtResource("1_w2w6f")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("2_mdbsg")
+texture = ExtResource("2_xevo5")
+hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 7.5)
+position = Vector2(0, 23)
 shape = SubResource("RectangleShape2D_jvwup")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

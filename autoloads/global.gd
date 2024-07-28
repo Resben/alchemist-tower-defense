@@ -1,6 +1,6 @@
 extends Node
 
-enum { ATTACK, DEFEND }
+enum { ATTACK, DEFEND, RETREAT, MINE }
 
 var item = {
 	"soul" : preload("res://resources/items/soul.tres") as Item,
