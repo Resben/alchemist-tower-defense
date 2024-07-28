@@ -72,7 +72,7 @@ func _ready():
 	
 	if team == "cpu":
 		var rand_next_spawn = randi_range(15, 20)
-		#$CPUSpawnTimer.start(rand_next_spawn)
+		$CPUSpawnTimer.start(rand_next_spawn)
 
 func _on_button_drop(pos : Vector2, node : Moveable):
 	if pos.distance_to(global_position) <= 14:
@@ -156,7 +156,7 @@ func set_defense_positions():
 	var row = 0
 	var column = 0 
 	for e in get_tree().get_nodes_in_group(team):
-		e.set_defense_position(row, column, starting_defense_pos.global_position + Vector2(8, 0) * Vector2(column, row))
+		e.set_defense_position(row, column, starting_defense_pos.global_position)
 		row += 1
 		if row == 4:
 			row = 0
@@ -165,17 +165,16 @@ func set_defense_positions():
 func on_new_entity(entity : Entity):
 	var row = 0
 	var column = 0
-	var spots = {}
-	for d in 10:
-		for t in 4:
-			spots[Vector2(d, t)] = null
 	
 	for e in get_tree().get_nodes_in_group(team):
-		spots[Vector2(e.row, e.column)] = e
+		e.row = row
+		e.column = column
+		row += 1
+		if row == 4:
+			row = 0
+			column += 1
 	
-	for a in spots:
-		if spots[a] == null:
-			entity.set_defense_position(a.x, a.y, starting_defense_pos.global_position + Vector2(8, 0) * Vector2(a.x, a.y))
+	entity.set_defense_position(row, column, starting_defense_pos.global_position)
 
 ##################### CPU LOGIC #####################
 

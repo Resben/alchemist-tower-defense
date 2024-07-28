@@ -17,6 +17,7 @@ var current_lane : String
 var defense_position : Vector2
 var row : int
 var column : int
+var target_y : int
 
 var targeted_enemy : Node2D
 var enemy_cauldron : Node2D
@@ -32,8 +33,8 @@ var stats = {
 }
 
 func _ready():
-	collision_layer = 2
-	collision_mask = 2
+	#collision_layer = 2
+	#collision_mask = 2
 	is_ready = true
 
 func set_team(team : String, defend_location : String, cauldron_to_attack : Node2D, cauldron_pos : Vector2):
@@ -58,6 +59,11 @@ func _physics_process(delta):
 	elif direction == -1:
 		$Sprite2D.flip_h = true
 	
+	if global_position.y - target_y < 1 && global_position.y - target_y > -1:
+		velocity.y = 0
+	else:
+		velocity.y = sign(global_position.direction_to(Vector2(0, target_y)).y) * 1 * MOVEMENT_SPEED
+	
 	velocity.x = direction * MOVEMENT_SPEED
 	move_and_slide()
 	
@@ -66,7 +72,6 @@ func _physics_process(delta):
 		enter_state(state)
 		last_state = state
 	
-	print("current state:" + str(state))
 	run_state(delta, state)
 
 func get_closet_enemy() -> Node2D:
@@ -107,30 +112,18 @@ func switch_lane(lane : String):
 	
 	current_lane = lane
 	
-	if !is_ready:
-		match lane:
-			"one":
-				$Sprite2D.position.y = 0
-			"two":
-				$Sprite2D.position.y = 8
-			"three":
-				$Sprite2D.position.y = 16
-			"four":
-				$Sprite2D.position.y = 24
-	else:
-		var tween = get_tree().create_tween()
-		match lane:
-			"one":
-				tween.tween_property($Sprite2D, "position", Vector2(0, 0), 1)
-			"two":
-				tween.tween_property($Sprite2D, "position", Vector2(0, -8), 1)
-			"three":
-				tween.tween_property($Sprite2D, "position", Vector2(0, -16), 1)
-			"four":
-				tween.tween_property($Sprite2D, "position", Vector2(0, -24), 1)
+	match lane:
+		"one":
+			target_y = 0 + 236
+		"two":
+			target_y = 8 + 236
+		"three":
+			target_y = 16 + 236
+		"four":
+			target_y = 24 + 236
 
 func set_defense_position(r : int, c : int, d_pos : Vector2):
-	defense_position = d_pos
+	defense_position = Vector2(d_pos.x - (c * 36), d_pos.y)
 	row = r
 	column = c
 	
