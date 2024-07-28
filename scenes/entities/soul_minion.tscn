@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bh11nmq1bi4xl"]
+[gd_scene load_steps=6 format=3 uid="uid://bh11nmq1bi4xl"]
 
 [ext_resource type="Script" path="res://scenes/entities/soul_minion.gd" id="1_xvetn"]
 [ext_resource type="Texture2D" uid="uid://bfgke2kcpl52c" path="res://assets/entities/soul_minion.png" id="2_mdbsg"]
@@ -13,9 +13,6 @@ resource_name = "attack"
 _data = {
 "attack": SubResource("Animation_7raex")
 }
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_b1ppo"]
-radius = 327.024
 
 [node name="SoulMinion" type="CharacterBody2D"]
 collision_layer = 0
@@ -35,11 +32,9 @@ libraries = {
 "": SubResource("AnimationLibrary_gogmw")
 }
 
-[node name="ViewCircle" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ViewCircle"]
-shape = SubResource("CircleShape2D_b1ppo")
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+radius = 4.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
-[connection signal="body_entered" from="ViewCircle" to="." method="_on_view_circle_body_entered"]
-[connection signal="body_exited" from="ViewCircle" to="." method="_on_view_circle_body_exited"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

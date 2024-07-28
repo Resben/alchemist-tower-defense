@@ -113,8 +113,11 @@ texture_region_size = Vector2i(64, 64)
 tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_octm8")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3dia8"]
-size = Vector2(2559, 53)
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_c82g6"]
+vertices = PackedVector2Array(2117, 303, -105, 303, -105, 255, 2117, 255)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-115, 246, 2127, 245, 2127, 313, -115, 314)])
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("player", "cpu")]
 script = ExtResource("1_mpdg5")
@@ -147,7 +150,7 @@ is_players_cauldron = true
 enemy_cauldron = NodePath("../cpu_cauldron")
 
 [node name="Spawn" type="Node2D" parent="player_cauldron"]
-position = Vector2(-150, 0)
+position = Vector2(-157, 0)
 
 [node name="DefensePosition" type="Node2D" parent="player_cauldron"]
 position = Vector2(300, 0)
@@ -167,10 +170,6 @@ position = Vector2(-300, 0)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(1000, 288)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-0.5, 16.5)
-shape = SubResource("RectangleShape2D_3dia8")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -202,3 +201,7 @@ motion_mirroring = Vector2(728, 0)
 texture_filter = 1
 texture = ExtResource("6_4yimt")
 centered = false
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(0, -25)
+navigation_polygon = SubResource("NavigationPolygon_c82g6")

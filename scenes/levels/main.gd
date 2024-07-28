@@ -3,6 +3,8 @@ extends Node2D
 var CAMERA_SPEED = 10
 var HALF_WIDTH = 320
 
+@onready var navRegion : NavigationRegion2D = $NavigationRegion2D
+
 @export var player : Node2D
 @export var cpu : Node2D
 

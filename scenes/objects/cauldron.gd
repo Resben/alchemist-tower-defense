@@ -165,10 +165,7 @@ func set_defense_positions():
 func on_new_entity(entity : Entity):
 	var row = 0
 	var column = 0
-	
 	for e in get_tree().get_nodes_in_group(team):
-		e.row = row
-		e.column = column
 		row += 1
 		if row == 4:
 			row = 0
