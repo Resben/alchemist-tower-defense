@@ -15,6 +15,8 @@ var ingredient_two : Item = null
 var num = 0
 var num_raw_mat = 0
 
+var army_reference = []
+
 var raw_mat_item = preload("res://resources/items/raw_material.tres") as Item
 
 var result = {
@@ -64,9 +66,20 @@ func _ready():
 	health = max_health
 	
 	if !is_players_cauldron:
-		$Control.visible = false
+		$Control/Accept.visible = false
+		$Control/Decline.visible = false
+		$Control/RawMaterialButton.visible = false
+		$Control/VBoxContainer1.visible = false
+		$Control/TextureProgressBar.visible = true
 	else:
-		$Control.visible = true
+		$Control/Accept.visible = true
+		$Control/Decline.visible = true
+		$Control/RawMaterialButton.visible = true
+		$Control/VBoxContainer1.visible = true
+		$Control/TextureProgressBar.visible = true
+	
+	$Control/TextureProgressBar.value = max_health
+	$Control/TextureProgressBar.max_value = max_health
 	
 	$Control/Accept.disabled = true
 	$Control/Decline.disabled = true
@@ -130,6 +143,7 @@ func _on_accept_pressed():
 	entity.set_team(team, loc, enemy_cauldron, global_position)
 	on_new_entity(entity)
 	get_parent().add_child(entity)
+	army_reference.push_back(entity)
 	ingredient_one = null
 	ingredient_two = null
 	num = 0
@@ -176,32 +190,68 @@ func on_new_entity(entity : Entity):
 
 ##################### CPU LOGIC #####################
 
+	## RULE 1
+	# First check how many collectors we have
+	# CPU will try to always have 3 at once
+	
+	## RULE 2
+	# If CPU has significant resources they will get 2 more collectors
+	
+	## RULE 3
+	# CPU will spawn any random enemy if rule 2 and 1 are maxed out or not met
+	
+	## RULE 4
+	# If player is defending and has collectors far away from defense 
+	# CPU has a 50% chance of attacking on timeout
+	
+	## RULE 5
+	# If CPU has greater numbers CPU will attack if non of the other conditions are met
+
 func _on_cpu_spawn_timer_timeout():
-	var array = []
 	
-	for c in Global.team[team]:
-		if c != "raw_material":
-			for n in Global.team[team][c]:
-				array.push_back(Global.item[c])
+	var rule_one = false
+	var rule_two = false
+	var rule_three = false
+	var rule_four = false
+	var rule_five = false
 	
-	if array.size() > 1:
-		var index_one = randi_range(0, array.size() - 1)
-		ingredient_one = array[index_one]
-		array.remove_at(index_one)
-		var index_two = randi_range(0, array.size() - 1)
-		ingredient_two = array[index_two]
-		_on_accept_pressed()
-	else:
-		var entity = enemies["soul_minion"].instantiate() as Entity
-		var loc
-		if team == "player":
-			loc = "left"
-		else:
-			loc = "right"
-		entity.global_position = spawn.global_position
-		entity.set_team(team, loc, enemy_cauldron, global_position)
-		on_new_entity(entity)
-		get_parent().add_child(entity)
+	var num_collectors = 0
+	for e in army_reference:
+		if is_instance_of(e, Miner) && is_instance_valid(e):
+			num_collectors += 1
+	
+	if num_collectors < 3:
+		rule_one = true
+	
+	if num_collectors >= 3 && num_collectors < 5:
+		if Global.team[team]["raw_material"] > 5:
+			rule_two = true
+	
+	if !rule_one && !rule_two:
+		rule_three = true
+	
+	var sampled_enemy_entity
+	for enemy in get_tree().get_nodes_in_group(get_opposite_group()):
+		if is_instance_valid(enemy) && !is_instance_of(enemy, Miner):
+			sampled_enemy_entity = enemy
+	
+	if sampled_enemy_entity.state == Entity.DEFEND:
+		for miner in get_tree().get_nodes_in_group(get_opposite_group()):
+			if is_instance_valid(miner) && is_instance_of(miner, Miner):
+				if miner.global_position.distance_to(enemy_cauldron.global_position) > 1000:
+					rule_four = true
+		
+	
+	if rule_one:
+		pass
+	elif rule_two:
+		pass
+	elif rule_three:
+		pass
+	elif rule_four:
+		pass
+	elif rule_five:
+		pass
 	
 	var rand_next_spawn = randi_range(15, 20)
 	$CPUSpawnTimer.start(rand_next_spawn)
@@ -219,3 +269,12 @@ func _on_cpu_resource_timer_timeout():
 		add_ingredient(Global.item["bloodvine"])
 	elif rand < 101:
 		add_ingredient(Global.item["wyrm_bone"])
+
+func get_opposite_group() -> String:
+	match team:
+		"player":
+			return "cpu"
+		"cpu":
+			return "player"
+	
+	return "na"

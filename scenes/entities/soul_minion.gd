@@ -1,6 +1,8 @@
 extends Entity
 class_name SoulMinion
 
+var should_chase = false
+
 func _ready():
 	state = DEFEND
 	last_state = DEFEND
@@ -35,3 +37,25 @@ func run_attack_state(delta):
 	
 	if targeted_enemy.global_position.distance_to(global_position) < 25:
 		$AnimationPlayer.play("attack")
+
+func run_defend_state(delta):
+	var enemy = get_closet_enemy()
+	if is_instance_valid(enemy) && !is_instance_of(enemy, Cauldron):
+		if enemy.state == ATTACK:
+			var distance = global_position.distance_to(enemy.global_position)
+			if distance < 280:
+				targeted_enemy = enemy
+				should_chase = true
+			else:
+				should_chase = false
+		else:
+			should_chase = false
+	else:
+		should_chase = false
+	
+	if should_chase && is_instance_valid(targeted_enemy):
+		nav.target_position = targeted_enemy.global_position
+		if targeted_enemy.global_position.distance_to(global_position) < 25:
+			$AnimationPlayer.play("attack")
+	else:
+		nav.target_position = defense_position

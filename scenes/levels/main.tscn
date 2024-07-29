@@ -205,7 +205,14 @@ centered = false
 position = Vector2(0, -25)
 navigation_polygon = SubResource("NavigationPolygon_c82g6")
 
+[node name="Mineable2" parent="." instance=ExtResource("8_p4fy2")]
+position = Vector2(1196, 257)
+data = ExtResource("9_n444j")
+hits = 250
+hits_till_resource = 25
+
 [node name="Mineable" parent="." instance=ExtResource("8_p4fy2")]
 position = Vector2(850, 255)
 data = ExtResource("9_n444j")
-hits = 3
+hits = 250
+hits_till_resource = 25
