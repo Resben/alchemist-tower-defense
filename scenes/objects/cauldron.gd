@@ -188,11 +188,13 @@ func on_new_entity(entity : Entity):
 	
 	entity.set_defense_position(row, column, starting_defense_pos.global_position)
 
-##################### CPU LOGIC #####################
+##################### CPU SPAWN LOGIC #####################
 
 	## RULE 1
 	# First check how many collectors we have
 	# CPU will try to always have 3 at once
+	# CPU must have at least 1 collector
+	# For every collector there is at least 1 enemy
 	
 	## RULE 2
 	# If CPU has significant resources they will get 2 more collectors
@@ -216,9 +218,13 @@ func _on_cpu_spawn_timer_timeout():
 	var rule_five = false
 	
 	var num_collectors = 0
+	var enemy_might = 0
+	var cpu_might = 0
 	for e in army_reference:
 		if is_instance_of(e, Miner) && is_instance_valid(e):
 			num_collectors += 1
+		elif is_instance_valid(e):
+			cpu_might += 1
 	
 	if num_collectors < 3:
 		rule_one = true
@@ -234,13 +240,16 @@ func _on_cpu_spawn_timer_timeout():
 	for enemy in get_tree().get_nodes_in_group(get_opposite_group()):
 		if is_instance_valid(enemy) && !is_instance_of(enemy, Miner):
 			sampled_enemy_entity = enemy
+			enemy_might += 1
 	
 	if sampled_enemy_entity.state == Entity.DEFEND:
 		for miner in get_tree().get_nodes_in_group(get_opposite_group()):
 			if is_instance_valid(miner) && is_instance_of(miner, Miner):
 				if miner.global_position.distance_to(enemy_cauldron.global_position) > 1000:
 					rule_four = true
-		
+	
+	if cpu_might > enemy_might:
+		rule_five = true
 	
 	if rule_one:
 		pass
@@ -256,19 +265,23 @@ func _on_cpu_spawn_timer_timeout():
 	var rand_next_spawn = randi_range(15, 20)
 	$CPUSpawnTimer.start(rand_next_spawn)
 
-func _on_cpu_resource_timer_timeout():
-	var rand = randi_range(0, 100)
-	
-	if rand < 46:
-		add_ingredient(Global.item["soul"])
-	elif rand < 71:
-		add_ingredient(Global.item["rune"])
-	elif rand < 86:
-		add_ingredient(Global.item["phantom_weave"])
-	elif rand < 96:
-		add_ingredient(Global.item["bloodvine"])
-	elif rand < 101:
-		add_ingredient(Global.item["wyrm_bone"])
+##################### CPU BASIC LOGIC #####################
+
+## Rule 1
+# If CPU has less than 3 collectors they will retreat instantly if an enemy gets close
+# Requires a signal
+# Cauldron should update miner
+
+## Rule 2
+# Else they will retreat if one of them dies
+# CPU will retaliate with an attack
+# Requires a signal
+
+## Rule 3
+# CPU will only send collectors if it is safe to do so
+
+
+##################### HELPERS #####################
 
 func get_opposite_group() -> String:
 	match team:
