@@ -9,7 +9,7 @@ var navRegion : NavigationRegion2D
 var state
 var last_state
 
-var MOVEMENT_SPEED = 300
+var MOVEMENT_SPEED = 30
 var direction : Vector2
 var group : String
 var attack_direction : int

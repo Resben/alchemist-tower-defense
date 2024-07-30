@@ -6,6 +6,7 @@ var should_chase = false
 func _ready():
 	state = DEFEND
 	last_state = DEFEND
+	MOVEMENT_SPEED = 40
 	super._ready()
 	
 	stats = {

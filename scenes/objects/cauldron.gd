@@ -58,7 +58,7 @@ var result = {
 }
 
 var enemies = {
-	"soul_minion" : preload("res://scenes/entities/soul_minion.tscn"),
+	"soul_minion" : preload("res://scenes/entities/soul_minionv2.tscn"),
 	"miner" : preload("res://scenes/entities/miner.tscn")
 }
 
@@ -188,6 +188,11 @@ func on_new_entity(entity : Entity):
 	
 	entity.set_defense_position(row, column, starting_defense_pos.global_position)
 
+func _on_soul_timer_timeout():
+	$SoulTimer.start()
+	Global.team[team]["soul"] += 1
+	get_node("/root/Main/HUD").update_items()
+
 ##################### CPU SPAWN LOGIC #####################
 
 	## RULE 1
@@ -227,14 +232,16 @@ func _on_cpu_spawn_timer_timeout():
 			cpu_might += 1
 	
 	if num_collectors < 3:
-		rule_one = true
+		if Global.team[team]["soul"] >= 1 && cpu_might > num_collectors:
+			rule_one = true
 	
 	if num_collectors >= 3 && num_collectors < 5:
-		if Global.team[team]["raw_material"] > 5:
+		if Global.team[team]["soul"] >= 3 && cpu_might > num_collectors:
 			rule_two = true
 	
 	if !rule_one && !rule_two:
-		rule_three = true
+		if Global.team[team]["raw_material"] >= 1: 
+			rule_three = true
 	
 	var sampled_enemy_entity
 	for enemy in get_tree().get_nodes_in_group(get_opposite_group()):
@@ -242,11 +249,12 @@ func _on_cpu_spawn_timer_timeout():
 			sampled_enemy_entity = enemy
 			enemy_might += 1
 	
-	if sampled_enemy_entity.state == Entity.DEFEND:
-		for miner in get_tree().get_nodes_in_group(get_opposite_group()):
-			if is_instance_valid(miner) && is_instance_of(miner, Miner):
-				if miner.global_position.distance_to(enemy_cauldron.global_position) > 1000:
-					rule_four = true
+	if sampled_enemy_entity != null:
+		if sampled_enemy_entity.state == Entity.DEFEND:
+			for miner in get_tree().get_nodes_in_group(get_opposite_group()):
+				if is_instance_valid(miner) && is_instance_of(miner, Miner):
+					if miner.global_position.distance_to(enemy_cauldron.global_position) > 1000:
+						rule_four = true
 	
 	if cpu_might > enemy_might:
 		rule_five = true

@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://35v50nm7fx82"]
+
+[ext_resource type="Texture2D" uid="uid://bfgke2kcpl52c" path="res://assets/entities/soul_minion.png" id="1_bj7s6"]
+[ext_resource type="Script" path="res://scenes/entities/soul_minion.gd" id="1_ylm23"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pi71y"]
+size = Vector2(24, 50)
+
+[sub_resource type="Animation" id="Animation_1mgxb"]
+resource_name = "attack"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lfvy0"]
+_data = {
+"attack": SubResource("Animation_1mgxb")
+}
+
+[node name="SoulMinionv2" type="CharacterBody2D"]
+script = ExtResource("1_ylm23")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_bj7s6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 7)
+shape = SubResource("RectangleShape2D_pi71y")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lfvy0")
+}
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

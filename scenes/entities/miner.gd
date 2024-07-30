@@ -4,6 +4,7 @@ class_name Miner
 func _ready():
 	state = MINE
 	last_state = MINE
+	MOVEMENT_SPEED = 50
 	super._ready()
 	
 	stats = {
