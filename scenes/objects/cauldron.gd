@@ -67,7 +67,7 @@ func _ready():
 	$Control/Decline.disabled = true
 	
 	if team == "cpu":
-		var rand_next_spawn = randi_range(3, 5)
+		var rand_next_spawn = randi_range(5, 7)
 		$CPUSpawnTimer.start(rand_next_spawn)
 
 func _on_button_drop(pos : Vector2, node : Moveable):
@@ -95,6 +95,10 @@ func store_ingredient(data : Item):
 	for c in $Control/VBoxContainer1.get_children():
 		c.update_button()
 	get_node("/root/Main/HUD").update_items()
+
+func force_update_items():
+	for c in $Control/VBoxContainer1.get_children():
+		c.update_button()
 
 func add_ingredient(data : Item):
 	if num == 0:
@@ -299,7 +303,7 @@ func _on_cpu_spawn_timer_timeout():
 			get_tree().call_group(team, "update_state", Global.ATTACK)
 			#print("enemy noticed you are mining too far in")
 	
-	var rand_next_spawn = randi_range(3, 5)
+	var rand_next_spawn = randi_range(5, 7)
 	$CPUSpawnTimer.start(rand_next_spawn)
 
 ##################### CPU BASIC LOGIC #####################

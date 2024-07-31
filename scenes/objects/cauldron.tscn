@@ -104,6 +104,7 @@ non_available_texture = ExtResource("6_cui2y")
 selected_texture = ExtResource("7_qda87")
 
 [node name="BloodvineButton" parent="Control/VBoxContainer1" node_paths=PackedStringArray("cauldron") instance=ExtResource("3_2qjev")]
+visible = false
 layout_mode = 2
 cauldron = NodePath("../../..")
 data = ExtResource("17_lub6r")

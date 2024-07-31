@@ -18,12 +18,12 @@ func on_hit(team : String):
 	
 	if hits_taken % hits_till_resource == 0:
 		Global.team[team][data.id] += 1
-		get_node("/root/Main/HUD").update_items()
+		get_node("/root/Main").force_update()
 	
 	$Control/TextureProgressBar.value = hits
 	$CPUParticles2D.emitting = true
 	
 	if hits == 0:
 		Global.team[team][data.id] += 1
-		get_node("/root/Main/HUD").update_items()
+		get_node("/root/Main").force_update()
 		queue_free()

@@ -225,26 +225,26 @@ navigation_polygon = SubResource("NavigationPolygon_c82g6")
 [node name="Mineable2" parent="." instance=ExtResource("8_p4fy2")]
 position = Vector2(1196, 257)
 data = ExtResource("9_n444j")
-hits = 250
-hits_till_resource = 25
+hits = 200
+hits_till_resource = 50
 
 [node name="Mineable" parent="." instance=ExtResource("8_p4fy2")]
 position = Vector2(850, 255)
 data = ExtResource("9_n444j")
-hits = 250
-hits_till_resource = 25
+hits = 200
+hits_till_resource = 50
 
 [node name="Mineable4" parent="." instance=ExtResource("8_p4fy2")]
 position = Vector2(2216, 258)
 data = ExtResource("9_n444j")
-hits = 250
-hits_till_resource = 25
+hits = 200
+hits_till_resource = 50
 
 [node name="Mineable3" parent="." instance=ExtResource("8_p4fy2")]
 position = Vector2(1796, 257)
 data = ExtResource("9_n444j")
-hits = 250
-hits_till_resource = 25
+hits = 200
+hits_till_resource = 50
 
 [connection signal="_on_shadow_drop" from="player_cauldron/Summoning" to="player_cauldron" method="_on_summoning_shadow_drop"]
 [connection signal="_on_shadow_drop" from="player_cauldron/Summoning" to="player_cauldron/ToolRack" method="_on_summoning_toolrack_shadow_drop"]

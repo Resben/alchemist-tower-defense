@@ -8,7 +8,7 @@ var slash = preload("res://scenes/entities/slash.tscn")
 func _ready():
 	state = DEFEND
 	last_state = DEFEND
-	MOVEMENT_SPEED = 100
+	MOVEMENT_SPEED = 40
 	super._ready()
 	
 	stats = {

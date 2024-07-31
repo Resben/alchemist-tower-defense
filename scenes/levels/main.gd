@@ -38,3 +38,7 @@ func on_mine():
 
 func off_mine():
 	get_tree().call_group("player", "update_mine", Global.RETREAT)
+
+func force_update():
+	player.force_update_items()
+	$HUD.update_items()
