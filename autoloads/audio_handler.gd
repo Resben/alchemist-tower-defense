@@ -8,7 +8,6 @@ func _ready():
 func _on_timer_timeout():
 	fight_volume += 1
 	$FightingBGM.volume_db = fight_volume
-	print(fight_volume)
 	$Timer.start()
 
 func start_game():

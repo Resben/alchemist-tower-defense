@@ -66,7 +66,7 @@ func _ready():
 	$Control/Decline.disabled = true
 	
 	if team == "cpu":
-		var rand_next_spawn = randi_range(15, 20)
+		var rand_next_spawn = randi_range(3, 5)
 		$CPUSpawnTimer.start(rand_next_spawn)
 
 func _on_button_drop(pos : Vector2, node : Moveable):
@@ -228,6 +228,7 @@ func _on_cpu_spawn_timer_timeout():
 	var rule_four = false
 	var rule_five = false
 	
+	var current_state
 	var num_collectors = 0
 	var enemy_might = 0
 	var cpu_might = 0
@@ -236,12 +237,13 @@ func _on_cpu_spawn_timer_timeout():
 			num_collectors += 1
 		elif is_instance_valid(e):
 			cpu_might += 1
+			current_state = e.state
 	
-	if num_collectors < 3:
-		if Global.team[team]["soul"] >= 1 && cpu_might > num_collectors:
+	if num_collectors < 2:
+		if Global.team[team]["soul"] >= 1:
 			rule_one = true
 	
-	if num_collectors >= 3 && num_collectors < 5:
+	if num_collectors >= 2 && num_collectors < 4:
 		if Global.team[team]["soul"] >= 3 && cpu_might > num_collectors:
 			rule_two = true
 	
@@ -262,21 +264,31 @@ func _on_cpu_spawn_timer_timeout():
 					if miner.global_position.distance_to(enemy_cauldron.global_position) > 1000:
 						rule_four = true
 	
-	if cpu_might > enemy_might:
+	if cpu_might > enemy_might && current_state != Entity.ATTACK:
 		rule_five = true
 	
 	if rule_one:
-		pass
-	elif rule_two:
-		pass
-	elif rule_three:
-		pass
-	elif rule_four:
-		pass
+		$ToolRack._on_summoning_toolrack_shadow_drop(Vector2(-999, -999), "na")
+		Global.team[team]["soul"] -= 1
+		print("enemy summoned a miner")
 	elif rule_five:
-		pass
+		get_tree().call_group(team, "update_state", Global.ATTACK)
+		print("enemy went on the offensive")
+	elif rule_two:
+		$ToolRack._on_summoning_toolrack_shadow_drop(Vector2(-999, -999), "na")
+		Global.team[team]["soul"] -= 1
+		print("enemy summoned a extra miner")
+	elif rule_three:
+		spawn_entity("soul_minion")
+		Global.team[team]["raw_material"] -= 1
+		print("enemy summoned a combatant")
+	elif rule_four:
+		var rand = randi_range(1, 100)
+		if rand < 51:
+			get_tree().call_group(team, "update_state", Global.ATTACK)
+			print("enemy noticed you are mining too far in")
 	
-	var rand_next_spawn = randi_range(15, 20)
+	var rand_next_spawn = randi_range(3, 5)
 	$CPUSpawnTimer.start(rand_next_spawn)
 
 ##################### CPU BASIC LOGIC #####################

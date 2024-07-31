@@ -16,16 +16,16 @@ var player_state = DEFEND
 
 var team = {
 	"player" : {
-		"soul" : 5,
-		"rune" : 2,
-		"phantom_weave" : 3,
-		"bloodvine" : 4,
-		"wyrm_bone" : 5,
-		"raw_material" : 6
+		"soul" : 2,
+		"rune" : 0,
+		"phantom_weave" : 0,
+		"bloodvine" : 0,
+		"wyrm_bone" : 0,
+		"raw_material" : 0
 	},
 
 	"cpu" : {
-		"soul" : 0,
+		"soul" : 2,
 		"rune" : 0,
 		"phantom_weave" : 0,
 		"bloodvine" : 0,
