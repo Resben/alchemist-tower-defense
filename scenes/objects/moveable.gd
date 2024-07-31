@@ -6,6 +6,7 @@ signal _on_button_drop
 
 var held = false
 var startpos : Vector2
+var force_disable = false
 
 @export var cauldron : Cauldron
 @export var data : Item
@@ -45,6 +46,7 @@ func _on_button_up():
 
 func toggle_disable(boo : bool):
 	disabled = boo
+	force_disable = boo
 
 func update_button():
 	get_node("/root/Main/HUD").update_items()
@@ -53,4 +55,5 @@ func update_button():
 	if Global.team[cauldron.team][data.id] <= 0:
 		disabled = true
 	else:
-		disabled = false
+		if !force_disable:
+			disabled = false

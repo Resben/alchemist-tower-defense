@@ -1,6 +1,6 @@
 extends Node2D
 
-var fight_volume = -20
+var fight_volume = -30
 
 func _ready():
 	$FightingBGM.volume_db = fight_volume

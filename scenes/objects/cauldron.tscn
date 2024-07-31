@@ -142,6 +142,10 @@ position = Vector2(-96, 0)
 
 [node name="GameTimeout" type="Timer" parent="."]
 
+[node name="ReturnMine" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true
+
 [connection signal="pressed" from="Control/Accept" to="." method="_on_accept_pressed"]
 [connection signal="pressed" from="Control/Decline" to="." method="_on_decline_pressed"]
 [connection signal="_on_button_drop" from="Control/VBoxContainer1/RawButton" to="." method="_on_button_drop"]
@@ -149,3 +153,4 @@ position = Vector2(-96, 0)
 [connection signal="timeout" from="CPUSpawnTimer" to="." method="_on_cpu_spawn_timer_timeout"]
 [connection signal="timeout" from="SoulTimer" to="." method="_on_soul_timer_timeout"]
 [connection signal="timeout" from="GameTimeout" to="." method="_on_game_timeout_timeout"]
+[connection signal="timeout" from="ReturnMine" to="." method="_on_return_mine_timeout"]

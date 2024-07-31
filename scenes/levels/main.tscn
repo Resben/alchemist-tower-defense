@@ -158,7 +158,7 @@ enemy_cauldron = NodePath("../cpu_cauldron")
 position = Vector2(-4, 0)
 
 [node name="DefensePosition" type="Node2D" parent="player_cauldron"]
-position = Vector2(300, 0)
+position = Vector2(300, -10)
 
 [node name="ToolRack" parent="player_cauldron" instance=ExtResource("6_3o1bu")]
 position = Vector2(-88, 24)
@@ -178,7 +178,7 @@ enemy_cauldron = NodePath("../player_cauldron")
 position = Vector2(-4, 0)
 
 [node name="DefensePosition" type="Node2D" parent="cpu_cauldron"]
-position = Vector2(-300, 0)
+position = Vector2(-300, -10)
 
 [node name="ToolRack" parent="cpu_cauldron" instance=ExtResource("6_3o1bu")]
 position = Vector2(103, 20)

@@ -11,7 +11,7 @@ class_name Cauldron
 var cauldron_state = Entity.DEFEND
 
 var health : int
-var max_health : int = 250
+var max_health : int = 75
 var ingredient_one : Item = null
 var ingredient_two : Item = null
 var num = 0
@@ -69,7 +69,7 @@ func _ready():
 	$Control/Decline.disabled = true
 	
 	if team == "cpu":
-		var rand_next_spawn = randi_range(5, 7)
+		var rand_next_spawn = randi_range(3, 7)
 		$CPUSpawnTimer.start(rand_next_spawn)
 
 func _on_button_drop(pos : Vector2, node : Moveable):
@@ -82,12 +82,12 @@ func take_damage(dmg : int):
 	if health <= 0:
 		var menu_insta = menu.instantiate()
 		if team == "player":
-			menu_insta.set_as_end_screen("win")
+			menu_insta.set_as_end_screen("lost")
 			get_node("/root/").add_child(menu_insta)
 			get_tree().paused = true
 			queue_free()
 		elif team == "cpu":
-			menu_insta.set_as_end_screen("lost")
+			menu_insta.set_as_end_screen("win")
 			get_node("/root/").add_child(menu_insta)
 			get_tree().paused = true
 			queue_free()
@@ -209,6 +209,7 @@ func on_new_entity(entity : Entity):
 			row = 0
 			column += 1
 	
+	entity._on_death.connect(_on_friendly_death)
 	entity.state = cauldron_state
 	entity.set_defense_position(row, column, starting_defense_pos.global_position)
 
@@ -308,7 +309,7 @@ func _on_cpu_spawn_timer_timeout():
 			cauldron_state = Entity.ATTACK
 			#print("enemy noticed you are mining too far in")
 	
-	var rand_next_spawn = randi_range(5, 7)
+	var rand_next_spawn = randi_range(15, 20)
 	$CPUSpawnTimer.start(rand_next_spawn)
 
 ##################### CPU BASIC LOGIC #####################
@@ -348,3 +349,15 @@ func _on_summoning_shadow_drop(pos, id):
 
 func _on_game_timeout_timeout():
 	queue_free()
+
+func _on_friendly_death(entity):
+	if is_instance_of(entity, Miner):
+		for e in get_tree().get_nodes_in_group(team):
+			if is_instance_valid(e) && is_instance_of(e, Miner):
+				e.update_mine(Entity.RETREAT)
+				$ReturnMine.start()
+
+func _on_return_mine_timeout():
+		for e in get_tree().get_nodes_in_group(team):
+			if is_instance_valid(e) && is_instance_of(e, Miner):
+				e.update_mine(Entity.MINE)

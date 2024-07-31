@@ -15,6 +15,8 @@ _data = {
 }
 
 [node name="SoulMinionv2" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_ylm23")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -31,9 +33,12 @@ libraries = {
 }
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+radius = 3.0
 
 [node name="AttackTimer" type="Timer" parent="."]
 one_shot = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

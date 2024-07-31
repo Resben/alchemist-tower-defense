@@ -3,6 +3,8 @@ class_name Entity
 
 enum { DEFEND, ATTACK, RETREAT, MINE }
 
+signal _on_death
+
 var navRegion : NavigationRegion2D
 @onready var nav : NavigationAgent2D = $NavigationAgent2D
 
@@ -123,13 +125,14 @@ func set_defense_position(r : int, c : int, d_pos : Vector2):
 		0:
 			y_value = 0 + d_pos.y
 		1:
-			y_value = 8 + d_pos.y
+			y_value = 10 + d_pos.y
 		2:
-			y_value = 16 + d_pos.y
+			y_value = 20 + d_pos.y
 		3:
-			y_value = 24 + d_pos.y
+			y_value = 30 + d_pos.y
 	
 	defense_position = Vector2(d_pos.x - (c * 36), y_value)
+	print(defense_position)
 
 func take_damage(dmg : int):
 	var tween = get_tree().create_tween()
@@ -139,6 +142,7 @@ func take_damage(dmg : int):
 	stats["hp"] -= dmg
 	
 	if stats["hp"] <= 0:
+		_on_death.emit(self)
 		queue_free()
 
 ####################### SIGNALS #######################
@@ -146,10 +150,11 @@ func take_damage(dmg : int):
 func _on_animation_finished(anim_name):
 	if anim_name == "attack":
 		if is_instance_valid(targeted_enemy):
-			targeted_enemy.take_damage(stats["damage"])
+			if targeted_enemy.global_position.distance_to(global_position) < 40:
+				targeted_enemy.take_damage(stats["damage"])
 		is_attacking = false
 	elif anim_name == "mine":
-		if is_instance_valid(targeted_enemy):
+		if is_instance_valid(targeted_enemy) && is_instance_of(targeted_enemy, Mineable):
 			targeted_enemy.on_hit(group)
 
 ####################### STATES #######################
