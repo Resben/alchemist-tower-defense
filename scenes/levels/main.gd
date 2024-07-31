@@ -22,12 +22,14 @@ func on_attack():
 	
 	Global.player_state = Global.ATTACK
 	
+	player.cauldron_state = Entity.ATTACK
 	get_tree().call_group("player", "update_state", Global.player_state)
 
 func on_defend():
 	if Global.player_state == Global.DEFEND:
 		return
 	
+	player.cauldron_state = Entity.DEFEND
 	Global.player_state = Global.DEFEND
 	get_tree().call_group("player", "update_state", Global.player_state)
 	

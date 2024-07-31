@@ -8,6 +8,8 @@ class_name Cauldron
 @export var is_players_cauldron : bool
 @export var enemy_cauldron : Cauldron
 
+var cauldron_state = Entity.DEFEND
+
 var health : int
 var max_health : int = 250
 var ingredient_one : Item = null
@@ -207,6 +209,7 @@ func on_new_entity(entity : Entity):
 			row = 0
 			column += 1
 	
+	entity.state = cauldron_state
 	entity.set_defense_position(row, column, starting_defense_pos.global_position)
 
 func _on_soul_timer_timeout():
@@ -288,6 +291,7 @@ func _on_cpu_spawn_timer_timeout():
 		#print("enemy summoned a miner")
 	elif rule_five:
 		get_tree().call_group(team, "update_state", Global.ATTACK)
+		cauldron_state = Entity.ATTACK
 		#print("enemy went on the offensive")
 	elif rule_two:
 		$ToolRack._on_summoning_toolrack_shadow_drop(Vector2(-999, -999), "na")
@@ -301,6 +305,7 @@ func _on_cpu_spawn_timer_timeout():
 		var rand = randi_range(1, 100)
 		if rand < 51:
 			get_tree().call_group(team, "update_state", Global.ATTACK)
+			cauldron_state = Entity.ATTACK
 			#print("enemy noticed you are mining too far in")
 	
 	var rand_next_spawn = randi_range(5, 7)
