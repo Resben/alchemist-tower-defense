@@ -1,5 +1,7 @@
 extends Sprite2D
 
+signal _on_shadow_drop
+
 @export var team : String
 
 var spot_one = false
@@ -43,3 +45,18 @@ func _on_animation_player_finished(anim_name):
 			Global.team[team]["soul"] -= 1
 			$Bay/B3.set_moveable()
 			spot_three = true
+
+func moveable_used(id):
+	match id:
+		"one":
+			$Bay/B1.unset_moveable()
+			spot_one = false
+		"two":
+			$Bay/B2.unset_moveable()
+			spot_two = false
+		"three":
+			$Bay/B3.unset_moveable()
+			spot_three = false
+
+func _on_moveable_dropped(pos, id):
+	_on_shadow_drop.emit(pos, id)

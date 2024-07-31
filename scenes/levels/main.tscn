@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://drlrbq2i01510"]
+[gd_scene load_steps=15 format=3 uid="uid://drlrbq2i01510"]
 
 [ext_resource type="Script" path="res://scenes/levels/main.gd" id="1_mpdg5"]
 [ext_resource type="Texture2D" uid="uid://b4ge2nc0qendf" path="res://assets/environment/tilemapv2.png" id="2_spllf"]
 [ext_resource type="PackedScene" uid="uid://c5mvmswxrgoff" path="res://scenes/ui/hud.tscn" id="3_02g4f"]
 [ext_resource type="PackedScene" uid="uid://cn2ik5ubwaxxy" path="res://scenes/objects/cauldron.tscn" id="4_l6yrg"]
 [ext_resource type="Texture2D" uid="uid://w72kdg3ijpyf" path="res://assets/environment/sky-layer.png" id="5_djc3i"]
+[ext_resource type="PackedScene" uid="uid://nw7hvtemv8ui" path="res://scenes/objects/tool_rack.tscn" id="6_3o1bu"]
 [ext_resource type="Texture2D" uid="uid://gcl8j5346gvn" path="res://assets/environment/mountain-layer-one.png" id="6_4yimt"]
 [ext_resource type="Texture2D" uid="uid://dhuiaheml0ul5" path="res://assets/environment/mountain-layer-two.png" id="6_ej0ck"]
 [ext_resource type="PackedScene" uid="uid://3djtygv2iirj" path="res://scenes/objects/mineable.tscn" id="8_p4fy2"]
@@ -145,7 +146,7 @@ layer_0/tile_data = PackedInt32Array(-2, 131072, 1, -1, 131072, 1, -65536, 13107
 [node name="HUD" parent="." instance=ExtResource("3_02g4f")]
 
 [node name="player_cauldron" parent="." node_paths=PackedStringArray("starting_defense_pos", "spawn", "enemy_cauldron") instance=ExtResource("4_l6yrg")]
-position = Vector2(255, 236)
+position = Vector2(292, 252)
 starting_defense_pos = NodePath("DefensePosition")
 spawn = NodePath("Spawn")
 team = "player"
@@ -158,8 +159,15 @@ position = Vector2(-157, 0)
 [node name="DefensePosition" type="Node2D" parent="player_cauldron"]
 position = Vector2(300, 0)
 
+[node name="ToolRack" parent="player_cauldron" instance=ExtResource("6_3o1bu")]
+position = Vector2(-88, 24)
+
+[node name="Summoning" parent="player_cauldron" instance=ExtResource("10_kdbt8")]
+position = Vector2(-257, 22)
+team = "player"
+
 [node name="cpu_cauldron" parent="." node_paths=PackedStringArray("starting_defense_pos", "spawn", "enemy_cauldron") instance=ExtResource("4_l6yrg")]
-position = Vector2(1936, 236)
+position = Vector2(1735, 255)
 starting_defense_pos = NodePath("DefensePosition")
 spawn = NodePath("Spawn")
 team = "cpu"
@@ -170,6 +178,13 @@ position = Vector2(150, 0)
 
 [node name="DefensePosition" type="Node2D" parent="cpu_cauldron"]
 position = Vector2(-300, 0)
+
+[node name="ToolRack" parent="cpu_cauldron" instance=ExtResource("6_3o1bu")]
+position = Vector2(103, 20)
+
+[node name="Summoning" parent="cpu_cauldron" instance=ExtResource("10_kdbt8")]
+position = Vector2(182, 15)
+team = "cpu"
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -218,6 +233,5 @@ data = ExtResource("9_n444j")
 hits = 250
 hits_till_resource = 25
 
-[node name="Summoning" parent="." instance=ExtResource("10_kdbt8")]
-position = Vector2(35, 274)
-team = "player"
+[connection signal="_on_shadow_drop" from="player_cauldron/Summoning" to="player_cauldron" method="_on_summoning_shadow_drop"]
+[connection signal="_on_shadow_drop" from="player_cauldron/Summoning" to="player_cauldron/ToolRack" method="_on_summoning_toolrack_shadow_drop"]

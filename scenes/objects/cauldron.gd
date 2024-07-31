@@ -137,6 +137,22 @@ func _on_accept_pressed():
 	toggle_ingredients(false)
 	num_raw_mat = 0
 
+func spawn_entity(id : String, new_spawn : Vector2 = Vector2.ZERO):
+	var entity = enemies[id].instantiate() as Entity
+	var loc
+	if team == "player":
+		loc = "left"
+	else:
+		loc = "right"
+	if new_spawn == Vector2.ZERO:
+		entity.global_position = spawn.global_position
+	else:
+		entity.global_position = new_spawn
+	entity.set_team(team, loc, enemy_cauldron, global_position)
+	on_new_entity(entity)
+	get_parent().add_child(entity)
+	army_reference.push_back(entity)
+
 func _on_decline_pressed():
 	if ingredient_one != null:
 		store_ingredient(ingredient_one)
@@ -284,3 +300,7 @@ func get_opposite_group() -> String:
 			return "player"
 	
 	return "na"
+
+func _on_summoning_shadow_drop(pos, id):
+	if pos.distance_to(global_position) <= 14:
+		$Summoning.moveable_used(id)
