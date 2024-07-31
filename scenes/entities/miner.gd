@@ -27,7 +27,7 @@ func _physics_process(delta):
 			targeted_enemy = next_mineable
 		
 		if is_instance_valid(targeted_enemy):
-			if global_position.distance_to(targeted_enemy.global_position) < 25:
+			if global_position.distance_to(targeted_enemy.global_position) < 30:
 				$AnimationPlayer.play("mine")
 
 func get_closet_minable() -> Node2D:

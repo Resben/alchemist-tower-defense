@@ -233,7 +233,7 @@ func _on_cpu_spawn_timer_timeout():
 	var enemy_might = 0
 	var cpu_might = 0
 	for e in army_reference:
-		if is_instance_of(e, Miner) && is_instance_valid(e):
+		if is_instance_valid(e) && is_instance_of(e, Miner):
 			num_collectors += 1
 		elif is_instance_valid(e):
 			cpu_might += 1
@@ -270,23 +270,23 @@ func _on_cpu_spawn_timer_timeout():
 	if rule_one:
 		$ToolRack._on_summoning_toolrack_shadow_drop(Vector2(-999, -999), "na")
 		Global.team[team]["soul"] -= 1
-		print("enemy summoned a miner")
+		#print("enemy summoned a miner")
 	elif rule_five:
 		get_tree().call_group(team, "update_state", Global.ATTACK)
-		print("enemy went on the offensive")
+		#print("enemy went on the offensive")
 	elif rule_two:
 		$ToolRack._on_summoning_toolrack_shadow_drop(Vector2(-999, -999), "na")
 		Global.team[team]["soul"] -= 1
-		print("enemy summoned a extra miner")
+		#print("enemy summoned a extra miner")
 	elif rule_three:
 		spawn_entity("soul_minion")
 		Global.team[team]["raw_material"] -= 1
-		print("enemy summoned a combatant")
+		#print("enemy summoned a combatant")
 	elif rule_four:
 		var rand = randi_range(1, 100)
 		if rand < 51:
 			get_tree().call_group(team, "update_state", Global.ATTACK)
-			print("enemy noticed you are mining too far in")
+			#print("enemy noticed you are mining too far in")
 	
 	var rand_next_spawn = randi_range(3, 5)
 	$CPUSpawnTimer.start(rand_next_spawn)

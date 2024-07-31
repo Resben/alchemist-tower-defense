@@ -2,11 +2,13 @@ extends Entity
 class_name SoulMinion
 
 var should_chase = false
+var slash = preload("res://scenes/entities/slash.tscn")
+
 
 func _ready():
 	state = DEFEND
 	last_state = DEFEND
-	MOVEMENT_SPEED = 40
+	MOVEMENT_SPEED = 100
 	super._ready()
 	
 	stats = {
@@ -36,8 +38,14 @@ func run_attack_state(delta):
 	
 	nav.target_position = targeted_enemy.global_position
 	
-	if targeted_enemy.global_position.distance_to(global_position) < 25:
-		$AnimationPlayer.play("attack")
+	if !is_attacking && targeted_enemy.global_position.distance_to(global_position) < 40:
+		nav.target_position = global_position
+		is_attacking = true
+		var rand = randf_range(0.3, 1.0)
+		$AttackTimer.start(rand)
+	
+	if is_attacking:
+		nav.target_position = global_position
 
 func run_defend_state(delta):
 	var enemy = get_closet_enemy()
@@ -56,7 +64,19 @@ func run_defend_state(delta):
 	
 	if should_chase && is_instance_valid(targeted_enemy):
 		nav.target_position = targeted_enemy.global_position
-		if targeted_enemy.global_position.distance_to(global_position) < 25:
+		if targeted_enemy.global_position.distance_to(global_position) < 40:
+			nav.target_position = global_position
 			$AnimationPlayer.play("attack")
+			var proj = slash.instantiate()
+			proj.set_direction(global_position.direction_to(targeted_enemy.global_position))
+			get_node("/root/Main").add_child(proj)
 	else:
 		nav.target_position = defense_position
+
+
+func _on_attack_timer_timeout():
+	$AnimationPlayer.play("attack")
+	var proj = slash.instantiate()
+	proj.global_position = global_position
+	proj.set_direction(global_position.direction_to(targeted_enemy.global_position))
+	get_node("/root/Main").add_child(proj)

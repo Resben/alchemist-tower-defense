@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://hc03o1pkherv"]
+
+[ext_resource type="Script" path="res://scenes/entities/slash.gd" id="1_p7cpv"]
+
+[node name="Slash" type="Sprite2D"]
+script = ExtResource("1_p7cpv")

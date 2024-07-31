@@ -22,6 +22,8 @@ var enemy_cauldron : Node2D
 var spawn_pos : Vector2
 var is_ready = false
 
+var is_attacking = false
+
 var stats = {
 	"hp" : 5,
 	"max_hp" : 5,
@@ -140,9 +142,12 @@ func take_damage(dmg : int):
 
 func _on_animation_finished(anim_name):
 	if anim_name == "attack":
-		targeted_enemy.take_damage(stats["damage"])
+		if is_instance_valid(targeted_enemy):
+			targeted_enemy.take_damage(stats["damage"])
+		is_attacking = false
 	elif anim_name == "mine":
-		targeted_enemy.on_hit(group)
+		if is_instance_valid(targeted_enemy):
+			targeted_enemy.on_hit(group)
 
 ####################### STATES #######################
 
