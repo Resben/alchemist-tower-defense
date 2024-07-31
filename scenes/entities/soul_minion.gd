@@ -13,7 +13,7 @@ func _ready():
 	stats = {
 		"hp" : 5,
 		"max_hp" : 5,
-		"damage" : 50,
+		"damage" : 1,
 		"has_range" : false,
 		"effects" : {}
 	}
@@ -44,7 +44,7 @@ func run_attack_state(delta):
 		is_attacking = true
 		var rand = randf_range(0.3, 1.0)
 		$AttackTimer.start(rand)
-	
+		
 	if is_attacking:
 		nav.target_position = global_position
 
@@ -65,12 +65,14 @@ func run_defend_state(delta):
 	
 	if should_chase && is_instance_valid(targeted_enemy):
 		nav.target_position = targeted_enemy.global_position
-		if targeted_enemy.global_position.distance_to(global_position) < 40:
+		if !is_attacking && targeted_enemy.global_position.distance_to(global_position) < 40:
 			nav.target_position = global_position
-			$AnimationPlayer.play("attack")
-			var proj = slash.instantiate()
-			proj.set_direction(global_position.direction_to(targeted_enemy.global_position))
-			get_node("/root/Main").add_child(proj)
+			is_attacking = true
+			var rand = randf_range(0.3, 1.0)
+			$AttackTimer.start(rand)
+			
+		if is_attacking:
+			nav.target_position = global_position
 	else:
 		nav.target_position = defense_position
 

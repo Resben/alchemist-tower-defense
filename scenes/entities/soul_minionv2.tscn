@@ -33,6 +33,7 @@ libraries = {
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
