@@ -3,15 +3,16 @@ extends Node2D
 var fight_volume = -20
 
 func _ready():
-	$MainBGM.play()
 	$FightingBGM.volume_db = fight_volume
-	
 
 func _on_timer_timeout():
 	fight_volume += 1
 	$FightingBGM.volume_db = fight_volume
 	print(fight_volume)
 	$Timer.start()
+
+func start_game():
+	$Timer2.start()
 
 func _on_timer_2_timeout():
 	$Timer.start()

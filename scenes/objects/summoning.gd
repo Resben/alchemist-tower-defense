@@ -10,6 +10,8 @@ var spot_three = false
 
 func _ready():
 	$Animated.visible = false
+	if team == "cpu":
+		$Control/TextureButton.visible = false
 
 func _on_button_pressed():
 	if $AnimationPlayer.is_playing():
