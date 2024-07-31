@@ -1,7 +1,7 @@
 extends CanvasLayer
 
-var mine_active : Texture2D = preload("res://assets/ui/sword.png")
-var mine_inactive : Texture2D = preload("res://assets/ui/sword_inactive.png")
+var mine_active : Texture2D = preload("res://assets/ui/miner_button_active.png")
+var mine_inactive : Texture2D = preload("res://assets/ui/miner_button_inactive.png")
 var attack_active : Texture2D = preload("res://assets/ui/sword.png")
 var attack_inactive : Texture2D = preload("res://assets/ui/sword_inactive.png")
 var defense_active : Texture2D = preload("res://assets/ui/shield-active.png")

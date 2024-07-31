@@ -16,6 +16,7 @@ var num = 0
 var num_raw_mat = 0
 
 var army_reference = []
+var is_entity_caged = false
 
 var raw_mat_item = preload("res://resources/items/raw_material.tres") as Item
 
@@ -44,6 +45,9 @@ var enemies = {
 func _ready():
 	health = max_health
 	
+	toggle_ingredients(true)
+	$EntityCaged.visible = false
+	
 	if !is_players_cauldron:
 		$Control/Accept.visible = false
 		$Control/Decline.visible = false
@@ -66,7 +70,7 @@ func _ready():
 		$CPUSpawnTimer.start(rand_next_spawn)
 
 func _on_button_drop(pos : Vector2, node : Moveable):
-	if pos.distance_to(global_position) <= 14:
+	if pos.distance_to(global_position) <= 36:
 		add_ingredient(node.data)
 
 func take_damage(dmg : int):
@@ -134,8 +138,10 @@ func _on_accept_pressed():
 	num = 0
 	$Control/Decline.disabled = true
 	$Control/Accept.disabled = true
-	toggle_ingredients(false)
 	num_raw_mat = 0
+	toggle_ingredients(true)
+	is_entity_caged = false
+	$EntityCaged.visible = false
 
 func spawn_entity(id : String, new_spawn : Vector2 = Vector2.ZERO):
 	var entity = enemies[id].instantiate() as Entity
@@ -165,7 +171,6 @@ func _on_decline_pressed():
 	num = 0
 	$Control/Decline.disabled = true
 	$Control/Accept.disabled = true
-	toggle_ingredients(false)
 	num_raw_mat = 0
 
 func set_defense_positions():
@@ -302,5 +307,9 @@ func get_opposite_group() -> String:
 	return "na"
 
 func _on_summoning_shadow_drop(pos, id):
-	if pos.distance_to(global_position) <= 14:
-		$Summoning.moveable_used(id)
+	if !is_entity_caged:
+		if pos.distance_to(global_position) <= 36:
+			$Summoning.moveable_used(id)
+			$EntityCaged.visible = true
+			is_entity_caged = true
+			toggle_ingredients(false)

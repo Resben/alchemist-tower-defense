@@ -1,7 +1,8 @@
 [gd_scene load_steps=24 format=3 uid="uid://cn2ik5ubwaxxy"]
 
-[ext_resource type="Texture2D" uid="uid://cpco3c7amouc1" path="res://assets/objects/cauldron-Sheet.png" id="1_7plrp"]
 [ext_resource type="Script" path="res://scenes/objects/cauldron.gd" id="1_vr8ie"]
+[ext_resource type="Texture2D" uid="uid://caqju0fbtnav2" path="res://assets/objects/miner-no-pick.png" id="2_g66t4"]
+[ext_resource type="Texture2D" uid="uid://cnph1ny0dbvd5" path="res://assets/objects/cauldron.png" id="2_x5j5o"]
 [ext_resource type="Texture2D" uid="uid://d23kpnwy6dl3h" path="res://assets/ui/select_available.png" id="3_0duq8"]
 [ext_resource type="PackedScene" uid="uid://b1h3ktt2d7t45" path="res://scenes/objects/moveable_button.tscn" id="3_2qjev"]
 [ext_resource type="Texture2D" uid="uid://q0g7obq7xn7l" path="res://assets/items/soul.png" id="4_3mx1w"]
@@ -24,44 +25,14 @@ size = Vector2(59, 37)
 
 [sub_resource type="Animation" id="Animation_yrst3"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_yh0w3"]
-resource_name = "idle"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_owvpk"]
 _data = {
-"RESET": SubResource("Animation_yrst3"),
-"idle": SubResource("Animation_yh0w3")
+"RESET": SubResource("Animation_yrst3")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q3dem"]
-radius = 14.0
+radius = 36.0
 
 [node name="cauldron" type="Area2D"]
 script = ExtResource("1_vr8ie")
@@ -70,16 +41,19 @@ script = ExtResource("1_vr8ie")
 position = Vector2(0.5, 13.5)
 shape = SubResource("RectangleShape2D_cglbd")
 
+[node name="EntityCaged" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(11, -33)
+texture = ExtResource("2_g66t4")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("1_7plrp")
-hframes = 6
+texture = ExtResource("2_x5j5o")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_owvpk")
 }
-autoplay = "idle"
 
 [node name="Control" type="Control" parent="."]
 texture_filter = 1
