@@ -1,12 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://ktdgvmukutnd"]
+[gd_scene load_steps=8 format=3 uid="uid://ktdgvmukutnd"]
 
 [ext_resource type="Texture2D" uid="uid://d3kjgvuyqnjyn" path="res://assets/environment/title_screen.png" id="1_cmic2"]
 [ext_resource type="Script" path="res://scenes/start_screen.gd" id="1_ssrr2"]
 [ext_resource type="Texture2D" uid="uid://ct7xjykrxsksk" path="res://assets/ui/button.png" id="2_4htl7"]
 [ext_resource type="PackedScene" uid="uid://drlrbq2i01510" path="res://scenes/levels/main.tscn" id="2_rwptc"]
 [ext_resource type="Texture2D" uid="uid://bsa8gfcduwd30" path="res://assets/ui/button-pressed.png" id="3_12kik"]
+[ext_resource type="Texture2D" uid="uid://c54yv5qwi0on" path="res://assets/ui/wintext.png" id="6_khley"]
+[ext_resource type="Texture2D" uid="uid://c4y7hpmvnusc8" path="res://assets/ui/losttext.png" id="7_hik7e"]
 
 [node name="StartScreen" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_ssrr2")
 MainScene = ExtResource("2_rwptc")
 
@@ -43,5 +46,21 @@ grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("2_4htl7")
 texture_pressed = ExtResource("3_12kik")
+
+[node name="Win" type="TextureRect" parent="Control"]
+visible = false
+offset_left = 253.0
+offset_top = 118.0
+offset_right = 374.0
+offset_bottom = 158.0
+texture = ExtResource("6_khley")
+
+[node name="Loss" type="TextureRect" parent="Control"]
+visible = false
+offset_left = 257.0
+offset_top = 118.0
+offset_right = 383.0
+offset_bottom = 158.0
+texture = ExtResource("7_hik7e")
 
 [connection signal="button_up" from="Control/Start" to="." method="_on_start_button_up"]

@@ -124,6 +124,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-115, 246, 3132, 247, 3
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("player", "cpu")]
+process_mode = 1
 script = ExtResource("1_mpdg5")
 player = NodePath("player_cauldron")
 cpu = NodePath("cpu_cauldron")

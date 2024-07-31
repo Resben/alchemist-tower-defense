@@ -9,7 +9,7 @@ var navRegion : NavigationRegion2D
 var state
 var last_state
 
-var MOVEMENT_SPEED = 30
+var MOVEMENT_SPEED = 300
 var direction : Vector2
 var group : String
 var attack_direction : int
@@ -99,6 +99,9 @@ func set_team(team : String, defend_location : String, cauldron_to_attack : Node
 	add_to_group(team)
 
 func get_closet_enemy() -> Node2D:
+	if !is_instance_valid(enemy_cauldron):
+		return
+	
 	var closet : Node2D = enemy_cauldron
 	var length = global_position.distance_to(enemy_cauldron.global_position)
 	for e in get_tree().get_nodes_in_group(get_opposite_group()):

@@ -117,6 +117,8 @@ offset_left = -40.0
 offset_top = 85.0
 offset_bottom = 93.0
 scale = Vector2(2, 2)
+max_value = 250.0
+value = 250.0
 texture_under = ExtResource("20_1xktm")
 texture_over = ExtResource("22_epxma")
 texture_progress = ExtResource("21_wdccd")
@@ -137,9 +139,12 @@ autostart = true
 [node name="SoulBay" type="Sprite2D" parent="."]
 position = Vector2(-96, 0)
 
+[node name="GameTimeout" type="Timer" parent="."]
+
 [connection signal="pressed" from="Control/Accept" to="." method="_on_accept_pressed"]
 [connection signal="pressed" from="Control/Decline" to="." method="_on_decline_pressed"]
 [connection signal="_on_button_drop" from="Control/VBoxContainer1/RawButton" to="." method="_on_button_drop"]
 [connection signal="_on_button_drop" from="Control/VBoxContainer1/BloodvineButton" to="." method="_on_button_drop"]
 [connection signal="timeout" from="CPUSpawnTimer" to="." method="_on_cpu_spawn_timer_timeout"]
 [connection signal="timeout" from="SoulTimer" to="." method="_on_soul_timer_timeout"]
+[connection signal="timeout" from="GameTimeout" to="." method="_on_game_timeout_timeout"]

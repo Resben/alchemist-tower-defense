@@ -14,7 +14,7 @@ func _ready():
 	stats = {
 		"hp" : 5,
 		"max_hp" : 5,
-		"damage" : 1,
+		"damage" : 50,
 		"has_range" : false,
 		"effects" : {}
 	}
@@ -29,6 +29,8 @@ func run_attack_state(delta):
 	var enemy = get_closet_enemy()
 	if !is_instance_valid(targeted_enemy):
 		targeted_enemy = enemy
+		if !is_instance_valid(enemy):
+			return
 	elif targeted_enemy != enemy:
 		# If there is a sizable difference between the two then switch target
 		var target_distance_to_opposition = targeted_enemy.global_position.distance_to(global_position)
@@ -75,6 +77,9 @@ func run_defend_state(delta):
 
 
 func _on_attack_timer_timeout():
+	if !is_instance_valid(self) || !is_instance_valid(targeted_enemy):
+		return
+	
 	$AnimationPlayer.play("attack")
 	var proj = slash.instantiate()
 	proj.global_position = global_position

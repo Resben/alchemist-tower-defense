@@ -9,7 +9,7 @@ class_name Cauldron
 @export var enemy_cauldron : Cauldron
 
 var health : int
-var max_health : int = 100
+var max_health : int = 250
 var ingredient_one : Item = null
 var ingredient_two : Item = null
 var num = 0
@@ -19,6 +19,7 @@ var army_reference = []
 var is_entity_caged = false
 
 var raw_mat_item = preload("res://resources/items/raw_material.tres") as Item
+var menu = load("res://scenes/start_screen.tscn")
 
 var result = {
 	"no_material" : {
@@ -77,7 +78,17 @@ func take_damage(dmg : int):
 	health -= dmg
 	$Control/TextureProgressBar.value = health
 	if health <= 0:
-		pass # Game over
+		var menu_insta = menu.instantiate()
+		if team == "player":
+			menu_insta.set_as_end_screen("win")
+			get_node("/root/").add_child(menu_insta)
+			get_tree().paused = true
+			queue_free()
+		elif team == "cpu":
+			menu_insta.set_as_end_screen("lost")
+			get_node("/root/").add_child(menu_insta)
+			get_tree().paused = true
+			queue_free()
 
 func store_ingredient(data : Item):
 	Global.team[team][data.id] += 1
@@ -325,3 +336,6 @@ func _on_summoning_shadow_drop(pos, id):
 			$EntityCaged.visible = true
 			is_entity_caged = true
 			toggle_ingredients(false)
+
+func _on_game_timeout_timeout():
+	queue_free()
