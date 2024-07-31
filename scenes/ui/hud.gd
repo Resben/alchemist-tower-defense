@@ -38,7 +38,7 @@ func _on_mine_pressed():
 func update_items():
 	$Control/HBoxContainer/Material.set_count(Global.team["player"]["raw_material"])
 	$Control/HBoxContainer/Soul.set_count(Global.team["player"]["soul"])
-	$Control/HBoxContainer/Rune.set_count(Global.team["player"]["rune"])
-	$Control/HBoxContainer/Phantom.set_count(Global.team["player"]["phantom_weave"])
+	#$Control/HBoxContainer/Rune.set_count(Global.team["player"]["rune"])
+	#$Control/HBoxContainer/Phantom.set_count(Global.team["player"]["phantom_weave"])
 	$Control/HBoxContainer/Bloodvine.set_count(Global.team["player"]["bloodvine"])
-	$Control/HBoxContainer/Wyrm.set_count(Global.team["player"]["wyrm_bone"])
+	#$Control/HBoxContainer/Wyrm.set_count(Global.team["player"]["wyrm_bone"])

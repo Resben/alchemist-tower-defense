@@ -16,7 +16,7 @@ var player_state = DEFEND
 
 var team = {
 	"player" : {
-		"soul" : 1,
+		"soul" : 5,
 		"rune" : 2,
 		"phantom_weave" : 3,
 		"bloodvine" : 4,

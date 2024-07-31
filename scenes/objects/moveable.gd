@@ -30,7 +30,6 @@ func _on_button_down():
 		held = true
 		$moveable.visible = true
 		self.texture_normal = selected_texture
-		
 
 func _process(delta):
 	if held:
@@ -46,18 +45,6 @@ func _on_button_up():
 
 func toggle_disable(boo : bool):
 	disabled = boo
-
-func reduce_number():
-	Global.team[cauldron.team][data.id] = Global.team[cauldron.team][data.id] - 1
-	update_button()
-
-func add_number():
-	Global.team[cauldron.team][data.id] = Global.team[cauldron.team][data.id] + 1
-	update_button()
-
-func set_number(num : int):
-	Global.team[cauldron.team][data.id] = num
-	update_button()
 
 func update_button():
 	get_node("/root/Main/HUD").update_items()

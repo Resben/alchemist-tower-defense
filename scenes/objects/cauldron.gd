@@ -20,46 +20,25 @@ var army_reference = []
 var raw_mat_item = preload("res://resources/items/raw_material.tres") as Item
 
 var result = {
-	"soul" : {
-		"soul" : "soul_minion",
-		"rune" : "miner",
-		"phantom_weave" : "soul_minion",
-		"bloodvine" : "soul_minion",
-		"wyrm_bone" : "soul_minion"
+	"no_material" : {
+		"raw_material" : "soul_minion",
+		"bloodvine" : "soul_minion"
 		},
-	"rune" : {
-		"soul" : "soul_minion",
-		"rune" : "soul_minion",
-		"phantom_weave" : "soul_minion",
-		"bloodvine" : "soul_minion",
-		"wyrm_bone" : "soul_minion"
-	},
-	"phantom_weave" : {
-		"soul" : "soul_minion",
-		"rune" : "soul_minion",
-		"phantom_weave" : "soul_minion",
-		"bloodvine" : "soul_minion",
-		"wyrm_bone" : "soul_minion"
+	"raw_material" : {
+		"no_material" : "soul_minion",
+		"raw_material" : "soul_minion",
+		"bloodvine" : "soul_minion"
 	},
 	"bloodvine" : {
-		"soul" : "soul_minion",
-		"rune" : "soul_minion",
-		"phantom_weave" : "soul_minion",
+		"no_material" : "soul_minion",
+		"raw_material" : "soul_minion",
 		"bloodvine" : "soul_minion",
-		"wyrm_bone" : "soul_minion"
-	},
-	"wyrm_bone" : {
-		"soul" : "soul_minion",
-		"rune" : "soul_minion",
-		"phantom_weave" : "soul_minion",
-		"bloodvine" : "soul_minion",
-		"wyrm_bone" : "soul_minion"
 	}
 }
 
 var enemies = {
-	"soul_minion" : preload("res://scenes/entities/soul_minionv2.tscn"),
-	"miner" : preload("res://scenes/entities/miner.tscn")
+	"soul_minion" : load("res://scenes/entities/soul_minionv2.tscn"),
+	"miner" : load("res://scenes/entities/miner.tscn")
 }
 
 func _ready():
@@ -68,13 +47,11 @@ func _ready():
 	if !is_players_cauldron:
 		$Control/Accept.visible = false
 		$Control/Decline.visible = false
-		$Control/RawMaterialButton.visible = false
 		$Control/VBoxContainer1.visible = false
 		$Control/TextureProgressBar.visible = true
 	else:
 		$Control/Accept.visible = true
 		$Control/Decline.visible = true
-		$Control/RawMaterialButton.visible = true
 		$Control/VBoxContainer1.visible = true
 		$Control/TextureProgressBar.visible = true
 	
@@ -90,7 +67,6 @@ func _ready():
 
 func _on_button_drop(pos : Vector2, node : Moveable):
 	if pos.distance_to(global_position) <= 14:
-		node.reduce_number()
 		add_ingredient(node.data)
 
 func take_damage(dmg : int):
@@ -100,31 +76,32 @@ func take_damage(dmg : int):
 		pass # Game over
 
 func store_ingredient(data : Item):
-	if data.id == "raw_material":
-		$Control/RawMaterialButton.add_number()
-		return
-	
+	Global.team[team][data.id] += 1
 	for c in $Control/VBoxContainer1.get_children():
-		if c.data.id == data.id:
-			c.add_number()
+		c.update_button()
+	get_node("/root/Main/HUD").update_items()
 
 func add_ingredient(data : Item):
-	if data.id == "raw_material":
-		num_raw_mat += 1
-	else:
-		if num == 0:
-			ingredient_one = data
-			num += 1
-		elif num == 1:
-			ingredient_two = data
+	if num == 0:
+		ingredient_one = data
+		num += 1
+	elif num == 1:
+		ingredient_two = data
+	
+	Global.team[team][data.id] -= 1
+	for c in $Control/VBoxContainer1.get_children():
+		c.update_button()
+	get_node("/root/Main/HUD").update_items()
 	
 	if ingredient_one != null || ingredient_two != null || num_raw_mat != 0:
 		$Control/Decline.disabled = false
 	else:
 		$Control/Decline.disabled = true
 	
-	if ingredient_one != null && ingredient_two != null:
+	if ingredient_one != null || ingredient_two != null:
 		$Control/Accept.disabled = false
+	
+	if ingredient_one != null && ingredient_two != null:
 		toggle_ingredients(true)
 
 func toggle_ingredients(boo : bool):
@@ -132,7 +109,15 @@ func toggle_ingredients(boo : bool):
 		c.toggle_disable(boo)
 
 func _on_accept_pressed():
-	var entity_id = result[ingredient_one.id][ingredient_two.id]
+	var entity_id
+	
+	if ingredient_one == null && ingredient_two != null:
+		entity_id = result["no_material"][ingredient_two.id]
+	elif ingredient_two == null && ingredient_one != null:
+		entity_id = result[ingredient_one.id]["no_material"]
+	else:
+		entity_id = result[ingredient_one.id][ingredient_two.id]
+	
 	var entity = enemies[entity_id].instantiate() as Entity
 	var loc
 	if team == "player":

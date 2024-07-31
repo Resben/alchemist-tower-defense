@@ -25,26 +25,6 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Material" type="TextureRect" parent="Control/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("2_xxvoe")
-script = ExtResource("3_gn3w0")
-available = ExtResource("2_xxvoe")
-unavailable = ExtResource("4_oh0sq")
-
-[node name="Label" type="Label" parent="Control/HBoxContainer/Material"]
-layout_mode = 2
-offset_left = 24.0
-offset_top = 29.0
-offset_right = 34.0
-offset_bottom = 52.0
-text = "0"
-
-[node name="Panel" type="Panel" parent="Control/HBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-
 [node name="Soul" type="TextureRect" parent="Control/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("3_6kxe8")
@@ -60,29 +40,19 @@ offset_right = 34.0
 offset_bottom = 52.0
 text = "0"
 
-[node name="Rune" type="TextureRect" parent="Control/HBoxContainer"]
+[node name="Panel" type="Panel" parent="Control/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-texture = ExtResource("3_6kxe8")
+
+[node name="Material" type="TextureRect" parent="Control/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_xxvoe")
 script = ExtResource("3_gn3w0")
-available = ExtResource("3_6kxe8")
-unavailable = ExtResource("6_h883f")
+available = ExtResource("2_xxvoe")
+unavailable = ExtResource("4_oh0sq")
 
-[node name="Label" type="Label" parent="Control/HBoxContainer/Rune"]
-layout_mode = 2
-offset_left = 24.0
-offset_top = 29.0
-offset_right = 34.0
-offset_bottom = 52.0
-text = "0"
-
-[node name="Phantom" type="TextureRect" parent="Control/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("3_6kxe8")
-script = ExtResource("3_gn3w0")
-available = ExtResource("3_6kxe8")
-unavailable = ExtResource("6_h883f")
-
-[node name="Label" type="Label" parent="Control/HBoxContainer/Phantom"]
+[node name="Label" type="Label" parent="Control/HBoxContainer/Material"]
 layout_mode = 2
 offset_left = 24.0
 offset_top = 29.0
@@ -98,21 +68,6 @@ available = ExtResource("3_6kxe8")
 unavailable = ExtResource("6_h883f")
 
 [node name="Label" type="Label" parent="Control/HBoxContainer/Bloodvine"]
-layout_mode = 2
-offset_left = 24.0
-offset_top = 29.0
-offset_right = 34.0
-offset_bottom = 52.0
-text = "0"
-
-[node name="Wyrm" type="TextureRect" parent="Control/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("3_6kxe8")
-script = ExtResource("3_gn3w0")
-available = ExtResource("3_6kxe8")
-unavailable = ExtResource("6_h883f")
-
-[node name="Label" type="Label" parent="Control/HBoxContainer/Wyrm"]
 layout_mode = 2
 offset_left = 24.0
 offset_top = 29.0

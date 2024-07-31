@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuf13are40kpg"]
+
+[ext_resource type="Texture2D" uid="uid://caqju0fbtnav2" path="res://assets/objects/miner-no-pick.png" id="1_exu8y"]
+[ext_resource type="Script" path="res://scenes/objects/moveable_entity.gd" id="2_8kejp"]
+
+[node name="MoveableEntity" type="TextureButton"]
+texture_filter = 1
+offset_right = 64.0
+offset_bottom = 64.0
+texture_normal = ExtResource("1_exu8y")
+flip_h = true
+script = ExtResource("2_8kejp")
+texture = ExtResource("1_exu8y")
+
+[node name="moveable" type="Sprite2D" parent="."]
+texture = ExtResource("1_exu8y")
+offset = Vector2(0, -22.5)
+flip_h = true
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="button_up" from="." to="." method="_on_button_up"]
