@@ -8,7 +8,10 @@ class_name Cauldron
 @export var is_players_cauldron : bool
 @export var enemy_cauldron : Cauldron
 
-var cauldron_state = Entity.DEFEND
+var hostile_state = Global.DEFEND
+var last_hostile_state = Global.DEFEND
+var passive_state = Global.MINE
+var last_passive_state = Global.MINE
 
 var health : int
 var max_health : int = 75
@@ -146,7 +149,7 @@ func _on_accept_pressed():
 	else:
 		loc = "right"
 	entity.global_position = spawn.global_position
-	entity.set_team(team, loc, enemy_cauldron, global_position)
+	entity.set_team(team, loc, enemy_cauldron, global_position, self)
 	on_new_entity(entity)
 	get_parent().add_child(entity)
 	army_reference.push_back(entity)
@@ -171,7 +174,7 @@ func spawn_entity(id : String, new_spawn : Vector2 = Vector2.ZERO):
 		entity.global_position = spawn.global_position
 	else:
 		entity.global_position = new_spawn
-	entity.set_team(team, loc, enemy_cauldron, global_position)
+	entity.set_team(team, loc, enemy_cauldron, global_position, self)
 	on_new_entity(entity)
 	get_parent().add_child(entity)
 	army_reference.push_back(entity)
@@ -210,7 +213,6 @@ func on_new_entity(entity : Entity):
 			column += 1
 	
 	entity._on_death.connect(_on_friendly_death)
-	entity.state = cauldron_state
 	entity.set_defense_position(row, column, starting_defense_pos.global_position)
 
 func _on_soul_timer_timeout():
@@ -276,14 +278,13 @@ func _on_cpu_spawn_timer_timeout():
 			sampled_enemy_entity = enemy
 			enemy_might += 1
 	
-	if sampled_enemy_entity != null:
-		if sampled_enemy_entity.state == Entity.DEFEND:
-			for miner in get_tree().get_nodes_in_group(get_opposite_group()):
-				if is_instance_valid(miner) && is_instance_of(miner, Miner):
-					if miner.global_position.distance_to(enemy_cauldron.global_position) > 1000:
-						rule_four = true
+	if enemy_cauldron.hostile_state == Global.DEFEND:
+		for miner in get_tree().get_nodes_in_group(get_opposite_group()):
+			if is_instance_valid(miner) && is_instance_of(miner, Miner):
+				if miner.global_position.distance_to(enemy_cauldron.global_position) > 1000:
+					rule_four = true
 	
-	if cpu_might > enemy_might && current_state != Entity.ATTACK:
+	if cpu_might > enemy_might && current_state != Global.ATTACK:
 		rule_five = true
 	
 	if rule_one:
@@ -291,8 +292,7 @@ func _on_cpu_spawn_timer_timeout():
 		Global.team[team]["soul"] -= 1
 		#print("enemy summoned a miner")
 	elif rule_five:
-		get_tree().call_group(team, "update_state", Global.ATTACK)
-		cauldron_state = Entity.ATTACK
+		update_hostile_state(Global.ATTACK)
 		#print("enemy went on the offensive")
 	elif rule_two:
 		$ToolRack._on_summoning_toolrack_shadow_drop(Vector2(-999, -999), "na")
@@ -305,8 +305,7 @@ func _on_cpu_spawn_timer_timeout():
 	elif rule_four:
 		var rand = randi_range(1, 100)
 		if rand < 51:
-			get_tree().call_group(team, "update_state", Global.ATTACK)
-			cauldron_state = Entity.ATTACK
+			update_hostile_state(Global.ATTACK)
 			#print("enemy noticed you are mining too far in")
 	
 	var rand_next_spawn = randi_range(15, 20)
@@ -352,12 +351,28 @@ func _on_game_timeout_timeout():
 
 func _on_friendly_death(entity):
 	if is_instance_of(entity, Miner):
-		for e in get_tree().get_nodes_in_group(team):
-			if is_instance_valid(e) && is_instance_of(e, Miner):
-				e.update_mine(Entity.RETREAT)
-				$ReturnMine.start()
+		update_passive_state(Global.RETREAT)
+		$ReturnMine.start()
 
 func _on_return_mine_timeout():
-		for e in get_tree().get_nodes_in_group(team):
-			if is_instance_valid(e) && is_instance_of(e, Miner):
-				e.update_mine(Entity.MINE)
+	update_passive_state(Global.MINE)
+
+func update_hostile_state(new_state):
+	if new_state == Global.ATTACK:
+		if hostile_state != Global.ATTACK:
+			last_hostile_state = hostile_state
+			hostile_state = Global.ATTACK
+	elif new_state == Global.DEFEND:
+		if hostile_state != Global.DEFEND:
+			last_hostile_state = hostile_state
+			hostile_state = Global.DEFEND
+
+func update_passive_state(new_state):
+	if new_state == Global.MINE:
+		if passive_state != Global.MINE:
+			last_passive_state = passive_state
+			passive_state = Global.MINE
+	elif new_state == Global.RETREAT:
+		if passive_state != Global.RETREAT:
+			last_passive_state = passive_state
+			passive_state = Global.RETREAT

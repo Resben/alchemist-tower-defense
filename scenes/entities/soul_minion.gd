@@ -1,4 +1,4 @@
-extends Entity
+extends Hostile
 class_name SoulMinion
 
 var should_chase = false
@@ -6,14 +6,13 @@ var slash = preload("res://scenes/entities/slash.tscn")
 
 
 func _ready():
-	last_state = DEFEND
-	MOVEMENT_SPEED = 40
 	super._ready()
 	
 	stats = {
 		"hp" : 5,
 		"max_hp" : 5,
 		"damage" : 1,
+		"speed" : 40,
 		"has_range" : false,
 		"effects" : {}
 	}
@@ -51,7 +50,7 @@ func run_attack_state(delta):
 func run_defend_state(delta):
 	var enemy = get_closet_enemy()
 	if is_instance_valid(enemy) && !is_instance_of(enemy, Cauldron):
-		if enemy.state == ATTACK:
+		if enemy_cauldron.hostile_state == Global.ATTACK:
 			var distance = global_position.distance_to(enemy.global_position)
 			if distance < 280:
 				targeted_enemy = enemy

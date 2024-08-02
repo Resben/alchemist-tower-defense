@@ -1,16 +1,14 @@
-extends Entity
+extends Passive
 class_name Miner
 
 func _ready():
-	state = MINE
-	last_state = MINE
-	MOVEMENT_SPEED = 50
 	super._ready()
 	
 	stats = {
 		"hp" : 5,
 		"max_hp" : 5,
 		"damage" : 1,
+		"speed" : 50,
 		"has_range" : false,
 		"effects" : {}
 	}
@@ -18,7 +16,7 @@ func _ready():
 func _physics_process(delta):
 	super._physics_process(delta)
 	
-	if state == RETREAT:
+	if friendly_cauldron.passive_state == Global.RETREAT:
 		nav.target_position = spawn_pos
 	else:
 		var next_mineable = get_closet_minable()
@@ -29,15 +27,3 @@ func _physics_process(delta):
 		if is_instance_valid(targeted_enemy):
 			if global_position.distance_to(targeted_enemy.global_position) < 30:
 				$AnimationPlayer.play("mine")
-
-func get_closet_minable() -> Node2D:
-	var closet : Node2D = null
-	var length = 99999
-	for r in get_tree().get_nodes_in_group("resource"):
-		if is_instance_valid(r):
-			var next_length = global_position.distance_to(r.global_position)
-			if next_length < length:
-				length = next_length
-				closet = r
-	
-	return closet

@@ -1,0 +1,250 @@
+[gd_scene load_steps=15 format=3 uid="uid://drlrbq2i01510"]
+
+[ext_resource type="Script" path="res://scenes/levels/main.gd" id="1_mpdg5"]
+[ext_resource type="Texture2D" uid="uid://b4ge2nc0qendf" path="res://assets/environment/tilemapv2.png" id="2_spllf"]
+[ext_resource type="PackedScene" uid="uid://c5mvmswxrgoff" path="res://scenes/ui/hud.tscn" id="3_02g4f"]
+[ext_resource type="PackedScene" uid="uid://cn2ik5ubwaxxy" path="res://scenes/objects/cauldron.tscn" id="4_l6yrg"]
+[ext_resource type="Texture2D" uid="uid://w72kdg3ijpyf" path="res://assets/environment/sky-layer.png" id="5_djc3i"]
+[ext_resource type="PackedScene" uid="uid://nw7hvtemv8ui" path="res://scenes/objects/tool_rack.tscn" id="6_3o1bu"]
+[ext_resource type="Texture2D" uid="uid://gcl8j5346gvn" path="res://assets/environment/mountain-layer-one.png" id="6_4yimt"]
+[ext_resource type="Texture2D" uid="uid://dhuiaheml0ul5" path="res://assets/environment/mountain-layer-two.png" id="6_ej0ck"]
+[ext_resource type="PackedScene" uid="uid://3djtygv2iirj" path="res://scenes/objects/mineable.tscn" id="8_p4fy2"]
+[ext_resource type="Resource" uid="uid://cpl04ne7ad6cc" path="res://resources/items/raw_material.tres" id="9_n444j"]
+[ext_resource type="PackedScene" uid="uid://b7bt3blfr53du" path="res://scenes/objects/summoning.tscn" id="10_kdbt8"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_octm8"]
+texture = ExtResource("2_spllf")
+texture_region_size = Vector2i(64, 64)
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+9:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+8:4/0 = 0
+9:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+8:5/0 = 0
+9:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+8:6/0 = 0
+9:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+8:7/0 = 0
+9:7/0 = 0
+0:8/0 = 0
+1:8/0 = 0
+2:8/0 = 0
+3:8/0 = 0
+4:8/0 = 0
+5:8/0 = 0
+6:8/0 = 0
+7:8/0 = 0
+8:8/0 = 0
+9:8/0 = 0
+0:9/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+3:9/0 = 0
+4:9/0 = 0
+5:9/0 = 0
+6:9/0 = 0
+7:9/0 = 0
+8:9/0 = 0
+9:9/0 = 0
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_sr33g"]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_octm8")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_c82g6"]
+vertices = PackedVector2Array(3122, 304, -105, 304, -105, 256, 3122, 256)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-115, 246, 3132, 247, 3132, 315, -115, 314)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("player", "cpu")]
+process_mode = 1
+script = ExtResource("1_mpdg5")
+player = NodePath("player_cauldron")
+cpu = NodePath("cpu_cauldron")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 170)
+limit_left = 0
+limit_top = 0
+limit_right = 3050
+limit_bottom = 364
+editor_draw_limits = true
+
+[node name="TileMap" type="TileMap" parent="."]
+texture_filter = 1
+position = Vector2(1000, 304)
+tile_set = SubResource("TileSet_sr33g")
+format = 2
+layer_0/tile_data = PackedInt32Array(-2, 131072, 1, -1, 131072, 1, -65536, 131072, 1, -65535, 131072, 1, -65534, 131072, 1, -65533, 131072, 1, -65532, 131072, 1, -65531, 131072, 1, -65530, 262144, 1, -65529, 131072, 1, -65528, 131072, 1, -65527, 131072, 1, -3, 131072, 1, -4, 131072, 1, -5, 131072, 1, -6, 262144, 1, -7, 131072, 1, -8, 131072, 1, -9, 131072, 1, -10, 131072, 1, -11, 131072, 1, -12, 131072, 1, -13, 262144, 1, -14, 131072, 1, -15, 131072, 1, -16, 131072, 1, -65526, 131072, 1, -65525, 131072, 1, -65524, 262144, 1, -65523, 131072, 1, -65522, 131072, 1, -65521, 131072, 1, 65520, 262144, 2, 65521, 131072, 2, 65522, 262144, 2, 65523, 262144, 2, 65524, 262144, 2, 65525, 262144, 2, 65526, 131072, 2, 65527, 262144, 2, 65528, 262144, 2, 65529, 262144, 2, 65530, 262144, 2, 65531, 262144, 2, 65532, 262144, 2, 65533, 131072, 2, 65534, 262144, 2, 65535, 262144, 2, 0, 262144, 2, 1, 262144, 2, 2, 262144, 2, 3, 262144, 2, 4, 131072, 2, 5, 262144, 2, 6, 262144, 2, 7, 262144, 2, 8, 262144, 2, 9, 262144, 2, 10, 131072, 2, 11, 262144, 2, 12, 262144, 2, 13, 262144, 2, 14, 262144, 2, 15, 131072, 2, 65551, 0, 1, 65550, 0, 1, 65549, 0, 1, 65548, 0, 1, 65547, 0, 1, 65546, 0, 1, 65545, 0, 1, 65544, 0, 1, 65543, 0, 1, 65542, 0, 1, 65541, 0, 1, 65540, 0, 1, 65539, 0, 1, 65538, 0, 1, 65537, 0, 1, 65536, 0, 1, 131071, 0, 1, 131070, 0, 1, 131069, 0, 1, 131068, 0, 1, 131067, 0, 1, 131066, 0, 1, 131065, 0, 1, 131064, 0, 1, 131063, 0, 1, 131062, 0, 1, 131061, 0, 1, 131060, 0, 1, 131059, 0, 1, 131058, 0, 1, 131056, 0, 1, 131057, 0, 1, -17, 131072, 1, -18, 131072, 1, -19, 131072, 1, -20, 131072, 1, -65520, 131072, 1, -65519, 131072, 1, -65518, 131072, 1, -65517, 131072, 1, 65519, 262144, 2, 65517, 262144, 2, 65516, 262144, 2, 65518, 262144, 2, 131052, 0, 1, 131053, 0, 1, 131054, 0, 1, 131055, 0, 1, 16, 262144, 2, 17, 262144, 2, 18, 262144, 2, 19, 262144, 2, 65555, 0, 1, 65554, 0, 1, 65553, 0, 1, 65552, 0, 1, -65542, 262144, 0, -65549, 262144, 0, -131066, 262144, 0, -131060, 262144, 0, -65516, 262144, 1, -65515, 131072, 1, -65514, 131072, 1, -65513, 131072, 1, -65512, 131072, 1, -65511, 131072, 1, -65510, 131072, 1, -65509, 131072, 1, -65508, 131072, 1, -65507, 131072, 1, -65506, 131072, 1, -65505, 262144, 1, -65504, 131072, 1, -65503, 131072, 1, -65502, 131072, 1, 34, 262144, 2, 33, 262144, 2, 32, 262144, 2, 31, 131072, 2, 30, 262144, 2, 29, 262144, 2, 28, 262144, 2, 27, 262144, 2, 26, 262144, 2, 25, 262144, 2, 24, 131072, 2, 23, 262144, 2, 22, 262144, 2, 21, 262144, 2, 20, 131072, 2, 65556, 0, 1, 65557, 0, 1, 65558, 0, 1, 65559, 0, 1, 65560, 0, 1, 65561, 0, 1, 65562, 0, 1, 65563, 0, 1, 65564, 0, 1, 65565, 0, 1, 65566, 0, 1, 65567, 0, 1, 65568, 0, 1, 65569, 0, 1, 65570, 0, 1, -131041, 262144, 0, -131052, 262144, 0)
+
+[node name="HUD" parent="." instance=ExtResource("3_02g4f")]
+
+[node name="player_cauldron" parent="." node_paths=PackedStringArray("starting_defense_pos", "spawn", "enemy_cauldron") instance=ExtResource("4_l6yrg")]
+position = Vector2(292, 252)
+starting_defense_pos = NodePath("DefensePosition")
+spawn = NodePath("Spawn")
+team = "player"
+is_players_cauldron = true
+enemy_cauldron = NodePath("../cpu_cauldron")
+
+[node name="Spawn" type="Node2D" parent="player_cauldron"]
+position = Vector2(-4, 0)
+
+[node name="DefensePosition" type="Node2D" parent="player_cauldron"]
+position = Vector2(300, -10)
+
+[node name="ToolRack" parent="player_cauldron" instance=ExtResource("6_3o1bu")]
+position = Vector2(-88, 24)
+
+[node name="Summoning" parent="player_cauldron" instance=ExtResource("10_kdbt8")]
+position = Vector2(-257, 22)
+team = "player"
+
+[node name="cpu_cauldron" parent="." node_paths=PackedStringArray("starting_defense_pos", "spawn", "enemy_cauldron") instance=ExtResource("4_l6yrg")]
+position = Vector2(2719, 255)
+starting_defense_pos = NodePath("DefensePosition")
+spawn = NodePath("Spawn")
+team = "cpu"
+enemy_cauldron = NodePath("../player_cauldron")
+
+[node name="Spawn" type="Node2D" parent="cpu_cauldron"]
+position = Vector2(-4, 0)
+
+[node name="DefensePosition" type="Node2D" parent="cpu_cauldron"]
+position = Vector2(-300, -10)
+
+[node name="ToolRack" parent="cpu_cauldron" instance=ExtResource("6_3o1bu")]
+position = Vector2(103, 20)
+
+[node name="Summoning" parent="cpu_cauldron" instance=ExtResource("10_kdbt8")]
+position = Vector2(182, 15)
+team = "cpu"
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+texture_filter = 1
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(728, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Sky"]
+texture_repeat = 2
+texture = ExtResource("5_djc3i")
+centered = false
+region_rect = Rect2(0, 0, 1820, 640)
+
+[node name="MountainTwo" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(728, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/MountainTwo"]
+texture_filter = 1
+texture = ExtResource("6_ej0ck")
+centered = false
+
+[node name="MountainOne" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(728, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/MountainOne"]
+texture_filter = 1
+texture = ExtResource("6_4yimt")
+centered = false
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(0, -25)
+navigation_polygon = SubResource("NavigationPolygon_c82g6")
+
+[node name="Mineable2" parent="." instance=ExtResource("8_p4fy2")]
+position = Vector2(1196, 257)
+data = ExtResource("9_n444j")
+hits = 200
+hits_till_resource = 50
+
+[node name="Mineable" parent="." instance=ExtResource("8_p4fy2")]
+position = Vector2(850, 255)
+data = ExtResource("9_n444j")
+hits = 200
+hits_till_resource = 50
+
+[node name="Mineable4" parent="." instance=ExtResource("8_p4fy2")]
+position = Vector2(2216, 258)
+data = ExtResource("9_n444j")
+hits = 200
+hits_till_resource = 50
+
+[node name="Mineable3" parent="." instance=ExtResource("8_p4fy2")]
+position = Vector2(1796, 257)
+data = ExtResource("9_n444j")
+hits = 200
+hits_till_resource = 50
+
+[connection signal="_on_shadow_drop" from="player_cauldron/Summoning" to="player_cauldron" method="_on_summoning_shadow_drop"]
+[connection signal="_on_shadow_drop" from="player_cauldron/Summoning" to="player_cauldron/ToolRack" method="_on_summoning_toolrack_shadow_drop"]

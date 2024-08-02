@@ -36,6 +36,8 @@ radius = 36.0
 
 [node name="cauldron" type="Area2D"]
 script = ExtResource("1_vr8ie")
+team = null
+is_players_cauldron = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 13.5)

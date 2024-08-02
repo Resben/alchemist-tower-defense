@@ -1,17 +1,11 @@
 extends CharacterBody2D
 class_name Entity
 
-enum { DEFEND, ATTACK, RETREAT, MINE }
-
 signal _on_death
 
 var navRegion : NavigationRegion2D
 @onready var nav : NavigationAgent2D = $NavigationAgent2D
 
-var state
-var last_state
-
-var MOVEMENT_SPEED = 40
 var direction : Vector2
 var group : String
 var attack_direction : int
@@ -20,6 +14,7 @@ var defense_position : Vector2
 var targeted_enemy : Node2D
 
 var enemy_cauldron : Node2D
+var friendly_cauldron : Node2D
 
 var spawn_pos : Vector2
 var is_ready = false
@@ -30,13 +25,12 @@ var stats = {
 	"hp" : 5,
 	"max_hp" : 5,
 	"damage" : 1,
+	"speed" : 40,
 	"has_range" : false,
 	"effects" : {}
 }
 
 func _ready():
-	#collision_layer = 2
-	#collision_mask = 2
 	is_ready = true
 	navRegion = get_parent().navRegion
 	
@@ -50,27 +44,14 @@ func _ready():
 	call_deferred("setup")
 
 func setup():
-	await get_tree().physics_frame
-	
-	if state == DEFEND:
-		nav.target_position = defense_position
-	else:
-		targeted_enemy = get_closet_enemy()
-		nav.target_position = targeted_enemy.global_position
+	pass
 
 func _physics_process(delta):
-	if state != last_state:
-		exit_state(last_state)
-		enter_state(state)
-		last_state = state
-	
-	run_state(delta, state)
-	
 	if nav.is_navigation_finished():
 		return
 	
 	var next_path_position = nav.get_next_path_position()
-	var new_velocity = global_position.direction_to(next_path_position) * MOVEMENT_SPEED
+	var new_velocity = global_position.direction_to(next_path_position) * stats["speed"]
 	direction = new_velocity
 	
 	if nav.avoidance_enabled:
@@ -88,8 +69,9 @@ func _physics_process(delta):
 func _on_navigation_agent_2d_velocity_computed(safe_velocity):
 	velocity = safe_velocity
 
-func set_team(team : String, defend_location : String, cauldron_to_attack : Node2D, cauldron_pos : Vector2):
+func set_team(team : String, defend_location : String, cauldron_to_attack : Node2D, cauldron_pos : Vector2, cauldron_to_defend : Node2D):
 	enemy_cauldron = cauldron_to_attack
+	friendly_cauldron = cauldron_to_defend
 	defense_position = cauldron_pos
 	spawn_pos = global_position
 	
@@ -99,21 +81,6 @@ func set_team(team : String, defend_location : String, cauldron_to_attack : Node
 		attack_direction = -1
 	group = team
 	add_to_group(team)
-
-func get_closet_enemy() -> Node2D:
-	if !is_instance_valid(enemy_cauldron):
-		return
-	
-	var closet : Node2D = enemy_cauldron
-	var length = global_position.distance_to(enemy_cauldron.global_position)
-	for e in get_tree().get_nodes_in_group(get_opposite_group()):
-		if is_instance_valid(e):
-			var next_length = global_position.distance_to(e.global_position)
-			if next_length < length:
-				length = next_length
-				closet = e
-	
-	return closet
 
 func set_defense_position(r : int, c : int, d_pos : Vector2):
 	if is_instance_of(self, Miner):
@@ -156,77 +123,6 @@ func _on_animation_finished(anim_name):
 	elif anim_name == "mine":
 		if is_instance_valid(targeted_enemy) && is_instance_of(targeted_enemy, Mineable):
 			targeted_enemy.on_hit(group)
-
-####################### STATES #######################
-
-func update_state(new_state):
-	if is_instance_of(self, Miner):
-		return
-	
-	if new_state == Global.ATTACK:
-		if state != ATTACK:
-			last_state = state
-			state = ATTACK
-	elif new_state == Global.DEFEND:
-		if state != DEFEND:
-			last_state = state
-			state = DEFEND
-
-func update_mine(new_state):
-	if !is_instance_of(self, Miner):
-		return
-	
-	if new_state == Global.MINE:
-		if state != MINE:
-			last_state = state
-			state = MINE
-	elif new_state == Global.RETREAT:
-		if state != RETREAT:
-			last_state = state
-			state = RETREAT
-
-func exit_state(state):
-	match state:
-		ATTACK:
-			exit_attack_state()
-		DEFEND:
-			exit_defend_state()
-
-func enter_state(state):
-	match state:
-		ATTACK:
-			enter_attack_state()
-		DEFEND:
-			enter_defend_state()
-
-func run_state(delta, state):
-	match state:
-		ATTACK:
-			run_attack_state(delta)
-		DEFEND:
-			run_defend_state(delta)
-
-## ATTACK
-
-func enter_attack_state():
-	pass
-
-func exit_attack_state():
-	pass
-
-func run_attack_state(delta):
-	pass
-
-## DEFEND
-
-func enter_defend_state():
-	nav.target_position = defense_position
-
-func exit_defend_state():
-	pass
-
-func run_defend_state(delta):
-	pass
 
 ####################### HELPERS #######################
 

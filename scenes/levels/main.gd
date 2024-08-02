@@ -21,25 +21,21 @@ func on_attack():
 		return
 	
 	Global.player_state = Global.ATTACK
-	
-	player.cauldron_state = Entity.ATTACK
-	get_tree().call_group("player", "update_state", Global.player_state)
+	player.update_hostile_state(Global.ATTACK)
 
 func on_defend():
 	if Global.player_state == Global.DEFEND:
 		return
 	
-	player.cauldron_state = Entity.DEFEND
 	Global.player_state = Global.DEFEND
-	get_tree().call_group("player", "update_state", Global.player_state)
-	
+	player.update_hostile_state(Global.DEFEND)
 	player.set_defense_positions()
 
 func on_mine():
-	get_tree().call_group("player", "update_mine", Global.MINE)
+	player.update_passive_state(Global.MINE)
 
 func off_mine():
-	get_tree().call_group("player", "update_mine", Global.RETREAT)
+	player.update_passive_state(Global.RETREAT)
 
 func force_update():
 	player.force_update_items()
