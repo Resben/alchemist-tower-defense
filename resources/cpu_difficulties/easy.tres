@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Difficulty" load_steps=2 format=3 uid="uid://b2ltr513wq68c"]
+
+[ext_resource type="Script" path="res://scenes/other/cpu_configuration.gd" id="1_7bink"]
+
+[resource]
+script = ExtResource("1_7bink")
+identifier = "easy"
+range_time_to_decide = Vector2(7, 10)
+should_retreat_passives = false
+should_retreat_hostiles = false

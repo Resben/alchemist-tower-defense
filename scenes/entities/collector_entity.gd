@@ -66,7 +66,7 @@ func enter_mine_state():
 func exit_mine_state():
 	pass
 
-func run_mine_state(delta):
+func run_mine_state(_delta):
 	pass
 
 ## DEFEND
@@ -77,5 +77,5 @@ func enter_retreat_state():
 func exit_retreat_state():
 	pass
 
-func run_retreat_state(delta):
+func run_retreat_state(_delta):
 	pass

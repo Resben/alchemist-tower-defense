@@ -32,7 +32,7 @@ func _on_button_down():
 		$moveable.visible = true
 		self.texture_normal = selected_texture
 
-func _process(delta):
+func _process(_delta):
 	if held:
 		$moveable.global_position = get_global_mouse_position()
 

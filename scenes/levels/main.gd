@@ -8,7 +8,7 @@ var HALF_WIDTH = 320
 @export var player : Node2D
 @export var cpu : Node2D
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Input.is_action_pressed("left"):
 		if $Camera2D.limit_left + HALF_WIDTH < $Camera2D.global_position.x:
 			$Camera2D.global_position.x -= CAMERA_SPEED

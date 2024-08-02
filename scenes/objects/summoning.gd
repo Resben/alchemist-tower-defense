@@ -30,7 +30,7 @@ func _on_button_pressed():
 		$AnimationPlayer.play("three")
 		get_node("/root/Main/HUD").update_items()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Global.team[team]["soul"] < 1:
 		$Control/TextureButton.disabled = true
 	else:

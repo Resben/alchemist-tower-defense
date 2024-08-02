@@ -23,7 +23,7 @@ func enter_attack_state():
 func exit_attack_state():
 	pass
 
-func run_attack_state(delta):
+func run_attack_state(_delta):
 	var enemy = get_closet_enemy()
 	if !is_instance_valid(targeted_enemy):
 		targeted_enemy = enemy
@@ -47,7 +47,7 @@ func run_attack_state(delta):
 	if is_attacking:
 		nav.target_position = global_position
 
-func run_defend_state(delta):
+func run_defend_state(_delta):
 	var enemy = get_closet_enemy()
 	if is_instance_valid(enemy) && !is_instance_of(enemy, Cauldron):
 		if enemy_cauldron.hostile_state == Global.ATTACK:

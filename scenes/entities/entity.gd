@@ -7,7 +7,7 @@ var navRegion : NavigationRegion2D
 @onready var nav : NavigationAgent2D = $NavigationAgent2D
 
 var direction : Vector2
-var group : String
+var team : String
 var attack_direction : int
 
 var defense_position : Vector2
@@ -34,7 +34,7 @@ func _ready():
 	is_ready = true
 	navRegion = get_parent().navRegion
 	
-	if group == "player":
+	if team == "player":
 		nav.avoidance_layers = 1
 		nav.avoidance_mask = 1
 		
@@ -46,7 +46,7 @@ func _ready():
 func setup():
 	pass
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if nav.is_navigation_finished():
 		return
 	
@@ -69,17 +69,15 @@ func _physics_process(delta):
 func _on_navigation_agent_2d_velocity_computed(safe_velocity):
 	velocity = safe_velocity
 
-func set_team(team : String, defend_location : String, cauldron_to_attack : Node2D, cauldron_pos : Vector2, cauldron_to_defend : Node2D):
+func set_team(cauldron_to_defend : Node2D, cauldron_to_attack : Node2D):
 	enemy_cauldron = cauldron_to_attack
 	friendly_cauldron = cauldron_to_defend
-	defense_position = cauldron_pos
+	defense_position = cauldron_to_defend.global_position
 	spawn_pos = global_position
 	
-	if defend_location == "left":
-		attack_direction = 1
-	else:
-		attack_direction = -1
-	group = team
+	attack_direction = sign(cauldron_to_defend.global_position.direction_to(cauldron_to_attack.global_position).x)
+	
+	team = cauldron_to_defend.team
 	add_to_group(team)
 
 func set_defense_position(r : int, c : int, d_pos : Vector2):
@@ -122,12 +120,12 @@ func _on_animation_finished(anim_name):
 		is_attacking = false
 	elif anim_name == "mine":
 		if is_instance_valid(targeted_enemy) && is_instance_of(targeted_enemy, Mineable):
-			targeted_enemy.on_hit(group)
+			targeted_enemy.on_hit(team)
 
 ####################### HELPERS #######################
 
 func get_opposite_group() -> String:
-	match group:
+	match team:
 		"player":
 			return "cpu"
 		"cpu":

@@ -69,7 +69,7 @@ func enter_attack_state():
 func exit_attack_state():
 	pass
 
-func run_attack_state(delta):
+func run_attack_state(_delta):
 	pass
 
 ## DEFEND
@@ -80,5 +80,5 @@ func enter_defend_state():
 func exit_defend_state():
 	pass
 
-func run_defend_state(delta):
+func run_defend_state(_delta):
 	pass

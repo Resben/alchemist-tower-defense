@@ -172,6 +172,7 @@ position = Vector2(2719, 255)
 starting_defense_pos = NodePath("DefensePosition")
 spawn = NodePath("Spawn")
 team = "cpu"
+is_players_cauldron = false
 enemy_cauldron = NodePath("../player_cauldron")
 
 [node name="Spawn" type="Node2D" parent="cpu_cauldron"]

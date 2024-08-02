@@ -34,6 +34,6 @@ func _on_button_up():
 		_moveable_dropped.emit($moveable.global_position, id)
 		texture_normal = texture
 
-func _process(delta):
+func _process(_delta):
 	if held:
 		$moveable.global_position = get_global_mouse_position()
