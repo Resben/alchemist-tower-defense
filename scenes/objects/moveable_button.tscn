@@ -25,6 +25,7 @@ theme_override_font_sizes/font_size = 15
 text = "0"
 
 [node name="moveable" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("1_u5iid")
 
 [connection signal="button_down" from="." to="." method="_on_button_down"]

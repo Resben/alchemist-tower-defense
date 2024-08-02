@@ -13,6 +13,7 @@ script = ExtResource("2_8kejp")
 texture = ExtResource("1_exu8y")
 
 [node name="moveable" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("1_exu8y")
 offset = Vector2(0, -22.5)
 flip_h = true

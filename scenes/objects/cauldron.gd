@@ -15,6 +15,7 @@ var last_passive_state = Global.MINE
 
 var cpu : CPU
 @onready var _toolrack = $ToolRack
+@onready var _summoning = $Summoning
 
 var health : int
 var max_health : int = 75

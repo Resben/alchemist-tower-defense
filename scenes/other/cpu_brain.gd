@@ -4,9 +4,16 @@ class_name CPU
 @export var data : Difficulty
 var cauldron : Cauldron
 
+var team
+var num_collectors
+var enemy_might
+var cpu_might
+	
 func _ready():
+	team = cauldron.team
 	var rand_next_decision = randi_range(data.range_time_to_decide.x, data.range_time_to_decide.y)
 	$DecisionTimer.start(rand_next_decision)
+	cauldron._summoning._on_button_pressed()
 
 func setup(controllable : Cauldron, difficulty : Difficulty = Global.difficulty_presets[Global.NORMAL]):
 	cauldron = controllable
@@ -17,82 +24,79 @@ func set_difficulty(diff : Difficulty):
 
 ##################### CPU SPAWN LOGIC #####################
 
-	## RULE 1
-	# First check how many collectors we have
-	# CPU will try to always have 3 at once
-	# CPU must have at least 1 collector
-	# For every collector there is at least 1 enemy
-	
-	## RULE 2
-	# If CPU has significant resources they will get 2 more collectors
-	
-	## RULE 3
-	# CPU will spawn any random enemy if rule 2 and 1 are maxed out or not met
-	
-	## RULE 4
-	# If player is defending and has collectors far away from defense 
-	# CPU has a 50% chance of attacking on timeout
-	
-	## RULE 5
-	# If CPU has greater numbers CPU will attack if non of the other conditions are met
-
 func _on_decision_timeout():
+	num_collectors = cauldron.passive_reference.size()
+	enemy_might = cauldron.enemy_cauldron.hostile_references.size()
+	cpu_might = cauldron.hostile_references.size()
 	
-	var rule_one = false
-	var rule_two = false
-	var rule_three = false
-	var rule_four = false
-	var rule_five = false
+	if cauldron._summoning.num_available < 3:
+		cauldron._summoning._on_button_pressed()
 	
-	var team = cauldron.team
-	var num_collectors = cauldron.passive_reference.size()
-	var enemy_might = cauldron.enemy_cauldron.hostile_references.size()
-	var cpu_might = cauldron.hostile_references.size()
+	if rule_one():
+		print("")
+		pass
+	elif rule_two():
+		print("")
+		pass
+	elif rule_three():
+		print("")
+		pass
+	elif rule_four():
+		print("")
+		pass
+	elif rule_five():
+		print("")
+		pass
 	
+	var rand_next_decision = randi_range(data.range_time_to_decide.x, data.range_time_to_decide.y)
+	$DecisionTimer.start(rand_next_decision)
+
+## RULE 1
+# If the computer has less than two collectors then try summon another
+func rule_one() -> bool:
 	if num_collectors < 2:
-		if Global.team[team]["soul"] >= 1:
-			rule_one = true
-	
+		if cauldron._summoning.num_available >= 1:
+			cauldron._toolrack._on_summoning_toolrack_shadow_drop(Vector2(-999, -999), cauldron._summoning.get_moveables()[0])
+			return true
+	return false
+
+## RULE 2
+# If the computer has 2 more military might than the player then attack
+func rule_two() -> bool:
+	if cpu_might > enemy_might + 2 && cauldron.hostile_state != Global.ATTACK:
+		cauldron.update_hostile_state(Global.ATTACK)
+		return true
+	return false
+
+## RULE 3
+# If the computer has more 2 more military might than the number of collectors then get another collector
+func rule_three() -> bool:
 	if num_collectors >= 2 && num_collectors < 4:
-		if Global.team[team]["soul"] >= 3 && cpu_might > num_collectors:
-			rule_two = true
-	
-	if !rule_one && !rule_two:
-		if Global.team[team]["raw_material"] >= 1: 
-			rule_three = true
-	
+		if cauldron._summoning.num_available >= 1 && cpu_might + 1 > num_collectors:
+			cauldron._toolrack._on_summoning_toolrack_shadow_drop(Vector2(-999, -999), cauldron._summoning.get_moveables[0])
+			return true
+	return false
+
+## RULE 4
+# If the player is defending and the collectors have ventured too far then the computer will attack
+func rule_four() -> bool:
 	if cauldron.enemy_cauldron.hostile_state == Global.DEFEND:
 		for miner in cauldron.enemy_cauldron.passive_reference:
 			if is_instance_valid(miner):
 				if miner.global_position.distance_to(cauldron.enemy_cauldron.global_position) > 1000:
-					rule_four = true
-	
-	if cpu_might > enemy_might && cauldron.hostile_state != Global.ATTACK:
-		rule_five = true
-	
-	if rule_one:
-		cauldron._toolrack._on_summoning_toolrack_shadow_drop(Vector2(-999, -999), "na")
-		Global.team[team]["soul"] -= 1
-		#print("enemy summoned a miner")
-	elif rule_five:
-		cauldron.update_hostile_state(Global.ATTACK)
-		#print("enemy went on the offensive")
-	elif rule_two:
-		cauldron._toolrack._on_summoning_toolrack_shadow_drop(Vector2(-999, -999), "na")
-		Global.team[team]["soul"] -= 1
-		#print("enemy summoned a extra miner")
-	elif rule_three:
+					cauldron.update_hostile_state(Global.ATTACK)
+					return true
+	return false
+
+## RULE 5
+# If nothing else then the computer will spawn an enemy
+# TODO What enemy should they prioritise??
+func rule_five() -> bool:
+	if Global.team[team]["raw_material"] >= 1: 
 		cauldron.spawn_entity("soul_minion")
 		Global.team[cauldron.team]["raw_material"] -= 1
-		#print("enemy summoned a combatant")
-	elif rule_four:
-		var rand = randi_range(1, 100)
-		if rand < 51:
-			cauldron.update_hostile_state(Global.ATTACK)
-			#print("enemy noticed you are mining too far in")
-	
-	var rand_next_decision = randi_range(data.range_time_to_decide.x, data.range_time_to_decide.y)
-	$DecisionTimer.start(rand_next_decision)
+		return true
+	return false
 
 
 ##################### CPU BASIC LOGIC #####################
