@@ -3,8 +3,12 @@ class_name Entity
 
 signal _on_death
 
+@export var corpse_texture : Texture2D
+
 var navRegion : NavigationRegion2D
 @onready var nav : NavigationAgent2D = $NavigationAgent2D
+
+var is_dead = false
 
 var direction : Vector2
 var team : String
@@ -13,8 +17,8 @@ var attack_direction : int
 var defense_position : Vector2
 var targeted_enemy : Node2D
 
-var enemy_cauldron : Node2D
-var friendly_cauldron : Node2D
+var enemy_cauldron : Cauldron
+var friendly_cauldron : Cauldron
 
 var spawn_pos : Vector2
 var is_ready = false
@@ -69,7 +73,7 @@ func _physics_process(_delta):
 func _on_navigation_agent_2d_velocity_computed(safe_velocity):
 	velocity = safe_velocity
 
-func set_team(cauldron_to_defend : Node2D, cauldron_to_attack : Node2D):
+func set_team(cauldron_to_defend : Cauldron, cauldron_to_attack : Cauldron):
 	enemy_cauldron = cauldron_to_attack
 	friendly_cauldron = cauldron_to_defend
 	defense_position = cauldron_to_defend.global_position
@@ -108,7 +112,10 @@ func take_damage(dmg : int):
 	
 	if stats["hp"] <= 0:
 		_on_death.emit(self)
-		queue_free()
+		$AnimationPlayer.play("die")
+		is_dead = true
+		friendly_cauldron.passive_reference.erase(self)
+		friendly_cauldron.hostile_references.erase(self)
 
 ####################### SIGNALS #######################
 
@@ -121,6 +128,11 @@ func _on_animation_finished(anim_name):
 	elif anim_name == "mine":
 		if is_instance_valid(targeted_enemy) && is_instance_of(targeted_enemy, Mineable):
 			targeted_enemy.on_hit(team)
+	elif anim_name == "die":
+		var corpse = load("res://scenes/entities/corpse.tscn").instantiate() as Corpse
+		corpse.set_corpse(global_position, corpse_texture, 15)
+		get_parent().add_child(corpse)
+		queue_free()
 
 ####################### HELPERS #######################
 

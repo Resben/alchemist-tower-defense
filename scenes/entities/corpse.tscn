@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhpc4tl4wcalc"]
+
+[ext_resource type="Script" path="res://scenes/entities/corpse.gd" id="1_018kx"]
+
+[node name="Sprite2D" type="Sprite2D"]
+script = ExtResource("1_018kx")
+
+[node name="QueueFree" type="Timer" parent="."]
+one_shot = true

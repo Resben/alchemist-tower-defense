@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://35v50nm7fx82"]
+[gd_scene load_steps=9 format=3 uid="uid://35v50nm7fx82"]
 
 [ext_resource type="Texture2D" uid="uid://bfgke2kcpl52c" path="res://assets/entities/soul_minion.png" id="1_bj7s6"]
 [ext_resource type="Script" path="res://scenes/entities/soul_minion.gd" id="1_ylm23"]
@@ -9,9 +9,21 @@ size = Vector2(24, 50)
 [sub_resource type="Animation" id="Animation_1mgxb"]
 resource_name = "attack"
 
+[sub_resource type="Animation" id="Animation_1nlqq"]
+resource_name = "run"
+
+[sub_resource type="Animation" id="Animation_op2us"]
+resource_name = "die"
+
+[sub_resource type="Animation" id="Animation_m3ssr"]
+resource_name = "idle"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lfvy0"]
 _data = {
-"attack": SubResource("Animation_1mgxb")
+"attack": SubResource("Animation_1mgxb"),
+"die": SubResource("Animation_op2us"),
+"idle": SubResource("Animation_m3ssr"),
+"run": SubResource("Animation_1nlqq")
 }
 
 [node name="SoulMinionv2" type="CharacterBody2D"]

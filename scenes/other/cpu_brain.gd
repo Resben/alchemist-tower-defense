@@ -111,9 +111,6 @@ func rule_five() -> bool:
 ## Rule 3
 # CPU will only send collectors if it is safe to do so
 
-func _process(delta):
-	print(cauldron._summoning.num_available)
-
 func _on_spawn_timer_timeout():
 	if cauldron._summoning.num_available < 3:
 		cauldron._summoning._on_button_pressed()

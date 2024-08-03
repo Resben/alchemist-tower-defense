@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpco3c7amouc1"
-path="res://.godot/imported/cauldron-Sheet.png-553f9e10e919a6b7501d32ccc9c99292.ctex"
+uid="uid://bcfma2rqwmabc"
+path="res://.godot/imported/miner-corpse.png-6871a2d4097ebb17a90e0d35f7e528bf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/cauldron-Sheet.png"
-dest_files=["res://.godot/imported/cauldron-Sheet.png-553f9e10e919a6b7501d32ccc9c99292.ctex"]
+source_file="res://assets/entities/miner-corpse.png"
+dest_files=["res://.godot/imported/miner-corpse.png-6871a2d4097ebb17a90e0d35f7e528bf.ctex"]
 
 [params]
 

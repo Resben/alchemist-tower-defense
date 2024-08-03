@@ -6,6 +6,8 @@ func _ready():
 	pass # Replace with function body.
 
 func _physics_process(delta):
+	if is_dead:
+		return
 	super._physics_process(delta)
 	
 	var state = friendly_cauldron.hostile_state
@@ -33,12 +35,18 @@ func get_closet_enemy() -> Node2D:
 	
 	var closet : Node2D = enemy_cauldron
 	var length = global_position.distance_to(enemy_cauldron.global_position)
-	for e in get_tree().get_nodes_in_group(get_opposite_group()):
+	for e in enemy_cauldron.hostile_references:
 		if is_instance_valid(e):
 			var next_length = global_position.distance_to(e.global_position)
 			if next_length < length:
 				length = next_length
 				closet = e
+	for p in enemy_cauldron.passive_reference:
+		if is_instance_valid(p):
+			var next_length = global_position.distance_to(p.global_position)
+			if next_length < length:
+				length = next_length
+				closet = p
 	
 	return closet
 

@@ -1,6 +1,8 @@
 extends Passive
 class_name Miner
 
+var is_mining : bool
+
 func _ready():
 	super._ready()
 	
@@ -16,6 +18,8 @@ func _ready():
 func _physics_process(delta):
 	super._physics_process(delta)
 	
+	is_mining = false
+	
 	if friendly_cauldron.passive_state == Global.RETREAT:
 		nav.target_position = spawn_pos
 	else:
@@ -27,3 +31,10 @@ func _physics_process(delta):
 		if is_instance_valid(targeted_enemy):
 			if global_position.distance_to(targeted_enemy.global_position) < 30:
 				$AnimationPlayer.play("mine")
+				is_mining = true
+	
+	if !is_mining:
+		if nav.is_navigation_finished():
+			$AnimationPlayer.play("idle")
+		else:
+			$AnimationPlayer.play("run")

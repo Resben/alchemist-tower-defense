@@ -6,6 +6,8 @@ func _ready():
 	pass # Replace with function body.
 
 func _physics_process(delta):
+	if is_dead:
+		return
 	super._physics_process(delta)
 	
 	var state = friendly_cauldron.passive_state
