@@ -5,9 +5,9 @@ class_name CPU
 var cauldron : Cauldron
 
 var team
-var num_collectors
-var enemy_might
-var cpu_might
+var num_collectors = 0
+var enemy_might = 0
+var cpu_might = 0
 	
 func _ready():
 	team = cauldron.team
@@ -28,9 +28,6 @@ func _on_decision_timeout():
 	num_collectors = cauldron.passive_reference.size()
 	enemy_might = cauldron.enemy_cauldron.hostile_references.size()
 	cpu_might = cauldron.hostile_references.size()
-	
-	if cauldron._summoning.num_available < 3:
-		cauldron._summoning._on_button_pressed()
 	
 	if rule_one():
 		print("")
@@ -73,7 +70,7 @@ func rule_two() -> bool:
 func rule_three() -> bool:
 	if num_collectors >= 2 && num_collectors < 4:
 		if cauldron._summoning.num_available >= 1 && cpu_might + 1 > num_collectors:
-			cauldron._toolrack._on_summoning_toolrack_shadow_drop(Vector2(-999, -999), cauldron._summoning.get_moveables[0])
+			cauldron._toolrack._on_summoning_toolrack_shadow_drop(Vector2(-999, -999), cauldron._summoning.get_moveables()[0])
 			return true
 	return false
 
@@ -92,9 +89,9 @@ func rule_four() -> bool:
 # If nothing else then the computer will spawn an enemy
 # TODO What enemy should they prioritise??
 func rule_five() -> bool:
-	if Global.team[team]["raw_material"] >= 1: 
-		cauldron.spawn_entity("soul_minion")
-		Global.team[cauldron.team]["raw_material"] -= 1
+	if Global.team[team]["raw_material"] >= 1 && cauldron.is_entity_caged: 
+		cauldron.ingredients_added.push_back(Global.item["raw_material"])
+		cauldron._on_accept_pressed()
 		return true
 	return false
 
@@ -113,3 +110,14 @@ func rule_five() -> bool:
 
 ## Rule 3
 # CPU will only send collectors if it is safe to do so
+
+func _process(delta):
+	print(cauldron._summoning.num_available)
+
+func _on_spawn_timer_timeout():
+	if cauldron._summoning.num_available < 3:
+		cauldron._summoning._on_button_pressed()
+	if !cauldron.is_entity_caged && cauldron._summoning.num_available >= 1 && num_collectors >= 2:
+		cauldron._on_summoning_shadow_drop(Vector2(-999, -999), cauldron._summoning.get_moveables()[0])
+	
+	$SpawnTimer.start()

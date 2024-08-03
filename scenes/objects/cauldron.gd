@@ -185,7 +185,7 @@ func get_opposite_group() -> String:
 
 func _on_summoning_shadow_drop(pos, id):
 	if !is_entity_caged:
-		if pos.distance_to(global_position) <= 36:
+		if pos.distance_to(global_position) <= 36 || pos == Vector2(-999, -999):
 			$Summoning.moveable_used(id)
 			$EntityCaged.visible = true
 			is_entity_caged = true

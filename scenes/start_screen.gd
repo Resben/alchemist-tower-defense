@@ -12,6 +12,9 @@ func _on_start_button_up():
 	AudioHandler.start_game()
 	queue_free()
 
+func _on_options_button_up():
+	pass # Replace with function body.
+
 func _ready():
 	match has_condition:
 		"win":
