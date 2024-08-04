@@ -9,14 +9,14 @@ size = Vector2(24, 50)
 [sub_resource type="Animation" id="Animation_1mgxb"]
 resource_name = "attack"
 
-[sub_resource type="Animation" id="Animation_1nlqq"]
-resource_name = "run"
-
 [sub_resource type="Animation" id="Animation_op2us"]
 resource_name = "die"
 
 [sub_resource type="Animation" id="Animation_m3ssr"]
 resource_name = "idle"
+
+[sub_resource type="Animation" id="Animation_1nlqq"]
+resource_name = "run"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lfvy0"]
 _data = {

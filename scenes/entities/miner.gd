@@ -16,6 +16,8 @@ func _ready():
 	}
 
 func _physics_process(delta):
+	if is_dead:
+		return
 	super._physics_process(delta)
 	
 	is_mining = false
