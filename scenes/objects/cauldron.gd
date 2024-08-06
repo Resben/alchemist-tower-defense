@@ -68,13 +68,11 @@ func take_damage(dmg : int):
 		if team == "player":
 			menu_insta.set_as_end_screen("lost")
 			get_node("/root/").add_child(menu_insta)
-			get_tree().paused = true
-			queue_free()
+			get_node("/root/Main").end_game()
 		elif team == "cpu":
 			menu_insta.set_as_end_screen("win")
 			get_node("/root/").add_child(menu_insta)
-			get_tree().paused = true
-			queue_free()
+			get_node("/root/Main").end_game()
 
 func store_ingredient(data : Item):
 	Global.team[team][data.id] += 1
@@ -190,9 +188,6 @@ func _on_summoning_shadow_drop(pos, id):
 			$EntityCaged.visible = true
 			is_entity_caged = true
 			toggle_ingredients(false)
-
-func _on_game_timeout_timeout():
-	queue_free()
 
 func _on_passive_death(entity):
 	update_passive_state(Global.RETREAT)

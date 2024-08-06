@@ -40,3 +40,6 @@ func off_mine():
 func force_update():
 	player.force_update_items()
 	$HUD.update_items()
+
+func end_game():
+	queue_free()

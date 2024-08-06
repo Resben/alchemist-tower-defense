@@ -18,14 +18,11 @@ func _on_options_button_up():
 func _ready():
 	match has_condition:
 		"win":
-			$Control/Start.visible = false
 			$Control/Win.visible = true
 			$Control/Loss.visible = false
 		"lost":
-			$Control/Start.visible = false
 			$Control/Win.visible = false
 			$Control/Loss.visible = true
 		"none":
-			$Control/Start.visible = true
 			$Control/Win.visible = false
 			$Control/Loss.visible = false
