@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://r1k2m5r4i33u" path="res://assets/audio/March of the Phantoms_Battle Begins.wav" id="3_v0w3s"]
 
 [node name="AudioHandler" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_dvo87")
 
 [node name="MainBGM" type="AudioStreamPlayer" parent="."]

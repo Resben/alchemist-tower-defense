@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5mvmswxrgoff"]
+[gd_scene load_steps=9 format=3 uid="uid://c5mvmswxrgoff"]
 
 [ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1_v2dgb"]
 [ext_resource type="Texture2D" uid="uid://b8o8og38evsdj" path="res://assets/items/raw-mat.png" id="2_xxvoe"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://scenes/ui/item_ui.gd" id="3_gn3w0"]
 [ext_resource type="Texture2D" uid="uid://xvmvximfuaib" path="res://assets/items/raw-mat-greyscale.png" id="4_oh0sq"]
 [ext_resource type="Texture2D" uid="uid://dpr4fxw5ttgdi" path="res://assets/items/soul-greyscale.png" id="6_h883f"]
+[ext_resource type="Texture2D" uid="uid://dj8rufbhtep11" path="res://assets/ui/settings-button.png" id="7_hlgd6"]
+[ext_resource type="PackedScene" uid="uid://vcbqnf6bkcju" path="res://scenes/ui/options.tscn" id="8_tcfvj"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_v2dgb")
@@ -97,6 +99,22 @@ layout_mode = 2
 [node name="Defend" type="TextureButton" parent="Control/HBoxContainer2"]
 layout_mode = 2
 
+[node name="Settings" type="TextureButton" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = 8.0
+offset_bottom = 48.0
+grow_horizontal = 0
+texture_normal = ExtResource("7_hlgd6")
+
+[node name="Options" parent="." instance=ExtResource("8_tcfvj")]
+process_mode = 2
+
 [connection signal="pressed" from="Control/HBoxContainer2/Mine" to="." method="_on_mine_pressed"]
 [connection signal="pressed" from="Control/HBoxContainer2/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="Control/HBoxContainer2/Defend" to="." method="_on_defend_pressed"]
+[connection signal="pressed" from="Control/Settings" to="." method="_on_settings_pressed"]
+[connection signal="_on_close" from="Options" to="." method="_on_options_on_close"]

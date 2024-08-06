@@ -10,6 +10,7 @@ var defense_inactive : Texture2D = preload("res://assets/ui/shield-inactive.png"
 var is_mine_active = true
 
 func _ready():
+	$Options.visible = false
 	$Control/HBoxContainer2/Mine.texture_normal = mine_active
 	$Control/HBoxContainer2/Attack.texture_normal = attack_inactive
 	$Control/HBoxContainer2/Defend.texture_normal = defense_active
@@ -42,3 +43,13 @@ func update_items():
 	#$Control/HBoxContainer/Phantom.set_count(Global.team["player"]["phantom_weave"])
 	$Control/HBoxContainer/Bloodvine.set_count(Global.team["player"]["bloodvine"])
 	#$Control/HBoxContainer/Wyrm.set_count(Global.team["player"]["wyrm_bone"])
+
+func _on_settings_pressed():
+	$Control.visible = false
+	get_tree().paused = true
+	$Options.visible = true
+
+func _on_options_on_close():
+	$Control.visible = true
+	get_tree().paused = false
+	$Options.visible = false

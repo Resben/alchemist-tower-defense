@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ktdgvmukutnd"]
+[gd_scene load_steps=11 format=3 uid="uid://ktdgvmukutnd"]
 
 [ext_resource type="Texture2D" uid="uid://d3kjgvuyqnjyn" path="res://assets/environment/title_screen.png" id="1_cmic2"]
 [ext_resource type="Script" path="res://scenes/start_screen.gd" id="1_ssrr2"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c54yv5qwi0on" path="res://assets/ui/wintext.png" id="6_khley"]
 [ext_resource type="Texture2D" uid="uid://cop72orsq65pr" path="res://assets/ui/options-pressed.png" id="7_0bavf"]
 [ext_resource type="Texture2D" uid="uid://c4y7hpmvnusc8" path="res://assets/ui/losttext.png" id="7_hik7e"]
+[ext_resource type="PackedScene" uid="uid://vcbqnf6bkcju" path="res://scenes/ui/options.tscn" id="10_h56dd"]
 
 [node name="StartScreen" type="CanvasLayer"]
 process_mode = 3
@@ -33,23 +34,31 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_cmic2")
 
-[node name="Start" type="TextureButton" parent="Control"]
+[node name="Main" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Start" type="TextureButton" parent="Control/Main"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
+offset_left = -32.0
 offset_top = 20.0
-offset_right = 20.0
+offset_right = 32.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("2_4htl7")
 texture_pressed = ExtResource("3_12kik")
 
-[node name="Options" type="TextureButton" parent="Control"]
+[node name="Options" type="TextureButton" parent="Control/Main"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -65,7 +74,7 @@ grow_vertical = 2
 texture_normal = ExtResource("6_e348m")
 texture_pressed = ExtResource("7_0bavf")
 
-[node name="Win" type="TextureRect" parent="Control"]
+[node name="Win" type="TextureRect" parent="Control/Main"]
 visible = false
 layout_mode = 0
 offset_left = 253.0
@@ -74,7 +83,7 @@ offset_right = 374.0
 offset_bottom = 158.0
 texture = ExtResource("6_khley")
 
-[node name="Loss" type="TextureRect" parent="Control"]
+[node name="Loss" type="TextureRect" parent="Control/Main"]
 visible = false
 layout_mode = 0
 offset_left = 257.0
@@ -83,5 +92,9 @@ offset_right = 383.0
 offset_bottom = 158.0
 texture = ExtResource("7_hik7e")
 
-[connection signal="button_up" from="Control/Start" to="." method="_on_start_button_up"]
-[connection signal="button_up" from="Control/Options" to="." method="_on_options_button_up"]
+[node name="Options" parent="Control" instance=ExtResource("10_h56dd")]
+layout_mode = 1
+
+[connection signal="button_up" from="Control/Main/Start" to="." method="_on_start_button_up"]
+[connection signal="button_up" from="Control/Main/Options" to="." method="_on_options_button_up"]
+[connection signal="_on_close" from="Control/Options" to="." method="_on_options_close"]
