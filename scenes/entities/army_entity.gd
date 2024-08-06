@@ -10,6 +10,12 @@ func _physics_process(delta):
 		return
 	super._physics_process(delta)
 	
+	if !is_attacking:
+		if nav.is_navigation_finished():
+			$AnimationPlayer.play("idle")
+		else:
+			$AnimationPlayer.play("run")
+	
 	var state = friendly_cauldron.hostile_state
 	var last_state = friendly_cauldron.last_hostile_state
 	

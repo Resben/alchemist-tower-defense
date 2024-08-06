@@ -75,6 +75,8 @@ func run_defend_state(_delta):
 	else:
 		nav.target_position = defense_position
 
+func fire_projectile():
+	print("fired")
 
 func _on_attack_timer_timeout():
 	if !is_instance_valid(self) || !is_instance_valid(targeted_enemy):
