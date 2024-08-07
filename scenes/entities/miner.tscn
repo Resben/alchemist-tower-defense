@@ -111,5 +111,8 @@ radius = 4.0
 
 [node name="FadeOutTimer" type="Timer" parent="."]
 
+[node name="Target" type="Node2D" parent="."]
+position = Vector2(0, 23)
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

@@ -25,6 +25,8 @@ var is_ready = false
 
 var is_attacking = false
 
+@onready var projectile_target : Node2D = $Target
+
 var stats = {
 	"hp" : 5,
 	"max_hp" : 5,

@@ -76,14 +76,12 @@ func run_defend_state(_delta):
 		nav.target_position = defense_position
 
 func fire_projectile():
-	print("fired")
+	var proj = slash.instantiate()
+	proj.set_target($ProjectileSpawn.global_position, targeted_enemy, self)
+	get_node("/root/Main").add_child(proj)
 
 func _on_attack_timer_timeout():
 	if !is_instance_valid(self) || !is_instance_valid(targeted_enemy):
 		return
 	
 	$AnimationPlayer.play("attack")
-	var proj = slash.instantiate()
-	proj.global_position = global_position
-	proj.set_direction(global_position.direction_to(targeted_enemy.global_position))
-	get_node("/root/Main").add_child(proj)
