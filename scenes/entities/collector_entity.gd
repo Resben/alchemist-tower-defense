@@ -34,10 +34,11 @@ func get_closet_minable() -> Node2D:
 	var length = 99999
 	for r in get_tree().get_nodes_in_group("resource"):
 		if is_instance_valid(r):
-			var next_length = global_position.distance_to(r.global_position)
-			if next_length < length:
-				length = next_length
-				closet = r
+			if r.is_collectable:
+				var next_length = global_position.distance_to(r.global_position)
+				if next_length < length:
+					length = next_length
+					closet = r
 	
 	return closet
 

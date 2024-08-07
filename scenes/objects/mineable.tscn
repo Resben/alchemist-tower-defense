@@ -40,3 +40,9 @@ spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 30.0
 initial_velocity_max = 80.4
+
+[node name="RespawnTimer" type="Timer" parent="."]
+wait_time = 45.0
+one_shot = true
+
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timeout"]
