@@ -10,7 +10,7 @@ func _ready():
 		"hp" : 5,
 		"max_hp" : 5,
 		"damage" : 1,
-		"speed" : 50,
+		"speed" : 30,
 		"has_range" : false,
 		"effects" : {}
 	}

@@ -1,18 +1,104 @@
-[gd_scene load_steps=4 format=3 uid="uid://hc03o1pkherv"]
+[gd_scene load_steps=9 format=3 uid="uid://hc03o1pkherv"]
 
-[ext_resource type="Texture2D" uid="uid://1mhnpvojsqef" path="res://assets/entities/slash.png" id="1_h27ho"]
 [ext_resource type="Script" path="res://scenes/entities/slash.gd" id="1_p7cpv"]
+[ext_resource type="Texture2D" uid="uid://gpdcj5o3yyjw" path="res://assets/entities/soul_minion_projectile_complete.png" id="2_ejpfq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xusmd"]
+
+[sub_resource type="Animation" id="Animation_dj0jt"]
+resource_name = "spin_up"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Slash:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16, 17]
+}
+
+[sub_resource type="Animation" id="Animation_a8e3p"]
+resource_name = "break"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Slash:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_332dd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Slash:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_na2bw"]
+resource_name = "fire"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Slash:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yragk"]
+_data = {
+"RESET": SubResource("Animation_332dd"),
+"break": SubResource("Animation_a8e3p"),
+"fire": SubResource("Animation_na2bw"),
+"spin_up": SubResource("Animation_dj0jt")
+}
 
 [node name="Area2D" type="Area2D"]
 script = ExtResource("1_p7cpv")
 
 [node name="Slash" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("1_h27ho")
+texture = ExtResource("2_ejpfq")
+hframes = 6
+vframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xusmd")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yragk")
+}
+
+[node name="TTL" type="Timer" parent="."]
+wait_time = 2.1
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
+[connection signal="timeout" from="TTL" to="." method="_on_ttl_timeout"]
