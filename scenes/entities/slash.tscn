@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://gpdcj5o3yyjw" path="res://assets/entities/soul_minion_projectile_complete.png" id="2_ejpfq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xusmd"]
+radius = 5.09902
 
 [sub_resource type="Animation" id="Animation_dj0jt"]
 resource_name = "spin_up"

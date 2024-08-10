@@ -84,4 +84,7 @@ func _on_attack_timer_timeout():
 	if !is_instance_valid(self) || !is_instance_valid(targeted_enemy):
 		return
 	
+	if is_dead:
+		return
+	
 	$AnimationPlayer.play("attack")

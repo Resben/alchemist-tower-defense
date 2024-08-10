@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://35v50nm7fx82"]
+[gd_scene load_steps=11 format=3 uid="uid://35v50nm7fx82"]
 
 [ext_resource type="Script" path="res://scenes/entities/soul_minion.gd" id="1_ylm23"]
 [ext_resource type="Texture2D" uid="uid://cho2de7scyx8x" path="res://assets/entities/soul_minion_complete.png" id="2_icasq"]
+[ext_resource type="Texture2D" uid="uid://dn3bdu67f3o85" path="res://assets/entities/soul_minion_corpse.png" id="2_ubvji"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pi71y"]
 size = Vector2(24, 50)
@@ -53,6 +54,19 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_op2us"]
 resource_name = "die"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35, 36, 37, 38, 39, 40]
+}
 
 [sub_resource type="Animation" id="Animation_m3ssr"]
 resource_name = "idle"
@@ -101,12 +115,13 @@ _data = {
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_ylm23")
+corpse_texture = ExtResource("2_ubvji")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_icasq")
 hframes = 16
-vframes = 2
+vframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 7)
