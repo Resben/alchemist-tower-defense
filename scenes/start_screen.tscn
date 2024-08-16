@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ktdgvmukutnd"]
+[gd_scene load_steps=16 format=3 uid="uid://ktdgvmukutnd"]
 
 [ext_resource type="Texture2D" uid="uid://d3kjgvuyqnjyn" path="res://assets/environment/title_screen.png" id="1_cmic2"]
 [ext_resource type="Script" path="res://scenes/start_screen.gd" id="1_ssrr2"]
@@ -9,8 +9,12 @@
 [ext_resource type="Texture2D" uid="uid://c54yv5qwi0on" path="res://assets/ui/wintext.png" id="6_khley"]
 [ext_resource type="Texture2D" uid="uid://cop72orsq65pr" path="res://assets/ui/options-pressed.png" id="7_0bavf"]
 [ext_resource type="Texture2D" uid="uid://c4y7hpmvnusc8" path="res://assets/ui/losttext.png" id="7_hik7e"]
+[ext_resource type="Texture2D" uid="uid://c8kl8fgm135el" path="res://assets/ui/tut-button.png" id="10_cqihf"]
 [ext_resource type="PackedScene" uid="uid://vcbqnf6bkcju" path="res://scenes/ui/options.tscn" id="10_h56dd"]
 [ext_resource type="Theme" uid="uid://b41cyhllk0iut" path="res://resources/theme/main.tres" id="11_kwpoc"]
+[ext_resource type="Texture2D" uid="uid://86wpqo7d14mi" path="res://assets/ui/tut-button-pressed.png" id="11_wriin"]
+[ext_resource type="Texture2D" uid="uid://cmb2n7xxnhqnl" path="res://assets/ui/skip_button.png" id="12_wkp46"]
+[ext_resource type="Texture2D" uid="uid://ceehaarrfw3uq" path="res://assets/ui/skip_button_pressed.png" id="13_repi5"]
 
 [node name="StartScreen" type="CanvasLayer"]
 process_mode = 3
@@ -93,6 +97,38 @@ offset_right = 383.0
 offset_bottom = 158.0
 texture = ExtResource("7_hik7e")
 
+[node name="Tutorial" type="TextureButton" parent="Control/Main"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = 20.0
+offset_right = -8.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("10_cqihf")
+texture_pressed = ExtResource("11_wriin")
+
+[node name="NoTutorial" type="TextureButton" parent="Control/Main"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = 20.0
+offset_right = 80.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("12_wkp46")
+texture_pressed = ExtResource("13_repi5")
+
 [node name="Options" parent="Control" instance=ExtResource("10_h56dd")]
 visible = false
 layout_mode = 1
@@ -139,4 +175,6 @@ horizontal_alignment = 1
 
 [connection signal="button_up" from="Control/Main/Start" to="." method="_on_start_button_up"]
 [connection signal="button_up" from="Control/Main/Options" to="." method="_on_options_button_up"]
+[connection signal="button_up" from="Control/Main/Tutorial" to="." method="_on_tutorial_button_up"]
+[connection signal="button_up" from="Control/Main/NoTutorial" to="." method="_on_no_tutorial_button_up"]
 [connection signal="_on_close" from="Control/Options" to="." method="_on_options_close"]

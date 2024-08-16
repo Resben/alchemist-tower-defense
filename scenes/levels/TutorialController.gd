@@ -1,7 +1,13 @@
 extends Node2D
+class_name TutorialController
 
 @export var hints : Array[Hint]
+var current = 0
 
-func _ready():
-	#hints[0].display_hint()
-	pass
+func play():
+	hints[0].display_hint()
+
+func play_next():
+	current += 1
+	if hints.size() > current:
+		hints[current].display_hint()

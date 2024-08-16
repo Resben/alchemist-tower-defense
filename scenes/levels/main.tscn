@@ -290,10 +290,11 @@ libraries = {
 "": SubResource("AnimationLibrary_qrcl6")
 }
 
-[node name="TutorialController" type="Node2D" parent="."]
+[node name="TutorialController" type="Node2D" parent="." node_paths=PackedStringArray("hints")]
 script = ExtResource("12_pf5wc")
+hints = [NodePath("TutorialHint1"), NodePath("TutorialHint2"), NodePath("TutorialHint3"), NodePath("TutorialHint4"), NodePath("TutorialHint5"), NodePath("TutorialHint6"), NodePath("TutorialHint7")]
 
-[node name="TutorialHint1" parent="TutorialController" instance=ExtResource("12_nmd6i")]
+[node name="TutorialHint1" parent="TutorialController" node_paths=PackedStringArray("camera", "controller") instance=ExtResource("12_nmd6i")]
 offset_left = 1615.98
 offset_top = 135.95
 offset_right = 1615.98
@@ -302,27 +303,62 @@ text = "To control the camera use:
 A + D
 or
 ← + →"
+camera = NodePath("../../Camera2D")
+controller = NodePath("..")
 
-[node name="TutorialHint2" parent="TutorialController" instance=ExtResource("12_nmd6i")]
-offset_left = 67.0
-offset_top = 82.0
-offset_right = 67.0
-offset_bottom = 82.0
+[node name="TutorialHint2" parent="TutorialController" node_paths=PackedStringArray("camera", "controller") instance=ExtResource("12_nmd6i")]
+offset_left = 43.0
+offset_top = 123.0
+offset_right = 43.0
+offset_bottom = 123.0
 text = "To summon an entity click here"
+camera = NodePath("../../Camera2D")
+controller = NodePath("..")
 
-[node name="TutorialHint3" parent="TutorialController" instance=ExtResource("12_nmd6i")]
-offset_left = 251.0
-offset_top = 82.0
-offset_right = 251.0
-offset_bottom = 82.0
+[node name="TutorialHint3" parent="TutorialController" node_paths=PackedStringArray("camera", "controller") instance=ExtResource("12_nmd6i")]
+offset_left = 219.0
+offset_top = 146.0
+offset_right = 219.0
+offset_bottom = 146.0
 text = "Click and drag the entity to the tool rack to create a collector"
+camera = NodePath("../../Camera2D")
+controller = NodePath("..")
 
-[node name="TutorialHint4" parent="TutorialController" instance=ExtResource("12_nmd6i")]
-offset_left = 899.0
-offset_top = 106.0
-offset_right = 899.0
-offset_bottom = 106.0
-text = "Collectors will mine resources you can use the pickaxe "
+[node name="TutorialHint4" parent="TutorialController" node_paths=PackedStringArray("camera", "controller") instance=ExtResource("12_nmd6i")]
+offset_left = 875.0
+offset_top = 146.0
+offset_right = 875.0
+offset_bottom = 146.0
+text = "Collectors will mine resources you can use the pickaxe UI button to have them retreat"
+camera = NodePath("../../Camera2D")
+controller = NodePath("..")
+
+[node name="TutorialHint5" parent="TutorialController" node_paths=PackedStringArray("camera", "controller") instance=ExtResource("12_nmd6i")]
+offset_left = 315.0
+offset_top = 130.0
+offset_right = 315.0
+offset_bottom = 130.0
+text = "Now summon another entity and drag them onto the workshop then drag a material onto the entity and click the confirm button"
+camera = NodePath("../../Camera2D")
+controller = NodePath("..")
+
+[node name="TutorialHint6" parent="TutorialController" node_paths=PackedStringArray("camera", "controller") instance=ExtResource("12_nmd6i")]
+offset_left = 595.0
+offset_top = 138.0
+offset_right = 595.0
+offset_bottom = 138.0
+text = "This battle entity will fight for you and defend from this position, to attack click the duel sword UI button"
+camera = NodePath("../../Camera2D")
+controller = NodePath("..")
+
+[node name="TutorialHint7" parent="TutorialController" node_paths=PackedStringArray("camera", "controller") instance=ExtResource("12_nmd6i")]
+offset_left = 2739.0
+offset_top = 122.0
+offset_right = 2739.0
+offset_bottom = 122.0
+text = "In order to win destroy the oppositions workbench, Goodluck!"
+camera = NodePath("../../Camera2D")
+controller = NodePath("..")
 
 [connection signal="_on_shadow_drop" from="player_cauldron/Summoning" to="player_cauldron" method="_on_summoning_shadow_drop"]
 [connection signal="_on_shadow_drop" from="player_cauldron/Summoning" to="player_cauldron/ToolRack" method="_on_summoning_toolrack_shadow_drop"]
