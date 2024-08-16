@@ -12,6 +12,7 @@ func _ready():
 		"hp" : 5,
 		"max_hp" : 5,
 		"damage" : 1,
+		"base_speed" : 40,
 		"speed" : 40,
 		"has_range" : false,
 		"effects" : {}
@@ -74,6 +75,12 @@ func run_defend_state(_delta):
 			nav.target_position = global_position
 	else:
 		nav.target_position = defense_position
+		
+		if nav.is_navigation_finished():
+			if attack_direction > 0:
+				$Sprite2D.flip_h = false
+			elif attack_direction < 0:
+				$Sprite2D.flip_h = true
 
 func fire_projectile():
 	var proj = slash.instantiate()

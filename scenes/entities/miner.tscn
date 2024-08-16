@@ -114,5 +114,10 @@ radius = 4.0
 [node name="Target" type="Node2D" parent="."]
 position = Vector2(0, 23)
 
+[node name="SlowTick" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="SlowTick" to="." method="_on_slow_tick_timeout"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://vcbqnf6bkcju"]
+[gd_scene load_steps=4 format=3 uid="uid://vcbqnf6bkcju"]
 
 [ext_resource type="Script" path="res://scenes/ui/options.gd" id="1_hwnxc"]
+[ext_resource type="Theme" uid="uid://b41cyhllk0iut" path="res://resources/theme/main.tres" id="1_ql4e1"]
 [ext_resource type="Texture2D" uid="uid://gidprbrfwerf" path="res://assets/ui/cross.png" id="2_wmusa"]
 
 [node name="Options" type="Control"]
@@ -11,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_ql4e1")
 script = ExtResource("1_hwnxc")
 
 [node name="Panel" type="Panel" parent="."]

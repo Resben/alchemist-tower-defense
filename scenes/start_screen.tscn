@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ktdgvmukutnd"]
+[gd_scene load_steps=12 format=3 uid="uid://ktdgvmukutnd"]
 
 [ext_resource type="Texture2D" uid="uid://d3kjgvuyqnjyn" path="res://assets/environment/title_screen.png" id="1_cmic2"]
 [ext_resource type="Script" path="res://scenes/start_screen.gd" id="1_ssrr2"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cop72orsq65pr" path="res://assets/ui/options-pressed.png" id="7_0bavf"]
 [ext_resource type="Texture2D" uid="uid://c4y7hpmvnusc8" path="res://assets/ui/losttext.png" id="7_hik7e"]
 [ext_resource type="PackedScene" uid="uid://vcbqnf6bkcju" path="res://scenes/ui/options.tscn" id="10_h56dd"]
+[ext_resource type="Theme" uid="uid://b41cyhllk0iut" path="res://resources/theme/main.tres" id="11_kwpoc"]
 
 [node name="StartScreen" type="CanvasLayer"]
 process_mode = 3
@@ -93,7 +94,48 @@ offset_bottom = 158.0
 texture = ExtResource("7_hik7e")
 
 [node name="Options" parent="Control" instance=ExtResource("10_h56dd")]
+visible = false
 layout_mode = 1
+
+[node name="Label2" type="Label" parent="Control"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -19.0
+offset_right = 325.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("11_kwpoc")
+theme_override_font_sizes/font_size = 13
+text = "Developed by Resben
+"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="Control"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -281.0
+offset_top = -19.0
+offset_right = 29.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("11_kwpoc")
+theme_override_font_sizes/font_size = 13
+text = "Music by Robert M. Bach Composing
+"
+horizontal_alignment = 1
 
 [connection signal="button_up" from="Control/Main/Start" to="." method="_on_start_button_up"]
 [connection signal="button_up" from="Control/Main/Options" to="." method="_on_options_button_up"]

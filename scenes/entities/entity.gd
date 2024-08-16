@@ -31,6 +31,7 @@ var stats = {
 	"hp" : 5,
 	"max_hp" : 5,
 	"damage" : 1,
+	"base_speed" : 40,
 	"speed" : 40,
 	"has_range" : false,
 	"effects" : {}
@@ -53,6 +54,9 @@ func setup():
 	pass
 
 func _physics_process(_delta):
+	if is_dead:
+		return
+	
 	if nav.is_navigation_finished():
 		return
 	
@@ -110,6 +114,8 @@ func take_damage(dmg : int):
 	tween.tween_property($Sprite2D, "modulate", Color.CRIMSON, 0.5)
 	tween.tween_property($Sprite2D, "modulate", Color.WHITE, 0.5)
 	
+	_on_take_damage(dmg)
+	
 	stats["hp"] -= dmg
 	
 	if stats["hp"] <= 0:
@@ -119,13 +125,13 @@ func take_damage(dmg : int):
 		friendly_cauldron.passive_reference.erase(self)
 		friendly_cauldron.hostile_references.erase(self)
 
+func _on_take_damage(dmg : int):
+	pass
+
 ####################### SIGNALS #######################
 
 func _on_animation_finished(anim_name):
 	if anim_name == "attack":
-		if is_instance_valid(targeted_enemy):
-			if targeted_enemy.global_position.distance_to(global_position) < 40:
-				targeted_enemy.take_damage(stats["damage"])
 		is_attacking = false
 	elif anim_name == "mine":
 		if is_instance_valid(targeted_enemy) && is_instance_of(targeted_enemy, Mineable):

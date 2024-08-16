@@ -17,6 +17,7 @@ func _on_options_button_up():
 	$Control/Options.visible = true
 
 func _ready():
+	get_viewport().canvas_item_default_texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
 	$Control/Options.visible = false
 	
 	match has_condition:

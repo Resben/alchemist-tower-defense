@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://drlrbq2i01510"]
+[gd_scene load_steps=20 format=3 uid="uid://drlrbq2i01510"]
 
 [ext_resource type="Script" path="res://scenes/levels/main.gd" id="1_mpdg5"]
 [ext_resource type="Texture2D" uid="uid://b4ge2nc0qendf" path="res://assets/environment/tilemapv2.png" id="2_spllf"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://3djtygv2iirj" path="res://scenes/objects/mineable.tscn" id="8_p4fy2"]
 [ext_resource type="Resource" uid="uid://cpl04ne7ad6cc" path="res://resources/items/raw_material.tres" id="9_n444j"]
 [ext_resource type="PackedScene" uid="uid://b7bt3blfr53du" path="res://scenes/objects/summoning.tscn" id="10_kdbt8"]
+[ext_resource type="PackedScene" uid="uid://bxhi3wq62aw05" path="res://scenes/ui/tutorial_hint.tscn" id="12_nmd6i"]
+[ext_resource type="Script" path="res://scenes/levels/TutorialController.gd" id="12_pf5wc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_octm8"]
 texture = ExtResource("2_spllf")
@@ -123,6 +125,43 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-115, 246, 3132, 247, 3132, 315, -115, 314)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
+[sub_resource type="Animation" id="Animation_mnxrr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1500, 170)]
+}
+
+[sub_resource type="Animation" id="Animation_fwslv"]
+resource_name = "no_tutorial"
+length = 5.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 2.5, 5.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1500, 170), Vector2(2730, 170), Vector2(2730, 170), Vector2(320, 170)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qrcl6"]
+_data = {
+"RESET": SubResource("Animation_mnxrr"),
+"no_tutorial": SubResource("Animation_fwslv")
+}
+
 [node name="Main" type="Node2D" node_paths=PackedStringArray("player", "cpu")]
 process_mode = 1
 script = ExtResource("1_mpdg5")
@@ -130,7 +169,7 @@ player = NodePath("player_cauldron")
 cpu = NodePath("cpu_cauldron")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(320, 170)
+position = Vector2(1500, 170)
 limit_left = 0
 limit_top = 0
 limit_right = 3050
@@ -245,6 +284,45 @@ position = Vector2(1796, 257)
 data = ExtResource("9_n444j")
 hits = 200
 hits_till_resource = 50
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qrcl6")
+}
+
+[node name="TutorialController" type="Node2D" parent="."]
+script = ExtResource("12_pf5wc")
+
+[node name="TutorialHint1" parent="TutorialController" instance=ExtResource("12_nmd6i")]
+offset_left = 1615.98
+offset_top = 135.95
+offset_right = 1615.98
+offset_bottom = 135.95
+text = "To control the camera use:
+A + D
+or
+← + →"
+
+[node name="TutorialHint2" parent="TutorialController" instance=ExtResource("12_nmd6i")]
+offset_left = 67.0
+offset_top = 82.0
+offset_right = 67.0
+offset_bottom = 82.0
+text = "To summon an entity click here"
+
+[node name="TutorialHint3" parent="TutorialController" instance=ExtResource("12_nmd6i")]
+offset_left = 251.0
+offset_top = 82.0
+offset_right = 251.0
+offset_bottom = 82.0
+text = "Click and drag the entity to the tool rack to create a collector"
+
+[node name="TutorialHint4" parent="TutorialController" instance=ExtResource("12_nmd6i")]
+offset_left = 899.0
+offset_top = 106.0
+offset_right = 899.0
+offset_bottom = 106.0
+text = "Collectors will mine resources you can use the pickaxe "
 
 [connection signal="_on_shadow_drop" from="player_cauldron/Summoning" to="player_cauldron" method="_on_summoning_shadow_drop"]
 [connection signal="_on_shadow_drop" from="player_cauldron/Summoning" to="player_cauldron/ToolRack" method="_on_summoning_toolrack_shadow_drop"]
