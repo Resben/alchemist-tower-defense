@@ -127,11 +127,6 @@ texture_progress = ExtResource("21_wdccd")
 position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_q3dem")
 
-[node name="SoulTimer" type="Timer" parent="."]
-wait_time = 10.0
-one_shot = true
-autostart = true
-
 [node name="SoulBay" type="Sprite2D" parent="."]
 position = Vector2(-96, 0)
 
@@ -143,5 +138,4 @@ one_shot = true
 [connection signal="pressed" from="Control/Decline" to="." method="_on_decline_pressed"]
 [connection signal="_on_button_drop" from="Control/VBoxContainer1/RawButton" to="." method="_on_button_drop"]
 [connection signal="_on_button_drop" from="Control/VBoxContainer1/BloodvineButton" to="." method="_on_button_drop"]
-[connection signal="timeout" from="SoulTimer" to="." method="_on_soul_timer_timeout"]
 [connection signal="timeout" from="ReturnMine" to="." method="_on_return_mine_timeout"]

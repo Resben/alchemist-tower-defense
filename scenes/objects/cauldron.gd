@@ -165,11 +165,6 @@ func on_new_hostile(entity : Hostile):
 	entity._on_death.connect(_on_hostile_death)
 	entity.set_defense_position(row, column, starting_defense_pos.global_position)
 
-func _on_soul_timer_timeout():
-	$SoulTimer.start()
-	Global.team[team]["soul"] += 1
-	get_node("/root/Main/HUD").update_items()
-
 ##################### HELPERS #####################
 
 func get_opposite_group() -> String:

@@ -13,7 +13,7 @@ func _ready():
 	team = cauldron.team
 	var rand_next_decision = randi_range(data.range_time_to_decide.x, data.range_time_to_decide.y)
 	$DecisionTimer.start(rand_next_decision)
-	cauldron._summoning._on_button_pressed()
+	cauldron._summoning.summon()
 
 func setup(controllable : Cauldron, difficulty : Difficulty = Global.difficulty_presets[Global.NORMAL]):
 	cauldron = controllable
@@ -113,7 +113,7 @@ func rule_five() -> bool:
 
 func _on_spawn_timer_timeout():
 	if cauldron._summoning.num_available < 3:
-		cauldron._summoning._on_button_pressed()
+		cauldron._summoning.summon()
 	if !cauldron.is_entity_caged && cauldron._summoning.num_available >= 1 && num_collectors >= 2:
 		cauldron._on_summoning_shadow_drop(Vector2(-999, -999), cauldron._summoning.get_moveables()[0])
 	

@@ -14,7 +14,6 @@ func _ready():
 	$Control/HBoxContainer2/Mine.texture_normal = mine_active
 	$Control/HBoxContainer2/Attack.texture_normal = attack_inactive
 	$Control/HBoxContainer2/Defend.texture_normal = defense_active
-	update_items()
 
 func _on_attack_pressed():
 	$Control/HBoxContainer2/Attack.texture_normal = attack_active
@@ -35,14 +34,6 @@ func _on_mine_pressed():
 	else:
 		$Control/HBoxContainer2/Mine.texture_normal = mine_inactive
 		get_parent().off_mine()
-
-func update_items():
-	$Control/HBoxContainer/Material.set_count(Global.team["player"]["raw_material"])
-	$Control/HBoxContainer/Soul.set_count(Global.team["player"]["soul"])
-	#$Control/HBoxContainer/Rune.set_count(Global.team["player"]["rune"])
-	#$Control/HBoxContainer/Phantom.set_count(Global.team["player"]["phantom_weave"])
-	$Control/HBoxContainer/Bloodvine.set_count(Global.team["player"]["bloodvine"])
-	#$Control/HBoxContainer/Wyrm.set_count(Global.team["player"]["wyrm_bone"])
 
 func _on_settings_pressed():
 	$Control.visible = false

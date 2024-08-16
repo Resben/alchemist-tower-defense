@@ -34,7 +34,6 @@ var player_state = DEFEND
 
 var team = {
 	"player" : {
-		"soul" : 2,
 		"rune" : 2,
 		"phantom_weave" : 2,
 		"bloodvine" : 2,
@@ -43,7 +42,6 @@ var team = {
 	},
 
 	"cpu" : {
-		"soul" : 2,
 		"rune" : 0,
 		"phantom_weave" : 0,
 		"bloodvine" : 0,

@@ -1,10 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://b7bt3blfr53du"]
+[gd_scene load_steps=12 format=3 uid="uid://b7bt3blfr53du"]
 
-[ext_resource type="Texture2D" uid="uid://q0g7obq7xn7l" path="res://assets/items/soul.png" id="1_3ecf7"]
 [ext_resource type="Texture2D" uid="uid://bfhcd1o5j18fo" path="res://assets/objects/summoning_circle.png" id="1_c3k2g"]
 [ext_resource type="Script" path="res://scenes/objects/summoning.gd" id="2_cxb1v"]
-[ext_resource type="Texture2D" uid="uid://b81wk61se3lts" path="res://assets/items/soul-selected.png" id="4_w42wm"]
-[ext_resource type="Texture2D" uid="uid://dpr4fxw5ttgdi" path="res://assets/items/soul-greyscale.png" id="5_1xc7k"]
+[ext_resource type="PackedScene" uid="uid://q3vh8xwgwtik" path="res://scenes/ui/progress_circle.tscn" id="3_i3vsf"]
 [ext_resource type="Texture2D" uid="uid://ktnth18dgu1u" path="res://assets/objects/rack.png" id="6_rtfui"]
 [ext_resource type="PackedScene" uid="uid://cuf13are40kpg" path="res://scenes/objects/moveable_entity.tscn" id="7_dodyj"]
 [ext_resource type="Texture2D" uid="uid://cqhucj320a4li" path="res://assets/entities/miner-no-pick-run.png" id="8_eos4x"]
@@ -215,24 +213,7 @@ offset_right = 32.0
 offset_bottom = -8.0
 scale = Vector2(0.5, 0.5)
 
-[node name="TextureButton" type="TextureButton" parent="Control"]
-layout_mode = 0
-offset_top = -8.0
-offset_right = 40.0
-offset_bottom = 32.0
-texture_normal = ExtResource("1_3ecf7")
-texture_pressed = ExtResource("4_w42wm")
-texture_disabled = ExtResource("5_1xc7k")
-
-[node name="Label" type="Label" parent="Control/TextureButton"]
-layout_mode = 0
-offset_left = 24.0
-offset_top = 24.0
-offset_right = 64.0
-offset_bottom = 47.0
-theme_override_colors/font_color = Color(0.843137, 0, 0, 1)
-text = "-1
-"
+[node name="ProgressCircle" parent="Control" instance=ExtResource("3_i3vsf")]
 
 [node name="Bay" type="Sprite2D" parent="."]
 position = Vector2(80, -8)
@@ -271,7 +252,7 @@ libraries = {
 "": SubResource("AnimationLibrary_fx4au")
 }
 
-[connection signal="pressed" from="Control/TextureButton" to="." method="_on_button_pressed"]
+[connection signal="input_event" from="Control/ProgressCircle" to="." method="_on_progress_circle_pressed"]
 [connection signal="_moveable_dropped" from="Bay/B1" to="." method="_on_moveable_dropped"]
 [connection signal="_moveable_dropped" from="Bay/B2" to="." method="_on_moveable_dropped"]
 [connection signal="_moveable_dropped" from="Bay/B3" to="." method="_on_moveable_dropped"]

@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://q3vh8xwgwtik"]
+
+[ext_resource type="Script" path="res://scenes/ui/progress_circle.gd" id="1_iymnj"]
+[ext_resource type="Shader" path="res://resources/shader/progress.gdshader" id="1_j47it"]
+[ext_resource type="Texture2D" uid="uid://c8ub7cbcytfgr" path="res://assets/items/soul-greyscale-large.png" id="2_xycua"]
+[ext_resource type="Texture2D" uid="uid://csxhe8a8upb26" path="res://assets/items/soul-large.png" id="3_oxu3l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_33nya"]
+resource_local_to_scene = true
+shader = ExtResource("1_j47it")
+shader_parameter/value = 100.0
+shader_parameter/thickness = 100.0
+shader_parameter/offset = null
+shader_parameter/smoothing = 0.0
+shader_parameter/fg = ExtResource("3_oxu3l")
+shader_parameter/bg = ExtResource("2_xycua")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_moyc3"]
+radius = 21.0238
+
+[node name="ProgressCircle" type="Area2D"]
+script = ExtResource("1_iymnj")
+
+[node name="Panel" type="Panel" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_33nya")
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 32.0
+offset_bottom = 32.0
+mouse_filter = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(19, 18)
+shape = SubResource("CircleShape2D_moyc3")

@@ -6,6 +6,7 @@ signal _on_shadow_drop
 
 var num_available = 0
 
+var value = 0
 var spot_one = false
 var spot_two = false
 var spot_three = false
@@ -13,33 +14,15 @@ var spot_three = false
 func _ready():
 	$Animated.visible = false
 	if team == "cpu":
-		$Control/TextureButton.visible = false
+		$Control/ProgressCircle.visible = false
 
-func _on_button_pressed():
-	if $AnimationPlayer.is_playing() || Global.team[team]["soul"] <= 0:
-		return
-	
-	if !spot_one:
-		Global.team[team]["soul"] -= 1
-		$AnimationPlayer.play("one")
-		num_available += 1
-		get_node("/root/Main/HUD").update_items()
-	elif !spot_two:
-		Global.team[team]["soul"] -= 1
-		$AnimationPlayer.play("two")
-		num_available += 1
-		get_node("/root/Main/HUD").update_items()
-	elif !spot_three:
-		Global.team[team]["soul"] -= 1
-		$AnimationPlayer.play("three")
-		num_available += 1
-		get_node("/root/Main/HUD").update_items()
-
-func _physics_process(_delta):
-	if Global.team[team]["soul"] < 1:
-		$Control/TextureButton.disabled = true
+func _physics_process(delta):
+	if value >= 10:
+		value = 10
 	else:
-		$Control/TextureButton.disabled = false
+		value += delta
+	
+	$Control/ProgressCircle.set_value(value * 10)
 
 func _on_animation_player_finished(anim_name):
 	match anim_name:
@@ -82,3 +65,26 @@ func moveable_used(id):
 
 func _on_moveable_dropped(pos, id):
 	_on_shadow_drop.emit(pos, id)
+
+func _on_progress_circle_pressed(viewport, event, shape):
+	if event.is_action("interact"):
+		print("a")
+	if value == 10:
+		summon()
+
+func summon():
+	if $AnimationPlayer.is_playing():
+		return
+	
+	if !spot_one:
+		$AnimationPlayer.play("one")
+		num_available += 1
+		value = 0
+	elif !spot_two:
+		$AnimationPlayer.play("two")
+		num_available += 1
+		value = 0
+	elif !spot_three:
+		$AnimationPlayer.play("three")
+		num_available += 1
+		value = 0
