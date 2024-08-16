@@ -49,7 +49,6 @@ func toggle_disable(boo : bool):
 	force_disable = boo
 
 func update_button():
-	get_node("/root/Main/HUD").update_items()
 	$Label.text = str(Global.team[cauldron.team][data.id])
 	
 	if Global.team[cauldron.team][data.id] <= 0:

@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://drlrbq2i01510"]
+[gd_scene load_steps=20 format=3 uid="uid://drlrbq2i01510"]
 
 [ext_resource type="Script" path="res://scenes/levels/main.gd" id="1_mpdg5"]
 [ext_resource type="Texture2D" uid="uid://b4ge2nc0qendf" path="res://assets/environment/tilemapv2.png" id="2_spllf"]
+[ext_resource type="PackedScene" uid="uid://c5mvmswxrgoff" path="res://scenes/ui/hud.tscn" id="3_02g4f"]
 [ext_resource type="PackedScene" uid="uid://cn2ik5ubwaxxy" path="res://scenes/objects/cauldron.tscn" id="4_l6yrg"]
 [ext_resource type="Texture2D" uid="uid://w72kdg3ijpyf" path="res://assets/environment/sky-layer.png" id="5_djc3i"]
 [ext_resource type="PackedScene" uid="uid://nw7hvtemv8ui" path="res://scenes/objects/tool_rack.tscn" id="6_3o1bu"]
@@ -166,6 +167,8 @@ process_mode = 1
 script = ExtResource("1_mpdg5")
 player = NodePath("player_cauldron")
 cpu = NodePath("cpu_cauldron")
+
+[node name="HUD" parent="." instance=ExtResource("3_02g4f")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(1500, 170)

@@ -4,9 +4,9 @@
 [ext_resource type="Shader" path="res://resources/shader/progress.gdshader" id="1_j47it"]
 [ext_resource type="Texture2D" uid="uid://c8ub7cbcytfgr" path="res://assets/items/soul-greyscale-large.png" id="2_xycua"]
 [ext_resource type="Texture2D" uid="uid://csxhe8a8upb26" path="res://assets/items/soul-large.png" id="3_oxu3l"]
+[ext_resource type="Texture2D" uid="uid://bcfma2rqwmabc" path="res://assets/entities/miner-corpse.png" id="4_ue140"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o8iw1"]
-resource_local_to_scene = true
 shader = ExtResource("1_j47it")
 shader_parameter/value = 100.0
 shader_parameter/thickness = 100.0
@@ -15,23 +15,7 @@ shader_parameter/smoothing = 5.0
 shader_parameter/fg = ExtResource("3_oxu3l")
 shader_parameter/bg = ExtResource("2_xycua")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k4s68"]
-resource_local_to_scene = true
-shader = ExtResource("1_j47it")
-shader_parameter/value = 5.39
-shader_parameter/thickness = 100.0
-shader_parameter/offset = null
-shader_parameter/smoothing = 5.0
-shader_parameter/fg = ExtResource("3_oxu3l")
-shader_parameter/bg = ExtResource("2_xycua")
-
-[node name="ProgressCircle" type="Node2D"]
+[node name="ProgressCircle" type="TextureButton"]
 material = SubResource("ShaderMaterial_o8iw1")
+texture_normal = ExtResource("4_ue140")
 script = ExtResource("1_iymnj")
-
-[node name="Panel" type="Panel" parent="."]
-material = SubResource("ShaderMaterial_k4s68")
-offset_left = -20.0
-offset_top = -23.0
-offset_right = 20.0
-offset_bottom = 17.0

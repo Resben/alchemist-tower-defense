@@ -1,11 +1,24 @@
-[gd_scene load_steps=12 format=3 uid="uid://b7bt3blfr53du"]
+[gd_scene load_steps=16 format=3 uid="uid://b7bt3blfr53du"]
 
 [ext_resource type="Texture2D" uid="uid://bfhcd1o5j18fo" path="res://assets/objects/summoning_circle.png" id="1_c3k2g"]
 [ext_resource type="Script" path="res://scenes/objects/summoning.gd" id="2_cxb1v"]
 [ext_resource type="PackedScene" uid="uid://q3vh8xwgwtik" path="res://scenes/ui/progress_circle.tscn" id="3_i3vsf"]
+[ext_resource type="Shader" path="res://resources/shader/progress.gdshader" id="4_ivuuo"]
+[ext_resource type="Texture2D" uid="uid://c8ub7cbcytfgr" path="res://assets/items/soul-greyscale-large.png" id="5_unrp3"]
+[ext_resource type="Texture2D" uid="uid://csxhe8a8upb26" path="res://assets/items/soul-large.png" id="6_kxogi"]
 [ext_resource type="Texture2D" uid="uid://ktnth18dgu1u" path="res://assets/objects/rack.png" id="6_rtfui"]
 [ext_resource type="PackedScene" uid="uid://cuf13are40kpg" path="res://scenes/objects/moveable_entity.tscn" id="7_dodyj"]
 [ext_resource type="Texture2D" uid="uid://cqhucj320a4li" path="res://assets/entities/miner-no-pick-run.png" id="8_eos4x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xxrqa"]
+resource_local_to_scene = true
+shader = ExtResource("4_ivuuo")
+shader_parameter/value = 100.0
+shader_parameter/thickness = 100.0
+shader_parameter/offset = null
+shader_parameter/smoothing = 5.0
+shader_parameter/fg = ExtResource("6_kxogi")
+shader_parameter/bg = ExtResource("5_unrp3")
 
 [sub_resource type="Animation" id="Animation_mscjl"]
 resource_name = "one"
@@ -214,6 +227,8 @@ offset_bottom = -8.0
 scale = Vector2(0.5, 0.5)
 
 [node name="ProgressCircle" parent="Control" instance=ExtResource("3_i3vsf")]
+material = SubResource("ShaderMaterial_xxrqa")
+position = Vector2(16, 0)
 
 [node name="Bay" type="Sprite2D" parent="."]
 position = Vector2(80, -8)
@@ -252,7 +267,6 @@ libraries = {
 "": SubResource("AnimationLibrary_fx4au")
 }
 
-[connection signal="input_event" from="Control/ProgressCircle" to="." method="_on_progress_circle_pressed"]
 [connection signal="_moveable_dropped" from="Bay/B1" to="." method="_on_moveable_dropped"]
 [connection signal="_moveable_dropped" from="Bay/B2" to="." method="_on_moveable_dropped"]
 [connection signal="_moveable_dropped" from="Bay/B3" to="." method="_on_moveable_dropped"]

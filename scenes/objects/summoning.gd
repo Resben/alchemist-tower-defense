@@ -66,11 +66,11 @@ func moveable_used(id):
 func _on_moveable_dropped(pos, id):
 	_on_shadow_drop.emit(pos, id)
 
-func _on_progress_circle_pressed(viewport, event, shape):
-	if event.is_action("interact"):
-		print("a")
-	if value == 10:
-		summon()
+func _input(event):
+	if Input.is_action_just_pressed("interact"):
+		if get_global_mouse_position().distance_to($Control/ProgressCircle.global_position) < 10:
+			if value == 10:
+				summon()
 
 func summon():
 	if $AnimationPlayer.is_playing():
