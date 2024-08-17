@@ -5,6 +5,7 @@ class_name Hint
 @export var camera : Camera2D
 @export var associated_hints : Array[SubHint]
 @export var controller : TutorialController
+@export var is_last : bool
 
 func _ready():
 	$RichTextLabel.text = text
@@ -16,6 +17,9 @@ func display_hint():
 	tween.tween_callback(start_hint)
 
 func start_hint():
+	if is_last:
+		return
+	
 	for sh in associated_hints:
 		sh.show_subhint()
 	

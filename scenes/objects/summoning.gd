@@ -6,7 +6,7 @@ signal _on_shadow_drop
 
 var num_available = 0
 
-var value = 0
+var value = 10
 var spot_one = false
 var spot_two = false
 var spot_three = false

@@ -39,4 +39,5 @@ func _on_respawn_timeout():
 	self.visible = true
 	hits_taken = 0
 	hits = starting_hits
+	$Control/TextureProgressBar.value = hits
 	

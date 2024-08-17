@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_5pplm")
 identifier = "normal"
-range_time_to_decide = Vector2(7, 10)
+range_time_to_decide = Vector2(12, 15)
 should_retreat_passives = true
 should_retreat_hostiles = false

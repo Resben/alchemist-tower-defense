@@ -3,6 +3,7 @@ extends Node2D
 var CAMERA_SPEED = 10
 var HALF_WIDTH = 320
 var is_tutorial = false
+var difficulty : String
 
 @onready var navRegion : NavigationRegion2D = $NavigationRegion2D
 

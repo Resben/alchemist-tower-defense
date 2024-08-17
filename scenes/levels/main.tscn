@@ -179,6 +179,7 @@ limit_bottom = 364
 editor_draw_limits = true
 
 [node name="TileMap" type="TileMap" parent="."]
+z_index = -2
 texture_filter = 1
 position = Vector2(1000, 304)
 tile_set = SubResource("TileSet_sr33g")
@@ -292,7 +293,7 @@ libraries = {
 
 [node name="TutorialController" type="Node2D" parent="." node_paths=PackedStringArray("hints")]
 script = ExtResource("12_pf5wc")
-hints = [NodePath("TutorialHint1"), NodePath("TutorialHint2"), NodePath("TutorialHint3"), NodePath("TutorialHint4"), NodePath("TutorialHint5"), NodePath("TutorialHint6"), NodePath("TutorialHint7")]
+hints = [NodePath("TutorialHint1"), NodePath("TutorialHint2"), NodePath("TutorialHint3"), NodePath("TutorialHint4"), NodePath("TutorialHint5"), NodePath("TutorialHint6"), NodePath("TutorialHint7"), NodePath("TutorialHint8")]
 
 [node name="TutorialHint1" parent="TutorialController" node_paths=PackedStringArray("camera", "controller") instance=ExtResource("12_nmd6i")]
 offset_left = 1615.98
@@ -338,7 +339,7 @@ offset_left = 315.0
 offset_top = 130.0
 offset_right = 315.0
 offset_bottom = 130.0
-text = "Now summon another entity and drag them onto the workshop then drag a material onto the entity and click the confirm button"
+text = "Drag summoned entities onto the workshop then drag a material onto the entity to create a new unit"
 camera = NodePath("../../Camera2D")
 controller = NodePath("..")
 
@@ -347,7 +348,7 @@ offset_left = 595.0
 offset_top = 138.0
 offset_right = 595.0
 offset_bottom = 138.0
-text = "This battle entity will fight for you and defend from this position, to attack click the duel sword UI button"
+text = "These entities will fight for you and defend from this position, to attack click the duel sword UI button"
 camera = NodePath("../../Camera2D")
 controller = NodePath("..")
 
@@ -359,6 +360,15 @@ offset_bottom = 122.0
 text = "In order to win destroy the oppositions workbench, Goodluck!"
 camera = NodePath("../../Camera2D")
 controller = NodePath("..")
+
+[node name="TutorialHint8" parent="TutorialController" node_paths=PackedStringArray("camera", "controller") instance=ExtResource("12_nmd6i")]
+offset_left = 243.0
+offset_top = 130.0
+offset_right = 243.0
+offset_bottom = 130.0
+camera = NodePath("../../Camera2D")
+controller = NodePath("..")
+is_last = true
 
 [connection signal="_on_shadow_drop" from="player_cauldron/Summoning" to="player_cauldron" method="_on_summoning_shadow_drop"]
 [connection signal="_on_shadow_drop" from="player_cauldron/Summoning" to="player_cauldron/ToolRack" method="_on_summoning_toolrack_shadow_drop"]

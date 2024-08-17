@@ -1,6 +1,9 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b41cyhllk0iut"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://b41cyhllk0iut"]
 
 [ext_resource type="FontFile" uid="uid://b7pj7o2aupjr8" path="res://assets/font/pixelFont.ttf" id="1_0wq2k"]
+[ext_resource type="Texture2D" uid="uid://q0g7obq7xn7l" path="res://assets/items/soul.png" id="1_eibw6"]
 
 [resource]
 default_font = ExtResource("1_0wq2k")
+VSlider/icons/grabber = ExtResource("1_eibw6")
+VSlider/icons/grabber_highlight = ExtResource("1_eibw6")

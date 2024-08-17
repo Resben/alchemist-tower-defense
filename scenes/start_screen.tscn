@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ktdgvmukutnd"]
+[gd_scene load_steps=19 format=3 uid="uid://ktdgvmukutnd"]
 
 [ext_resource type="Texture2D" uid="uid://d3kjgvuyqnjyn" path="res://assets/environment/title_screen.png" id="1_cmic2"]
 [ext_resource type="Script" path="res://scenes/start_screen.gd" id="1_ssrr2"]
@@ -15,6 +15,9 @@
 [ext_resource type="Texture2D" uid="uid://86wpqo7d14mi" path="res://assets/ui/tut-button-pressed.png" id="11_wriin"]
 [ext_resource type="Texture2D" uid="uid://cmb2n7xxnhqnl" path="res://assets/ui/skip_button.png" id="12_wkp46"]
 [ext_resource type="Texture2D" uid="uid://ceehaarrfw3uq" path="res://assets/ui/skip_button_pressed.png" id="13_repi5"]
+[ext_resource type="Texture2D" uid="uid://dpr4fxw5ttgdi" path="res://assets/items/soul-greyscale.png" id="14_rp2r8"]
+[ext_resource type="Texture2D" uid="uid://q0g7obq7xn7l" path="res://assets/items/soul.png" id="15_ed7vy"]
+[ext_resource type="Texture2D" uid="uid://cah1p0cxey4yk" path="res://assets/items/soul-red.png" id="16_fdq73"]
 
 [node name="StartScreen" type="CanvasLayer"]
 process_mode = 3
@@ -129,6 +132,21 @@ grow_vertical = 2
 texture_normal = ExtResource("12_wkp46")
 texture_pressed = ExtResource("13_repi5")
 
+[node name="ItemList" type="ItemList" parent="Control/Main"]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 200.0
+offset_right = 563.0
+offset_bottom = 316.0
+allow_reselect = true
+item_count = 3
+item_0/text = "Easy"
+item_0/icon = ExtResource("14_rp2r8")
+item_1/text = "Normal"
+item_1/icon = ExtResource("15_ed7vy")
+item_2/text = "Hard"
+item_2/icon = ExtResource("16_fdq73")
+
 [node name="Options" parent="Control" instance=ExtResource("10_h56dd")]
 visible = false
 layout_mode = 1
@@ -177,4 +195,5 @@ horizontal_alignment = 1
 [connection signal="button_up" from="Control/Main/Options" to="." method="_on_options_button_up"]
 [connection signal="button_up" from="Control/Main/Tutorial" to="." method="_on_tutorial_button_up"]
 [connection signal="button_up" from="Control/Main/NoTutorial" to="." method="_on_no_tutorial_button_up"]
+[connection signal="item_activated" from="Control/Main/ItemList" to="." method="_on_item_list_item_activated"]
 [connection signal="_on_close" from="Control/Options" to="." method="_on_options_close"]

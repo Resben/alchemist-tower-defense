@@ -40,14 +40,6 @@ var stats = {
 func _ready():
 	is_ready = true
 	navRegion = get_parent().navRegion
-	
-	if team == "player":
-		nav.avoidance_layers = 1
-		nav.avoidance_mask = 1
-		
-	else:
-		nav.avoidance_layers = 2
-		nav.avoidance_mask = 2
 	call_deferred("setup")
 
 func setup():

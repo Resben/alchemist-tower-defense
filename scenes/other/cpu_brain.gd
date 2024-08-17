@@ -46,6 +46,7 @@ func _on_decision_timeout():
 		pass
 	
 	var rand_next_decision = randi_range(data.range_time_to_decide.x, data.range_time_to_decide.y)
+	print(rand_next_decision)
 	$DecisionTimer.start(rand_next_decision)
 
 ## RULE 1

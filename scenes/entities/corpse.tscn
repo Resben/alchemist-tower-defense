@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scenes/entities/corpse.gd" id="1_018kx"]
 
 [node name="Sprite2D" type="Sprite2D"]
+z_index = -1
 texture_filter = 1
 script = ExtResource("1_018kx")
 

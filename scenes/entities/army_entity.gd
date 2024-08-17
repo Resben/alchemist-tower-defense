@@ -3,7 +3,9 @@ class_name Hostile
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	super._ready()
+	nav.avoidance_layers = 1
+	nav.avoidance_mask = 1
 
 func _physics_process(delta):
 	if is_dead:

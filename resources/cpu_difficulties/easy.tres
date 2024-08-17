@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_7bink")
 identifier = "easy"
-range_time_to_decide = Vector2(7, 10)
+range_time_to_decide = Vector2(15, 20)
 should_retreat_passives = false
 should_retreat_hostiles = false
