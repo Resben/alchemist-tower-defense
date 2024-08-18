@@ -50,11 +50,11 @@ func _ready():
 	
 	$Control/Accept.disabled = true
 	$Control/Decline.disabled = true
-	
-	if team == "cpu":
-		cpu = load("res://scenes/other/cpu.tscn").instantiate() as CPU
-		cpu.setup(self)
-		add_child(cpu)
+
+func set_cpu(difficulty):
+	cpu = load("res://scenes/other/cpu.tscn").instantiate() as CPU
+	cpu.setup(self, Global.difficulty_presets[difficulty])
+	add_child(cpu)
 
 func _on_button_drop(pos : Vector2, node : Moveable):
 	if pos.distance_to(global_position) <= 36:
@@ -98,7 +98,6 @@ func toggle_ingredients(boo : bool):
 
 func _on_accept_pressed():
 	var entity_id = Global.get_result(ingredients_added)
-	print(entity_id)
 	spawn_entity(entity_id)
 	ingredients_added.clear()
 	$Control/Decline.disabled = true
@@ -184,11 +183,11 @@ func _on_summoning_shadow_drop(pos, id):
 			is_entity_caged = true
 			toggle_ingredients(false)
 
-func _on_passive_death(entity):
+func _on_passive_death(_entity):
 	update_passive_state(Global.RETREAT)
 	$ReturnMine.start()
 
-func _on_hostile_death(entity):
+func _on_hostile_death(_entity):
 	pass
 
 func _on_return_mine_timeout():

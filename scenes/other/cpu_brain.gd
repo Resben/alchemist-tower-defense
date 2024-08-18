@@ -11,7 +11,7 @@ var cpu_might = 0
 	
 func _ready():
 	team = cauldron.team
-	var rand_next_decision = randi_range(data.range_time_to_decide.x, data.range_time_to_decide.y)
+	var rand_next_decision = randf_range(data.range_time_to_decide.x, data.range_time_to_decide.y)
 	$DecisionTimer.start(rand_next_decision)
 	cauldron._summoning.summon()
 
@@ -45,8 +45,7 @@ func _on_decision_timeout():
 		print("")
 		pass
 	
-	var rand_next_decision = randi_range(data.range_time_to_decide.x, data.range_time_to_decide.y)
-	print(rand_next_decision)
+	var rand_next_decision = randf_range(data.range_time_to_decide.x, data.range_time_to_decide.y)
 	$DecisionTimer.start(rand_next_decision)
 
 ## RULE 1

@@ -1,4 +1,5 @@
 extends Area2D
+class_name Slash
 
 var starting_position : Vector2
 var targeted_entity : Entity
@@ -24,7 +25,7 @@ func _on_animation_finished(anim_name):
 			return
 		$TTL.start()
 		tween = get_tree().create_tween()
-		tween.tween_property(self, "position", targeted_entity.projectile_target.global_position, 1.5)
+		tween.tween_property(self, "position", targeted_entity.projectile_target.global_position, 1)
 		$AnimationPlayer.play("fire")
 	elif anim_name == "break":
 		queue_free()

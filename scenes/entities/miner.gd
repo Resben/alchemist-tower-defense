@@ -10,8 +10,8 @@ func _ready():
 		"hp" : 5,
 		"max_hp" : 5,
 		"damage" : 1,
-		"base_speed" : 30,
-		"speed" : 30,
+		"base_speed" : 25,
+		"speed" : 25,
 		"has_range" : false,
 		"effects" : {}
 	}
@@ -42,9 +42,9 @@ func _physics_process(delta):
 		else:
 			$AnimationPlayer.play("run")
 
-func _on_take_damage(dmg : int):
-	stats["speed"] == stats["speed"] * 0.5
+func _on_take_damage(_dmg : int):
+	stats["speed"] = stats["speed"] * 0.5
 	$SlowTick.start()
 
 func _on_slow_tick_timeout():
-	stats["speed"] == stats["base_speed"]
+	stats["speed"] = stats["base_speed"]

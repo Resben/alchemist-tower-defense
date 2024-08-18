@@ -12,8 +12,8 @@ func _ready():
 		"hp" : 5,
 		"max_hp" : 5,
 		"damage" : 1,
-		"base_speed" : 40,
-		"speed" : 40,
+		"base_speed" : 45,
+		"speed" : 45,
 		"has_range" : false,
 		"effects" : {}
 	}
@@ -83,7 +83,7 @@ func run_defend_state(_delta):
 				$Sprite2D.flip_h = true
 
 func fire_projectile():
-	var proj = slash.instantiate()
+	var proj = slash.instantiate() as Slash
 	proj.set_target($ProjectileSpawn.global_position, targeted_enemy, self)
 	get_node("/root/Main").add_child(proj)
 

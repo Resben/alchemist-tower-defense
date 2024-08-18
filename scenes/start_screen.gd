@@ -3,7 +3,7 @@ extends CanvasLayer
 @export var MainScene : PackedScene
 
 var has_condition = "none"
-var difficulty_selected
+var difficulty_selected = Global.NORMAL
 
 func set_as_end_screen(condition : String):
 	has_condition = condition
@@ -23,6 +23,8 @@ func _ready():
 	$Control/Main/Start.visible = true
 	$Control/Main/NoTutorial.visible = false
 	$Control/Main/Tutorial.visible = false
+	
+	$Control/Main/OptionButton.select(1)
 	
 	match has_condition:
 		"win":
@@ -55,11 +57,11 @@ func _on_no_tutorial_button_up():
 	AudioHandler.start_game()
 	queue_free()
 
-func _on_item_list_item_activated(index):
+func _on_option_button_item_selected(index):
 	match index:
 		0:
-			difficulty_selected = "easy"
+			difficulty_selected = Global.EASY
 		1:
-			difficulty_selected = "normal"
+			difficulty_selected = Global.NORMAL
 		2:
-			difficulty_selected = "hard"
+			difficulty_selected = Global.HARD

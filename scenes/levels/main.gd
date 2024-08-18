@@ -3,7 +3,7 @@ extends Node2D
 var CAMERA_SPEED = 10
 var HALF_WIDTH = 320
 var is_tutorial = false
-var difficulty : String
+var difficulty
 
 @onready var navRegion : NavigationRegion2D = $NavigationRegion2D
 
@@ -15,6 +15,9 @@ func _ready():
 		$TutorialController.play()
 	else:
 		$AnimationPlayer.play("no_tutorial")
+	
+	if difficulty != null:
+		cpu.set_cpu(difficulty)
 
 func _physics_process(_delta):
 	if Input.is_action_pressed("left"):

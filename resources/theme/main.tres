@@ -1,9 +1,19 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://b41cyhllk0iut"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://b41cyhllk0iut"]
 
 [ext_resource type="FontFile" uid="uid://b7pj7o2aupjr8" path="res://assets/font/pixelFont.ttf" id="1_0wq2k"]
 [ext_resource type="Texture2D" uid="uid://q0g7obq7xn7l" path="res://assets/items/soul.png" id="1_eibw6"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xv1tu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p4vi2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3dfpx"]
+
 [resource]
 default_font = ExtResource("1_0wq2k")
+OptionButton/fonts/font = ExtResource("1_0wq2k")
+OptionButton/styles/focus = SubResource("StyleBoxEmpty_xv1tu")
+OptionButton/styles/normal = SubResource("StyleBoxEmpty_p4vi2")
+OptionButton/styles/pressed = SubResource("StyleBoxEmpty_3dfpx")
 VSlider/icons/grabber = ExtResource("1_eibw6")
 VSlider/icons/grabber_highlight = ExtResource("1_eibw6")

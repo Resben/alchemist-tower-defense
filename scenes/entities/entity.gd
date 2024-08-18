@@ -117,7 +117,7 @@ func take_damage(dmg : int):
 		friendly_cauldron.passive_reference.erase(self)
 		friendly_cauldron.hostile_references.erase(self)
 
-func _on_take_damage(dmg : int):
+func _on_take_damage(_dmg : int):
 	pass
 
 ####################### SIGNALS #######################

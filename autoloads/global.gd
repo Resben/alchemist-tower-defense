@@ -25,8 +25,8 @@ var enemies = {
 
 var difficulty_presets = {
 	EASY : preload("res://resources/cpu_difficulties/easy.tres") as Difficulty,
-	NORMAL : preload("res://resources/cpu_difficulties/easy.tres") as Difficulty,
-	HARD : preload("res://resources/cpu_difficulties/easy.tres") as Difficulty,
+	NORMAL : preload("res://resources/cpu_difficulties/normal.tres") as Difficulty,
+	HARD : preload("res://resources/cpu_difficulties/hard.tres") as Difficulty,
 	BROKEN : preload("res://resources/cpu_difficulties/easy.tres") as Difficulty
 }
 

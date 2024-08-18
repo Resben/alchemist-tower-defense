@@ -132,20 +132,23 @@ grow_vertical = 2
 texture_normal = ExtResource("12_wkp46")
 texture_pressed = ExtResource("13_repi5")
 
-[node name="ItemList" type="ItemList" parent="Control/Main"]
+[node name="OptionButton" type="OptionButton" parent="Control/Main"]
 layout_mode = 0
-offset_left = 432.0
+offset_left = 416.0
 offset_top = 200.0
-offset_right = 563.0
-offset_bottom = 316.0
-allow_reselect = true
+offset_right = 578.0
+offset_bottom = 240.0
+theme = ExtResource("11_kwpoc")
 item_count = 3
-item_0/text = "Easy"
-item_0/icon = ExtResource("14_rp2r8")
-item_1/text = "Normal"
-item_1/icon = ExtResource("15_ed7vy")
-item_2/text = "Hard"
-item_2/icon = ExtResource("16_fdq73")
+popup/item_0/text = "Easy"
+popup/item_0/icon = ExtResource("14_rp2r8")
+popup/item_0/id = 0
+popup/item_1/text = "Normal"
+popup/item_1/icon = ExtResource("15_ed7vy")
+popup/item_1/id = 1
+popup/item_2/text = "Hard"
+popup/item_2/icon = ExtResource("16_fdq73")
+popup/item_2/id = 2
 
 [node name="Options" parent="Control" instance=ExtResource("10_h56dd")]
 visible = false
@@ -195,5 +198,5 @@ horizontal_alignment = 1
 [connection signal="button_up" from="Control/Main/Options" to="." method="_on_options_button_up"]
 [connection signal="button_up" from="Control/Main/Tutorial" to="." method="_on_tutorial_button_up"]
 [connection signal="button_up" from="Control/Main/NoTutorial" to="." method="_on_no_tutorial_button_up"]
-[connection signal="item_activated" from="Control/Main/ItemList" to="." method="_on_item_list_item_activated"]
+[connection signal="item_selected" from="Control/Main/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="_on_close" from="Control/Options" to="." method="_on_options_close"]
