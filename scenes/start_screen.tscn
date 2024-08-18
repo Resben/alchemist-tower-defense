@@ -86,18 +86,18 @@ texture_pressed = ExtResource("7_0bavf")
 visible = false
 layout_mode = 0
 offset_left = 253.0
-offset_top = 118.0
+offset_top = 14.0
 offset_right = 374.0
-offset_bottom = 158.0
+offset_bottom = 54.0
 texture = ExtResource("6_khley")
 
 [node name="Loss" type="TextureRect" parent="Control/Main"]
 visible = false
 layout_mode = 0
 offset_left = 257.0
-offset_top = 118.0
+offset_top = 14.0
 offset_right = 383.0
-offset_bottom = 158.0
+offset_bottom = 54.0
 texture = ExtResource("7_hik7e")
 
 [node name="Tutorial" type="TextureButton" parent="Control/Main"]
