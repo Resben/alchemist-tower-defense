@@ -3,6 +3,8 @@ Project files for **Summoner's Crucible** developed in Godot
 
 Initally developed for the Pirate Software Game Jam in 1 week + further alterations afterwards
 
+https://resben.itch.io/summoners-crucible
+
 # Summoner's Crucible
 You take on the role of a powerful Shadow Summoner who must conjure an army of shadow creatures. However, summoning alone is not enough; you must also gather resources and harness the power of alchemy to enhance your creations and overpower your foes.
 
